@@ -18,6 +18,8 @@ The whole project code was completely **generated**, without customizing or chan
 - Run __php artisan passport:install__
 - Run __npm install__
 - Run __npm run dev__
+*** when appear error, you should __npm install laravel-mix@2.1.14__ ***
+- Run __npm run watch__ (when you develop)
 - That's it - load the homepage, and log in with credentials __admin@admin.com__ / __password__.
 
 ---
