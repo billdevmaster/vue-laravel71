@@ -237,7 +237,7 @@
                   <v-date-picker
                     name="expire_date"
                     label="expire_date"
-                    @input="updateExpire_date"
+                    @change="updateExpire_date"
                     :value="item.expire_date"
                     :config="{format: 'YYYY-MM-DD'}"
                     />
@@ -317,7 +317,7 @@ export default {
         "setEco_ben",
         "setAddress",
         "setCity",
-        "setCoutry",
+        "setCountry",
         "setPassword",
         "setName_id",
         "setID_type",
@@ -425,7 +425,7 @@ export default {
             this.setCity(e.target.value);
         },
         updateCountry(e) {
-            this.setCoutry(e.target.value);
+            this.setCountry(e.target.value);
         },
         updatePassword(e) {
             this.setPassword(e.target.value);

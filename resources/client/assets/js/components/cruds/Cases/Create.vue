@@ -1,7 +1,7 @@
 <template>
     <section class="content-wrapper" style="min-height: 960px;">
         <section class="content-header">
-            <h1>Employees</h1>
+            <h1>Cases</h1>
         </section>
 
         <section class="content">
@@ -21,57 +21,36 @@
 
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label for="company">Company</label>
-                                    <v-select
-                                            name="company"
-                                            label="name"
-                                            @input="updateCompany"
-                                            :value="item.company"
-                                            :options="companiesAll"
-                                            />
-                                </div>
-                                <div class="form-group">
-                                    <label for="first_name">First name</label>
+                                    <label for="name">Name</label>
                                     <input
                                             type="text"
                                             class="form-control"
-                                            name="first_name"
-                                            placeholder="Enter First name"
-                                            :value="item.first_name"
-                                            @input="updateFirst_name"
+                                            name="name"
+                                            placeholder="Enter Name"
+                                            :value="item.name"
+                                            @input="updateName"
                                             >
                                 </div>
                                 <div class="form-group">
-                                    <label for="last_name">Last name</label>
+                                    <label for="opening_balance">Opening Balance</label>
                                     <input
                                             type="text"
                                             class="form-control"
-                                            name="last_name"
-                                            placeholder="Enter Last name"
-                                            :value="item.last_name"
-                                            @input="updateLast_name"
+                                            name="opening_balance"
+                                            placeholder="Enter Opening Balance"
+                                            :value="item.opening_balance"
+                                            @input="updateOpening_balance"
                                             >
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input
-                                            type="email"
-                                            class="form-control"
-                                            name="email"
-                                            placeholder="Enter Email"
-                                            :value="item.email"
-                                            @input="updateEmail"
-                                            >
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone">Phone</label>
+                                    <label for="current_balance">Current Balance</label>
                                     <input
                                             type="text"
                                             class="form-control"
-                                            name="phone"
-                                            placeholder="Enter Phone"
-                                            :value="item.phone"
-                                            @input="updatePhone"
+                                            name="current_balance"
+                                            placeholder="Enter Current Balance"
+                                            :value="item.current_balance"
+                                            @input="updateCurrent_balance"
                                             >
                                 </div>
                             </div>
@@ -104,35 +83,33 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('EmployeesSingle', ['item', 'loading', 'companiesAll'])
+        ...mapGetters('CasesSingle', ['item', 'loading']),
     },
     created() {
-        this.fetchCompaniesAll()
     },
     destroyed() {
         this.resetState()
     },
     methods: {
-        ...mapActions('EmployeesSingle', ['storeData', 'resetState', 'setCompany', 'setFirst_name', 'setLast_name', 'setEmail', 'setPhone', 'fetchCompaniesAll']),
-        updateCompany(value) {
-            this.setCompany(value)
+        ...mapActions("CasesSingle", [ 
+        "storeData", 
+        "resetState", 
+        "setName", 
+        "setOpening_balance", 
+        "setCurrent_balance"]),
+        updateName(e) {
+            this.setName(e.target.value)
         },
-        updateFirst_name(e) {
-            this.setFirst_name(e.target.value)
+        updateOpening_balance(e) {
+            this.setOpening_balance(e.target.value)
         },
-        updateLast_name(e) {
-            this.setLast_name(e.target.value)
-        },
-        updateEmail(e) {
-            this.setEmail(e.target.value)
-        },
-        updatePhone(e) {
-            this.setPhone(e.target.value)
+        updateCurrent_balance(e) {
+            this.setCurrent_balance(e.target.value)
         },
         submitForm() {
             this.storeData()
                 .then(() => {
-                    this.$router.push({ name: 'employees.index' })
+                    this.$router.push({ name: 'cases.index' })
                     this.$eventHub.$emit('create-success')
                 })
                 .catch((error) => {

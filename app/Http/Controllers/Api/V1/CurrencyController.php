@@ -48,7 +48,7 @@ class CurrencyController extends Controller
         $flag_img_new_name = rand() . '.' . $flag_img->getClientOriginalExtension();
         $flag_img->move(public_path('images/flag'), $flag_img_new_name);
         
-        $form_data = new Currency([
+        $form_data = array(
             'name' => $request->get('name'),
             'code' => $request->get('code'),
             'buy_code' => $request->get('buy_code'),
@@ -67,17 +67,21 @@ class CurrencyController extends Controller
             'balance_dec_limit' => $request->get('balance_dec_limit'),
             'last_avg_rate_dec_limit' => $request->get('last_avg_rate_dec_limit'),
             'flag_img' => $flag_img_new_name
-          ]);
+          );
 
-        $currency = $form_data->save();
+        $currency = Currency::create($form_data);
+        
         return (new CurrencyResource($currency))
         ->response()
         ->setStatusCode(201);
     }
 
     public function update(Request $request, $id)
-    {
-        $flag_img_new_name = $request->hidden_flag_img;
+    {        
+        $currency = Currency::findOrFail($id);
+
+        $flag_img_new_name = $currency->flag_img; 
+
         $flag_img = $request->file('flag_img');
 
         if($flag_img != "")
@@ -147,9 +151,9 @@ class CurrencyController extends Controller
             'last_avg_rate_dec_limit' => $request->get('last_avg_rate_dec_limit'),
             'flag_img' => $flag_img_new_name
           );
+          
+        $currency->update($form_data);
 
-        $currency = Currency::whereId($id)->update($form_data);
-        
         return (new CurrencyResource($currency))
             ->response()
             ->setStatusCode(202);

@@ -10,8 +10,6 @@ class Cases extends Model
     protected $fillable = [
         'name',
         'opening_balance',
-        'current_balance',
-        'created_at',
-        'updated_at'
+        'current_balance'
     ];
 }

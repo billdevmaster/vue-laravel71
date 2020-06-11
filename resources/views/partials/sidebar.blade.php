@@ -14,6 +14,12 @@
                 </router-link>
             </li>
             <li>
+                <router-link :to="{ name: 'transaction.index' }">
+                    <i class="fa fa-users"></i>
+                    <span class="title">Transaction</span>
+                </router-link>
+            </li>
+            <li>
                 <router-link :to="{ name: 'customers.index' }">
                     <i class="fa fa-users"></i>
                     <span class="title">Customers</span>

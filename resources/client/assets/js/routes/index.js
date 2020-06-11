@@ -35,6 +35,11 @@ import CurrencyCreate from '../components/cruds/Currency/Create.vue'
 import CurrencyShow from '../components/cruds/Currency/Show.vue'
 import CurrencyEdit from '../components/cruds/Currency/Edit.vue'
 
+import TransactionIndex from '../components/cruds/Transaction/Index.vue'
+import TransactionCreate from '../components/cruds/Transaction/Create.vue'
+import TransactionShow from '../components/cruds/Transaction/Show.vue'
+import TransactionEdit from '../components/cruds/Transaction/Edit.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -65,12 +70,17 @@ const routes = [
     { path: '/cases', component: CasesIndex, name: 'cases.index' },
     { path: '/cases/create', component: CasesCreate, name: 'cases.create' },
     { path: '/cases/:id', component: CasesShow, name: 'cases.show' },
-    { path: '/cases/:id/edit', component: CasesEdit, name: 'customers.edit' },
+    { path: '/cases/:id/edit', component: CasesEdit, name: 'cases.edit' },
 
     { path: '/currency', component: CurrencyIndex, name: 'currency.index' },
     { path: '/currency/create', component: CurrencyCreate, name: 'currency.create' },
     { path: '/currency/:id', component: CurrencyShow, name: 'currency.show' },
-    { path: '/currency/:id/edit', component: CurrencyEdit, name: 'currency.edit' },
+    { path: '/currency/:id/edit', component: CurrencyEdit, name: 'currency.edit' },,
+
+    { path: '/transaction', component: TransactionIndex, name: 'transaction.index' },
+    { path: '/transaction/create', component: TransactionCreate, name: 'transaction.create' },
+    { path: '/transaction/:id', component: TransactionShow, name: 'transaction.show' },
+    { path: '/transaction/:id/edit', component: TransactionEdit, name: 'transaction.edit' },
 ]
 
 export default new VueRouter({

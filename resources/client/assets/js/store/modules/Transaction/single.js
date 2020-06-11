@@ -2,24 +2,18 @@ function initialState() {
     return {
         item: {
             name: null,
-            code: null,
-            buy_code: null,
-            sell_code: null,
-            buy_rate_from: null,
-            buy_rate_to: null,
-            sell_rate_from: null,
-            sell_rate_to: null,
-            opening_balance: null,
-            current_balance: null,
-            opening_avg_rate: null,
+            currency_id: null,
+            amount: null,
+            rate: null,
+            paid_by_client: null,
+            return_to_client: null,
+            description: null,
+            profit: null,
+            type: null,
             last_avg_rate: null,
-            calc_type: null,
-            bs_amount_dec_limit: null,
-            avg_rate_dec_limit: null,
-            balance_dec_limit: null,
-            last_avg_rate_dec_limit: null,
-            flag_img: null
+            current_balance: null            
         },
+        currency_all: [],
         loading: false,
     }
 }
@@ -27,6 +21,7 @@ function initialState() {
 const getters = {
     item: state => state.item,
     loading: state => state.loading,
+    currency_all: state => state.currency_all,
 }
 
 const actions = {
@@ -46,7 +41,7 @@ const actions = {
                 if (params[key] !== null)
                     formData.append(key, params[key]);
             });
-            axios.post('/api/v1/currency', formData, config)
+            axios.post('/api/v1/transaction', formData, config)
                 .then(response => {
                     commit('resetState')
                     resolve()
@@ -86,7 +81,7 @@ const actions = {
                 if(params[key] !== null)
                     formData.append(key, params[key]);
             });
-            axios.post('/api/v1/currency/' + params.id, formData, config)
+            axios.post('/api/v1/transaction/' + params.id, formData, config)
                 .then(response => {
                     console.log(response)
                     commit('setItem', response.data.data)
@@ -109,64 +104,46 @@ const actions = {
         })
     },
     fetchData({ commit, dispatch }, id) {
-        axios.get('/api/v1/currency/' + id)
+        axios.get('/api/v1/transaction/' + id)
             .then(response => {
                 commit('setItem', response.data.data)
             })
+
+        dispatch('fetchCurrencyAll')
     },
-    setFlagImage({ commit }, value) {
-        commit('setFlagImage', value)
+    fetchCurrencyAll({ commit }) {
+        axios.get('/api/v1/currency')
+            .then(response => {
+                let currency_all = Array();
+                response.data.data.forEach(element => {
+                    currency_all.push( "Buy-" + element.buy_code + "-" + element.name + "-" + element.id )
+                    currency_all.push( "Sell-" + element.sell_code + "-" + element.name + "-" + element.id )
+                });
+                commit('setCurrencyAll', currency_all)
+            })
     },
-    setName({ commit }, value) {
-        commit('setName', value)
+    fetchCurrencyData({ commit }, id) {
+        axios.get('/api/v1/currency/' + id)
+            .then(response => {
+                commit('setCurrencyName', response.data.data.name)
+                commit('setCurrentBalance', response.data.data.current_balance)
+                commit('setLastAverageRate', response.data.data.last_avg_rate)
+            })
     },
-    setCode({ commit }, value) {
-        commit('setCode', value)
+    setBSAmount({ commit }, value) {
+        commit('setBSAmount', value)
     },
-    setBuyCode({ commit }, value) {
-        commit('setBuyCode', value)
+    setBSRate({ commit }, value) {
+        commit('setBSRate', value)
     },
-    setSellCode({ commit }, value) {
-        commit('setSellCode', value)
+    setPaidByClient({ commit }, value) {
+        commit('setPaidByClient', value)
     },
-    setBuyRateFrom({ commit }, value) {
-        commit('setBuyRateFrom', value)
+    setReturnToClient({ commit }, value) {
+        commit('setReturnToClient', value)
     },
-    setBuyRateTo({ commit }, value) {
-        commit('setBuyRateTo', value)
-    },
-    setSellRateFrom({ commit }, value) {
-        commit('setSellRateFrom', value)
-    },
-    setSellRateTo({ commit }, value) {
-        commit('setSellRateTo', value)
-    },
-    setOpeningBalance({ commit }, value) {
-        commit('setOpeningBalance', value)
-    },
-    setCurrentBalance({ commit }, value) {
-        commit('setCurrentBalance', value)
-    },
-    setOpeningAverageRate({ commit }, value) {
-        commit('setOpeningAverageRate', value)
-    },
-    setLastAverageRate({ commit }, value) {
-        commit('setLastAverageRate', value)
-    },
-    setCalculateType({ commit }, value) {
-        commit('setCalculateType', value)
-    },
-    setBSAmountDecLimit({ commit }, value) {
-        commit('setBSAmountDecLimit', value)
-    },
-    setAverageRateDecLimit({ commit }, value) {
-        commit('setAverageRateDecLimit', value)
-    },
-    setBalanceDecLimit({ commit }, value) {
-        commit('setBalanceDecLimit', value)
-    },
-    setLastAverageRateDecLimit({ commit }, value) {
-        commit('setLastAverageRateDecLimit', value)
+    setType({ commit }, value) {
+        commit('setType', value)
     },
     resetState({ commit }) {
         commit('resetState')
@@ -177,62 +154,35 @@ const mutations = {
     setItem(state, item) {
         state.item = item
     },
-    setFlagImage(state, value) {
-        state.item.flag_img = value
+    setBSAmount(state, value) {
+        state.item.amount = value
     },
-    setName(state, value) {
+    setBSRate(state, value) {
+        state.item.rate = value
+    },
+    setPaidByClient(state, value) {
+        state.item.paid_by_client = value
+    },
+    setReturnToClient(state, value) {
+        state.item.return_to_client = value
+    },
+    setLoading(state, loading) {
+        state.loading = loading
+    },
+    setCurrencyAll(state, value) {
+        state.currency_all = value
+    },
+    setCurrencyName(state, value) {
         state.item.name = value
-    },
-    setCode(state, value) {
-        state.item.code = value
-    },
-    setBuyCode(state, value) {
-        state.item.buy_code = value
-    },
-    setSellCode(state, value) {
-        state.item.sell_code = value
-    },
-    setBuyRateFrom(state, value) {
-        state.item.buy_rate_from = value
-    },
-    setBuyRateTo(state, value) {
-        state.item.buy_rate_to = value
-    },
-    setSellRateFrom(state, value) {
-        state.item.sell_rate_from = value
-    },
-    setSellRateTo(state, value) {
-        state.item.sell_rate_to = value
-    },
-    setOpeningBalance(state, value) {
-        state.item.opening_balance = value
     },
     setCurrentBalance(state, value) {
         state.item.current_balance = value
     },
-    setOpeningAverageRate(state, value) {
-        state.item.opening_avg_rate = value
-    },
     setLastAverageRate(state, value) {
         state.item.last_avg_rate = value
     },
-    setCalculateType(state, value) {
-        state.item.calc_type = value
-    },
-    setBSAmountDecLimit(state, value) {
-        state.item.bs_amount_dec_limit = value
-    },
-    setAverageRateDecLimit(state, value) {
-        state.item.avg_rate_dec_limit = value
-    },
-    setBalanceDecLimit(state, value) {
-        state.item.balance_dec_limit = value
-    },
-    setLastAverageRateDecLimit(state, value) {
-        state.item.last_avg_rate_dec_limit = value
-    },
-    setLoading(state, loading) {
-        state.loading = loading
+    setType(state, value) {
+        state.item.type = value
     },
     resetState(state) {
         state = Object.assign(state, initialState())

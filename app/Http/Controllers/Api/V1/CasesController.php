@@ -23,6 +23,9 @@ class CasesController extends Controller
 
     public function store(Request $request)
     {
+        if(count(Cases::with([])->get()) > 0 )
+            return response()->json(['hasCase'=>false,'errors'=>"One Case can be created only!!!"]);
+
         request()->validate([
             'name' => 'required|min:3|max:5',
             'opening_balance' => 'required|numeric',
@@ -46,7 +49,7 @@ class CasesController extends Controller
         
         $cases = Cases::findOrFail($id);
         $cases->update($request->all());
-
+        $cases->touch();
         return (new CasesResource($cases))
             ->response()
             ->setStatusCode(202);

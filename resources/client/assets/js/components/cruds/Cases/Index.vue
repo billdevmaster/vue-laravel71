@@ -63,13 +63,15 @@ export default {
                 { title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' },
                 { title: 'Name', field: 'name', sortable: true },
                 { title: 'Opening Balance', field: 'opening_balance', sortable: true },
+                { title: 'Creation Date', field: 'created_at', sortable: true },
                 { title: 'Current Balance', field: 'current_balance', sortable: true },
+                { title: 'Last Edit', field: 'updated_at', sortable: true },
                 { title: 'Actions', tdComp: DatatableActions, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
             ],
             query: { sort: 'id', order: 'desc' },
             xprops: {
                 module: 'CasesIndex',
-                route: 'Cases'
+                route: 'cases'
             }
         }
     },

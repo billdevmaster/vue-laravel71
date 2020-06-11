@@ -454,27 +454,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -485,35 +464,27 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('EmployeesSingle', ['item', 'loading', 'companiesAll'])),
-    created: function created() {
-        this.fetchCompaniesAll();
-    },
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('CasesSingle', ['item', 'loading'])),
+    created: function created() {},
     destroyed: function destroyed() {
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('EmployeesSingle', ['storeData', 'resetState', 'setCompany', 'setFirst_name', 'setLast_name', 'setEmail', 'setPhone', 'fetchCompaniesAll']), {
-        updateCompany: function updateCompany(value) {
-            this.setCompany(value);
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("CasesSingle", ["storeData", "resetState", "setName", "setOpening_balance", "setCurrent_balance"]), {
+        updateName: function updateName(e) {
+            this.setName(e.target.value);
         },
-        updateFirst_name: function updateFirst_name(e) {
-            this.setFirst_name(e.target.value);
+        updateOpening_balance: function updateOpening_balance(e) {
+            this.setOpening_balance(e.target.value);
         },
-        updateLast_name: function updateLast_name(e) {
-            this.setLast_name(e.target.value);
-        },
-        updateEmail: function updateEmail(e) {
-            this.setEmail(e.target.value);
-        },
-        updatePhone: function updatePhone(e) {
-            this.setPhone(e.target.value);
+        updateCurrent_balance: function updateCurrent_balance(e) {
+            this.setCurrent_balance(e.target.value);
         },
         submitForm: function submitForm() {
             var _this = this;
 
             this.storeData().then(function () {
-                _this.$router.push({ name: 'employees.index' });
+                _this.$router.push({ name: 'cases.index' });
                 _this.$eventHub.$emit('create-success');
             }).catch(function (error) {
                 console.error(error);
@@ -604,30 +575,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -638,7 +585,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('EmployeesSingle', ['item', 'loading', 'companiesAll'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('CasesSingle', ['item', 'loading'])),
     created: function created() {
         this.fetchData(this.$route.params.id);
     },
@@ -652,27 +599,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.fetchData(this.$route.params.id);
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('EmployeesSingle', ['fetchData', 'updateData', 'resetState', 'setCompany', 'setFirst_name', 'setLast_name', 'setEmail', 'setPhone']), {
-        updateCompany: function updateCompany(value) {
-            this.setCompany(value);
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CasesSingle', ['fetchData', 'updateData', 'resetState', "setName", "setOpening_balance", "setCurrent_balance"]), {
+        updateName: function updateName(value) {
+            this.setName(value);
         },
-        updateFirst_name: function updateFirst_name(e) {
-            this.setFirst_name(e.target.value);
+        updateOpening_balance: function updateOpening_balance(e) {
+            this.setOpening_balance(e.target.value);
         },
-        updateLast_name: function updateLast_name(e) {
-            this.setLast_name(e.target.value);
-        },
-        updateEmail: function updateEmail(e) {
-            this.setEmail(e.target.value);
-        },
-        updatePhone: function updatePhone(e) {
-            this.setPhone(e.target.value);
+        updateCurrent_balance: function updateCurrent_balance(e) {
+            this.setCurrent_balance(e.target.value);
         },
         submitForm: function submitForm() {
             var _this = this;
 
             this.updateData().then(function () {
-                _this.$router.push({ name: 'employees.index' });
+                _this.$router.push({ name: 'cases.index' });
                 _this.$eventHub.$emit('update-success');
             }).catch(function (error) {
                 console.error(error);
@@ -760,11 +701,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            columns: [{ title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' }, { title: 'Name', field: 'name', sortable: true }, { title: 'Opening Balance', field: 'opening_balance', sortable: true }, { title: 'Current Balance', field: 'current_balance', sortable: true }, { title: 'Actions', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
+            columns: [{ title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' }, { title: 'Name', field: 'name', sortable: true }, { title: 'Opening Balance', field: 'opening_balance', sortable: true }, { title: 'Creation Date', field: 'created_at', sortable: true }, { title: 'Current Balance', field: 'current_balance', sortable: true }, { title: 'Last Edit', field: 'updated_at', sortable: true }, { title: 'Actions', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
             query: { sort: 'id', order: 'desc' },
             xprops: {
                 module: 'CasesIndex',
-                route: 'Cases'
+                route: 'cases'
             }
         };
     },
@@ -1418,46 +1359,251 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            // Code...
+            flag_image_show: false
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('EmployeesSingle', ['item', 'loading', 'companiesAll'])),
-    created: function created() {
-        this.fetchCompaniesAll();
-    },
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('CurrencySingle', ['item', 'loading'])),
+    created: function created() {},
     destroyed: function destroyed() {
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('EmployeesSingle', ['storeData', 'resetState', 'setCompany', 'setFirst_name', 'setLast_name', 'setEmail', 'setPhone', 'fetchCompaniesAll']), {
-        updateCompany: function updateCompany(value) {
-            this.setCompany(value);
-        },
-        updateFirst_name: function updateFirst_name(e) {
-            this.setFirst_name(e.target.value);
-        },
-        updateLast_name: function updateLast_name(e) {
-            this.setLast_name(e.target.value);
-        },
-        updateEmail: function updateEmail(e) {
-            this.setEmail(e.target.value);
-        },
-        updatePhone: function updatePhone(e) {
-            this.setPhone(e.target.value);
-        },
-        submitForm: function submitForm() {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CurrencySingle', ['storeData', 'resetState', "setFlagImage", "setName", "setCode", "setBuyCode", "setSellCode", "setBuyRateFrom", "setBuyRateTo", "setSellRateFrom", "setSellRateTo", "setOpeningBalance", "setCurrentBalance", "setOpeningAverageRate", "setLastAverageRate", "setCalculateType", "setBSAmountDecLimit", "setAverageRateDecLimit", "setBalanceDecLimit", "setLastAverageRateDecLimit"]), {
+        updateFlagImage: function updateFlagImage(e) {
             var _this = this;
 
+            this.setFlagImage(e.target.files[0]);
+            var image = new Image();
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                _this.flag_image_show = e.target.result;
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        },
+        updateName: function updateName(e) {
+            this.setName(e.target.value);
+        },
+        updateCode: function updateCode(e) {
+            this.setCode(e.target.value);
+        },
+        updateBuyCode: function updateBuyCode(e) {
+            this.setBuyCode(e.target.value);
+        },
+        updateSellCode: function updateSellCode(e) {
+            this.setSellCode(e.target.value);
+        },
+        updateBuyRateFrom: function updateBuyRateFrom(e) {
+            console.log(e.target);
+            this.setBuyRateFrom(e.target.value);
+        },
+        updateBuyRateTo: function updateBuyRateTo(e) {
+            this.setBuyRateTo(e.target.value);
+        },
+        updateSellRateFrom: function updateSellRateFrom(e) {
+            this.setSellRateFrom(e.target.value);
+        },
+        updateSellRateTo: function updateSellRateTo(e) {
+            this.setSellRateTo(e.target.value);
+        },
+        updateOpeningBalance: function updateOpeningBalance(e) {
+            this.setOpeningBalance(e.target.value);
+        },
+        updateCurrentBalance: function updateCurrentBalance(e) {
+            this.setCurrentBalance(e.target.value);
+        },
+        updateOpeningAverageRate: function updateOpeningAverageRate(e) {
+            this.setOpeningAverageRate(e.target.value);
+        },
+        updateLastAverageRate: function updateLastAverageRate(e) {
+            this.setLastAverageRate(e.target.value);
+        },
+        updateCalculateType: function updateCalculateType(value) {
+            this.setCalculateType(value);
+        },
+        updateBSAmountDecLimit: function updateBSAmountDecLimit(e) {
+            this.setBSAmountDecLimit(e.target.value);
+        },
+        updateAverageRateDecLimit: function updateAverageRateDecLimit(e) {
+            this.setAverageRateDecLimit(e.target.value);
+        },
+        updateBalanceDecLimit: function updateBalanceDecLimit(e) {
+            this.setBalanceDecLimit(e.target.value);
+        },
+        updataLastAverageRateDecLimit: function updataLastAverageRateDecLimit(e) {
+            this.setLastAverageRateDecLimit(e.target.value);
+        },
+        submitForm: function submitForm() {
+            var _this2 = this;
+
             this.storeData().then(function () {
-                _this.$router.push({ name: 'employees.index' });
-                _this.$eventHub.$emit('create-success');
+                _this2.$router.push({ name: 'currency.index' });
+                _this2.$eventHub.$emit('create-success');
             }).catch(function (error) {
                 console.error(error);
             });
@@ -1571,17 +1717,176 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            // Code...
+            flag_image_show: false
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('EmployeesSingle', ['item', 'loading', 'companiesAll'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('CurrencySingle', ['item', 'loading'])),
     created: function created() {
         this.fetchData(this.$route.params.id);
     },
@@ -1595,28 +1900,80 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.fetchData(this.$route.params.id);
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('EmployeesSingle', ['fetchData', 'updateData', 'resetState', 'setCompany', 'setFirst_name', 'setLast_name', 'setEmail', 'setPhone']), {
-        updateCompany: function updateCompany(value) {
-            this.setCompany(value);
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CurrencySingle', ['fetchData', 'updateData', 'resetState', "setFlagImage", "setName", "setCode", "setBuyCode", "setSellCode", "setBuyRateFrom", "setBuyRateTo", "setSellRateFrom", "setSellRateTo", "setOpeningBalance", "setCurrentBalance", "setOpeningAverageRate", "setLastAverageRate", "setCalculateType", "setBSAmountDecLimit", "setAverageRateDecLimit", "setBalanceDecLimit", "setLastAverageRateDecLimit"]), {
+        getFlagImage: function getFlagImage() {
+            var photo = this.flag_image_show.length > 100 ? this.flag_image_show : "/images/flag/" + this.item.flag_img;
+            return photo;
         },
-        updateFirst_name: function updateFirst_name(e) {
-            this.setFirst_name(e.target.value);
-        },
-        updateLast_name: function updateLast_name(e) {
-            this.setLast_name(e.target.value);
-        },
-        updateEmail: function updateEmail(e) {
-            this.setEmail(e.target.value);
-        },
-        updatePhone: function updatePhone(e) {
-            this.setPhone(e.target.value);
-        },
-        submitForm: function submitForm() {
+        updateFlagImage: function updateFlagImage(e) {
             var _this = this;
 
+            this.setFlagImage(e.target.files[0]);
+            var image = new Image();
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                _this.flag_image_show = e.target.result;
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        },
+        updateName: function updateName(e) {
+            this.setName(e.target.value);
+        },
+        updateCode: function updateCode(e) {
+            this.setCode(e.target.value);
+        },
+        updateBuyCode: function updateBuyCode(e) {
+            this.setBuyCode(e.target.value);
+        },
+        updateSellCode: function updateSellCode(e) {
+            this.setSellCode(e.target.value);
+        },
+        updateBuyRateFrom: function updateBuyRateFrom(e) {
+            console.log(e.target);
+            this.setBuyRateFrom(e.target.value);
+        },
+        updateBuyRateTo: function updateBuyRateTo(e) {
+            this.setBuyRateTo(e.target.value);
+        },
+        updateSellRateFrom: function updateSellRateFrom(e) {
+            this.setSellRateFrom(e.target.value);
+        },
+        updateSellRateTo: function updateSellRateTo(e) {
+            this.setSellRateTo(e.target.value);
+        },
+        updateOpeningBalance: function updateOpeningBalance(e) {
+            this.setOpeningBalance(e.target.value);
+        },
+        updateCurrentBalance: function updateCurrentBalance(e) {
+            this.setCurrentBalance(e.target.value);
+        },
+        updateOpeningAverageRate: function updateOpeningAverageRate(e) {
+            this.setOpeningAverageRate(e.target.value);
+        },
+        updateLastAverageRate: function updateLastAverageRate(e) {
+            this.setLastAverageRate(e.target.value);
+        },
+        updateCalculateType: function updateCalculateType(value) {
+            this.setCalculateType(value);
+        },
+        updateBSAmountDecLimit: function updateBSAmountDecLimit(e) {
+            this.setBSAmountDecLimit(e.target.value);
+        },
+        updateAverageRateDecLimit: function updateAverageRateDecLimit(e) {
+            this.setAverageRateDecLimit(e.target.value);
+        },
+        updateBalanceDecLimit: function updateBalanceDecLimit(e) {
+            this.setBalanceDecLimit(e.target.value);
+        },
+        updataLastAverageRateDecLimit: function updataLastAverageRateDecLimit(e) {
+            this.setLastAverageRateDecLimit(e.target.value);
+        },
+        submitForm: function submitForm() {
+            var _this2 = this;
+
             this.updateData().then(function () {
-                _this.$router.push({ name: 'employees.index' });
-                _this.$eventHub.$emit('update-success');
+                _this2.$router.push({ name: 'currency.index' });
+                _this2.$eventHub.$emit('update-success');
             }).catch(function (error) {
                 console.error(error);
             });
@@ -1706,8 +2063,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             columns: [{ title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' }, { title: 'Name', field: 'name', sortable: true }, { title: 'Code', field: 'code', sortable: true }, { title: 'Current Balance', field: 'current_balance', sortable: true }, { title: 'Last Avg Rate', field: 'last_avg_rate', sortable: true }, { title: 'Buy Rate From', field: 'buy_rate_from', sortable: true }, { title: 'Buy Rate To', field: 'buy_rate_to', sortable: true }, { title: 'Sell Rate From', field: 'sell_rate_from', sortable: true }, { title: 'Sell Rate To', field: 'sell_rate_to', sortable: true }, { title: 'Calculation Type', field: 'calc_type', sortable: true }, { title: 'Actions', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
             query: { sort: 'id', order: 'desc' },
             xprops: {
-                module: 'CasesIndex',
-                route: 'Cases'
+                module: 'CurrencyIndex',
+                route: 'currency'
             }
         };
     },
@@ -2558,7 +2915,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.fetchData(this.$route.params.id);
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CustomersSingle', ['fetchData', 'updateData', 'resetState', "setFirst_name", "setLast_name", "setEmail", "setPhone", "setCustomerCode", "setCompanyName", "setMobile", "setFax", "setBirthday", "setEco_ben", "setAddress", "setCity", "setCoutry", "setPassword", "setName_id", "setID_type", "setID_number", "setPlace_issue", "setPlace_birthday", "setNational", "setExpire_date", "setId_img", "setComapny_img", "setMix_img"]), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CustomersSingle', ['fetchData', 'updateData', 'resetState', "setFirst_name", "setLast_name", "setEmail", "setPhone", "setCustomerCode", "setCompanyName", "setMobile", "setFax", "setBirthday", "setEco_ben", "setAddress", "setCity", "setCountry", "setPassword", "setName_id", "setID_type", "setID_number", "setPlace_issue", "setPlace_birthday", "setNational", "setExpire_date", "setId_img", "setComapny_img", "setMix_img"]), {
         getId_img: function getId_img() {
             var photo = this.id_image_show.length > 100 ? this.id_image_show : "/images/users/" + this.item.id_img;
             return photo;
@@ -2660,7 +3017,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.setCity(e.target.value);
         },
         updateCountry: function updateCountry(e) {
-            this.setCoutry(e.target.value);
+            this.setCountry(e.target.value);
         },
         updatePassword: function updatePassword(e) {
             this.setPassword(e.target.value);
@@ -3796,6 +4153,838 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }
     },
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('RolesSingle', ['fetchData', 'resetState']))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Transaction/Create.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            flag_image_show: false
+        };
+    },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading', 'currency_all'])),
+    created: function created() {
+        this.fetchCurrencyAll();
+    },
+    destroyed: function destroyed() {
+        this.resetState();
+    },
+
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionSingle', ['storeData', 'resetState', "setBSAmount", "setBSRate", "setPaidByClient", "setReturnToClient", "setType", "fetchCurrencyAll", "fetchCurrencyData"]), {
+        updateCurrencyCode: function updateCurrencyCode(value) {
+            if (value != null) {
+                var currency_data = value.split("-");
+                this.fetchCurrencyData(currency_data[3]);
+                if (currency_data[0] == 'Buy') {
+                    this.setType(0);
+                    $('input[name="paid_by_client"]').attr('disabled', 'disabled');
+                    $('input[name="return_to_client"]').attr('disabled', 'disabled');
+                } else {
+                    this.setType(1);
+                    $('input[name="paid_by_client"]').removeAttr('disabled');
+                    $('input[name="return_to_client"]').removeAttr('disabled');
+                }
+            } else {
+                this.resetState();
+            }
+        },
+        updateBSAmount: function updateBSAmount(e) {
+            this.setBSAmount(e.target.value);
+            if (this.item.rate > 0) {
+                this.item.total = this.item.rate * e.target.value;
+            }
+        },
+        updateBSRate: function updateBSRate(e) {
+            this.setBSRate(e.target.value);
+            if (this.item.amount > 0) {
+                this.item.total = this.item.amount * e.target.value;
+            }
+        },
+        updatePaidByClient: function updatePaidByClient(e) {
+            this.setPaidByClient(e.target.value);
+        },
+        updateReturnToClient: function updateReturnToClient(e) {
+            console.log(e.target);
+            this.setReturnToClient(e.target.value);
+        },
+        submitForm: function submitForm() {
+            var _this = this;
+
+            this.storeData().then(function () {
+                _this.$router.push({ name: 'transaction.index' });
+                _this.$eventHub.$emit('create-success');
+            }).catch(function (error) {
+                console.error(error);
+            });
+        }
+    })
+});
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Transaction/Edit.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            flag_image_show: false
+        };
+    },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('CurrencySingle', ['item', 'loading'])),
+    created: function created() {
+        this.fetchData(this.$route.params.id);
+    },
+    destroyed: function destroyed() {
+        this.resetState();
+    },
+
+    watch: {
+        "$route.params.id": function $routeParamsId() {
+            this.resetState();
+            this.fetchData(this.$route.params.id);
+        }
+    },
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CurrencySingle', ['fetchData', 'updateData', 'resetState', "setFlagImage", "setName", "setCode", "setBuyCode", "setSellCode", "setBuyRateFrom", "setBuyRateTo", "setSellRateFrom", "setSellRateTo", "setOpeningBalance", "setCurrentBalance", "setOpeningAverageRate", "setLastAverageRate", "setCalculateType", "setBSAmountDecLimit", "setAverageRateDecLimit", "setBalanceDecLimit", "setLastAverageRateDecLimit"]), {
+        getFlagImage: function getFlagImage() {
+            var photo = this.flag_image_show.length > 100 ? this.flag_image_show : "/images/flag/" + this.item.flag_img;
+            return photo;
+        },
+        updateFlagImage: function updateFlagImage(e) {
+            var _this = this;
+
+            this.setFlagImage(e.target.files[0]);
+            var image = new Image();
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                _this.flag_image_show = e.target.result;
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        },
+        updateName: function updateName(e) {
+            this.setName(e.target.value);
+        },
+        updateCode: function updateCode(e) {
+            this.setCode(e.target.value);
+        },
+        updateBuyCode: function updateBuyCode(e) {
+            this.setBuyCode(e.target.value);
+        },
+        updateSellCode: function updateSellCode(e) {
+            this.setSellCode(e.target.value);
+        },
+        updateBuyRateFrom: function updateBuyRateFrom(e) {
+            console.log(e.target);
+            this.setBuyRateFrom(e.target.value);
+        },
+        updateBuyRateTo: function updateBuyRateTo(e) {
+            this.setBuyRateTo(e.target.value);
+        },
+        updateSellRateFrom: function updateSellRateFrom(e) {
+            this.setSellRateFrom(e.target.value);
+        },
+        updateSellRateTo: function updateSellRateTo(e) {
+            this.setSellRateTo(e.target.value);
+        },
+        updateOpeningBalance: function updateOpeningBalance(e) {
+            this.setOpeningBalance(e.target.value);
+        },
+        updateCurrentBalance: function updateCurrentBalance(e) {
+            this.setCurrentBalance(e.target.value);
+        },
+        updateOpeningAverageRate: function updateOpeningAverageRate(e) {
+            this.setOpeningAverageRate(e.target.value);
+        },
+        updateLastAverageRate: function updateLastAverageRate(e) {
+            this.setLastAverageRate(e.target.value);
+        },
+        updateCalculateType: function updateCalculateType(value) {
+            this.setCalculateType(value);
+        },
+        updateBSAmountDecLimit: function updateBSAmountDecLimit(e) {
+            this.setBSAmountDecLimit(e.target.value);
+        },
+        updateAverageRateDecLimit: function updateAverageRateDecLimit(e) {
+            this.setAverageRateDecLimit(e.target.value);
+        },
+        updateBalanceDecLimit: function updateBalanceDecLimit(e) {
+            this.setBalanceDecLimit(e.target.value);
+        },
+        updataLastAverageRateDecLimit: function updataLastAverageRateDecLimit(e) {
+            this.setLastAverageRateDecLimit(e.target.value);
+        },
+        submitForm: function submitForm() {
+            var _this2 = this;
+
+            this.updateData().then(function () {
+                _this2.$router.push({ name: 'currency.index' });
+                _this2.$eventHub.$emit('update-success');
+            }).catch(function (error) {
+                console.error(error);
+            });
+        }
+    })
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Transaction/Index.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions__ = __webpack_require__("./resources/client/assets/js/components/dtmodules/DatatableActions.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dtmodules_DatatableSingle__ = __webpack_require__("./resources/client/assets/js/components/dtmodules/DatatableSingle.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dtmodules_DatatableSingle___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__dtmodules_DatatableSingle__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dtmodules_DatatableList__ = __webpack_require__("./resources/client/assets/js/components/dtmodules/DatatableList.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dtmodules_DatatableList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__dtmodules_DatatableList__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dtmodules_DatatableCheckbox__ = __webpack_require__("./resources/client/assets/js/components/dtmodules/DatatableCheckbox.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dtmodules_DatatableCheckbox___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__dtmodules_DatatableCheckbox__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            columns: [{ title: 'TransactionID', field: 'id', sortable: true }, { title: 'Type', field: 'calc_type', sortable: true }, { title: 'DateTime', field: 'created_at', sortable: true }, { title: 'Currency', field: 'code', sortable: true }, { title: 'B.Amount', field: 'current_balance', sortable: true }, { title: 'TTL For Buy', field: 'last_avg_rate', sortable: true }, { title: 'B / S Rate', field: 'buy_rate_from', sortable: true }, { title: 'S.Amount', field: 'buy_rate_to', sortable: true }, { title: 'TTL For Sell', field: 'sell_rate_from', sortable: true }, { title: 'Profit', field: 'sell_rate_to', sortable: true }, { title: 'Current Balance', field: 'calc_type', sortable: true }, { title: 'Last Average Rate', field: 'buy_rate_to', sortable: true }, { title: 'Paid Buy Client', field: 'sell_rate_from', sortable: true }, { title: 'Return To Client', field: 'sell_rate_to', sortable: true }, { title: 'Actions', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
+            query: { sort: 'id', order: 'desc' },
+            xprops: {
+                module: 'TransactionIndex',
+                route: 'transaction'
+            }
+        };
+    },
+    created: function created() {
+        this.fetchData();
+    },
+    destroyed: function destroyed() {
+        this.resetState();
+    },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionIndex', ['data', 'total', 'loading', 'relationships'])),
+    watch: {
+        query: {
+            handler: function handler(query) {
+                this.setQuery(query);
+            },
+
+            deep: true
+        }
+    },
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionIndex', ['fetchData', 'setQuery', 'resetState']))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Transaction/Show.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            // Code...
+        };
+    },
+    created: function created() {
+        this.fetchData(this.$route.params.id);
+    },
+    destroyed: function destroyed() {
+        this.resetState();
+    },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('EmployeesSingle', ['item'])),
+    watch: {
+        "$route.params.id": function $routeParamsId() {
+            this.resetState();
+            this.fetchData(this.$route.params.id);
+        }
+    },
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('EmployeesSingle', ['fetchData', 'resetState']))
 });
 
 /***/ }),
@@ -6419,6 +7608,21 @@ exports.push([module.i, "/*!\n * Datetimepicker for Bootstrap 3\n * version : 4.
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-014bbc78\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Index.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-04371e3a\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Customers/Create.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6488,6 +7692,21 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-139e617a\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Create.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -6599,6 +7818,21 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2575170a\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Show.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-25abe3b5\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Cases/Create.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6607,7 +7841,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -6742,7 +7976,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -6772,7 +8006,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -6794,6 +8028,21 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60f4b908\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Edit.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6306529d\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Currency/Create.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6802,7 +8051,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -6982,7 +8231,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26930,6 +28179,131 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-014bbc78\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Transaction/Index.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    { staticClass: "content-wrapper", staticStyle: { "min-height": "960px" } },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-xs-12" }, [
+            _c("div", { staticClass: "box" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c(
+                  "div",
+                  { staticClass: "btn-group" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-success btn-sm",
+                        attrs: { to: { name: _vm.xprops.route + ".create" } }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-plus" }),
+                        _vm._v(" Add new\n                            ")
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-default btn-sm",
+                        attrs: { type: "button" },
+                        on: { click: _vm.fetchData }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fa fa-refresh",
+                          class: { "fa-spin": _vm.loading }
+                        }),
+                        _vm._v(" Refresh\n                            ")
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "box-body" },
+                [
+                  _vm.loading
+                    ? _c("div", { staticClass: "row" }, [_vm._m(2)])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.loading
+                    ? _c("datatable", {
+                        attrs: {
+                          columns: _vm.columns,
+                          data: _vm.data,
+                          total: _vm.total,
+                          query: _vm.query,
+                          xprops: _vm.xprops
+                        }
+                      })
+                    : _vm._e()
+                ],
+                1
+              )
+            ])
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "content-header" }, [
+      _c("h1", [_vm._v("Transaction")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("List")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-xs-4 col-xs-offset-4" }, [
+      _c("div", { staticClass: "alert text-center" }, [
+        _c("i", { staticClass: "fa fa-spin fa-refresh" }),
+        _vm._v(" Loading\n                                ")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-014bbc78", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-04371e3a\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Customers/Create.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27659,6 +29033,320 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-126e0041", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-139e617a\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Transaction/Create.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    { staticClass: "content-wrapper", staticStyle: { "min-height": "960px" } },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.submitForm($event)
+                  }
+                }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "box" },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "box-body" },
+                      [_c("back-buttton")],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("bootstrap-alert"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "box-body" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-2" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", { attrs: { for: "currency_code" } }, [
+                                _vm._v("Currency Code")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-select", {
+                                attrs: {
+                                  name: "currency_code",
+                                  label: "currency_code",
+                                  value: _vm.item.currency_code,
+                                  options: _vm.currency_all
+                                },
+                                on: { input: _vm.updateCurrencyCode }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: { type: "hidden", name: "type" },
+                                domProps: { value: _vm.item.type }
+                              })
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-2" })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-2" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "amount" } }, [
+                              _vm._v("Buy / Sell Amount")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "amount",
+                                placeholder: "Enter Buy / Sell Amount"
+                              },
+                              domProps: { value: _vm.item.amount },
+                              on: { input: _vm.updateBSAmount }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "rate" } }, [
+                              _vm._v("Buy / Sell Rate")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "rate",
+                                placeholder: "Enter Buy / Sell Rate"
+                              },
+                              domProps: { value: _vm.item.rate },
+                              on: { input: _vm.updateBSRate }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "total" } }, [
+                              _vm._v("Total")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: { type: "text", name: "total" },
+                              domProps: { value: _vm.item.total }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "paid_by_client" } }, [
+                              _vm._v("Paid By Client")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "paid_by_client",
+                                placeholder: "Enter Paid By Client"
+                              },
+                              domProps: { value: _vm.item.paid_by_client },
+                              on: { input: _vm.updatePaidByClient }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "return_to_client" } },
+                              [_vm._v("Return To Client")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "return_to_client",
+                                placeholder: "Enter Return To Client"
+                              },
+                              domProps: { value: _vm.item.return_to_client },
+                              on: { input: _vm.updateReturnToClient }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "name" } }, [
+                              _vm._v("Currency Name")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "name",
+                                placeholder: "Enter Currency Name"
+                              },
+                              domProps: { value: _vm.item.name }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "current_balance" } }, [
+                              _vm._v("Current Balance")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "current_balance",
+                                placeholder: "Enter Current Balance"
+                              },
+                              domProps: { value: _vm.item.current_balance }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "last_avg_rate" } }, [
+                              _vm._v("Currency Average Rate")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "last_avg_rate",
+                                placeholder: "Enter Currency Average Rate"
+                              },
+                              domProps: { value: _vm.item.last_avg_rate }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "profit" } }, [
+                              _vm._v("Total Profit")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "profit",
+                                placeholder: "Enter Total Profit"
+                              },
+                              domProps: { value: _vm.item.profit }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "ttl_bs" } }, [
+                              _vm._v("Today TTL Buy / Sell")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "ttl_bs",
+                                placeholder: "Enter Today TTL Buy / Sell"
+                              },
+                              domProps: { value: _vm.item.ttl_bs }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-2" })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "box-footer" },
+                      [
+                        _c(
+                          "vue-button-spinner",
+                          {
+                            staticClass: "btn btn-primary btn-sm",
+                            attrs: {
+                              isLoading: _vm.loading,
+                              disabled: _vm.loading
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Save\n                            "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "content-header" }, [
+      _c("h1", [_vm._v("Transaction")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Create")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-139e617a", module.exports)
   }
 }
 
@@ -28595,6 +30283,126 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-2575170a\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Transaction/Show.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    { staticClass: "content-wrapper", staticStyle: { "min-height": "960px" } },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-xs-12" }, [
+            _c("div", { staticClass: "box" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [_c("back-buttton")], 1),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-6" }, [
+                    _c(
+                      "table",
+                      { staticClass: "table table-bordered table-striped" },
+                      [
+                        _c("tbody", [
+                          _c("tr", [
+                            _c("th", [_vm._v("#")]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.item.id))])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("th", [_vm._v("Company")]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm.item.company !== null
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-info" },
+                                    [
+                                      _vm._v(
+                                        "\n                                                " +
+                                          _vm._s(_vm.item.company.name) +
+                                          "\n                                            "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("th", [_vm._v("First name")]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.item.first_name))])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("th", [_vm._v("Last name")]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.item.last_name))])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("th", [_vm._v("Email")]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.item.email))])
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("th", [_vm._v("Phone")]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.item.phone))])
+                          ])
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "content-header" }, [
+      _c("h1", [_vm._v("Employees")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("View")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2575170a", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-25abe3b5\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Cases/Create.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28638,92 +30446,54 @@ var render = function() {
                     _c("bootstrap-alert"),
                     _vm._v(" "),
                     _c("div", { staticClass: "box-body" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { attrs: { for: "company" } }, [
-                            _vm._v("Company")
-                          ]),
-                          _vm._v(" "),
-                          _c("v-select", {
-                            attrs: {
-                              name: "company",
-                              label: "name",
-                              value: _vm.item.company,
-                              options: _vm.companiesAll
-                            },
-                            on: { input: _vm.updateCompany }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "first_name" } }, [
-                          _vm._v("First name")
+                        _c("label", { attrs: { for: "name" } }, [
+                          _vm._v("Name")
                         ]),
                         _vm._v(" "),
                         _c("input", {
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            name: "first_name",
-                            placeholder: "Enter First name"
+                            name: "name",
+                            placeholder: "Enter Name"
                           },
-                          domProps: { value: _vm.item.first_name },
-                          on: { input: _vm.updateFirst_name }
+                          domProps: { value: _vm.item.name },
+                          on: { input: _vm.updateName }
                         })
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "last_name" } }, [
-                          _vm._v("Last name")
+                        _c("label", { attrs: { for: "opening_balance" } }, [
+                          _vm._v("Opening Balance")
                         ]),
                         _vm._v(" "),
                         _c("input", {
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            name: "last_name",
-                            placeholder: "Enter Last name"
+                            name: "opening_balance",
+                            placeholder: "Enter Opening Balance"
                           },
-                          domProps: { value: _vm.item.last_name },
-                          on: { input: _vm.updateLast_name }
+                          domProps: { value: _vm.item.opening_balance },
+                          on: { input: _vm.updateOpening_balance }
                         })
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "email" } }, [
-                          _vm._v("Email")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "email",
-                            name: "email",
-                            placeholder: "Enter Email"
-                          },
-                          domProps: { value: _vm.item.email },
-                          on: { input: _vm.updateEmail }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "phone" } }, [
-                          _vm._v("Phone")
+                        _c("label", { attrs: { for: "current_balance" } }, [
+                          _vm._v("Current Balance")
                         ]),
                         _vm._v(" "),
                         _c("input", {
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            name: "phone",
-                            placeholder: "Enter Phone"
+                            name: "current_balance",
+                            placeholder: "Enter Current Balance"
                           },
-                          domProps: { value: _vm.item.phone },
-                          on: { input: _vm.updatePhone }
+                          domProps: { value: _vm.item.current_balance },
+                          on: { input: _vm.updateCurrent_balance }
                         })
                       ])
                     ]),
@@ -28767,7 +30537,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "content-header" }, [
-      _c("h1", [_vm._v("Employees")])
+      _c("h1", [_vm._v("Cases")])
     ])
   },
   function() {
@@ -29708,92 +31478,49 @@ var render = function() {
                     _c("bootstrap-alert"),
                     _vm._v(" "),
                     _c("div", { staticClass: "box-body" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { attrs: { for: "company" } }, [
-                            _vm._v("Company")
-                          ]),
-                          _vm._v(" "),
-                          _c("v-select", {
-                            attrs: {
-                              name: "company",
-                              label: "name",
-                              value: _vm.item.company,
-                              options: _vm.companiesAll
-                            },
-                            on: { input: _vm.updateCompany }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "first_name" } }, [
-                          _vm._v("First name")
+                        _c("label", { attrs: { for: "name" } }, [
+                          _vm._v("Name")
                         ]),
                         _vm._v(" "),
                         _c("input", {
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            name: "first_name",
-                            placeholder: "Enter First name"
+                            name: "name",
+                            placeholder: "Enter Name"
                           },
-                          domProps: { value: _vm.item.first_name },
-                          on: { input: _vm.updateFirst_name }
+                          domProps: { value: _vm.item.name },
+                          on: { input: _vm.updateName }
                         })
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "last_name" } }, [
-                          _vm._v("Last name")
+                        _c("label", { attrs: { for: "opening_balance" } }, [
+                          _vm._v("Opening Balance")
                         ]),
                         _vm._v(" "),
                         _c("input", {
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            name: "last_name",
-                            placeholder: "Enter Last name"
+                            name: "opening_balance",
+                            placeholder: "Enter Opening Balance"
                           },
-                          domProps: { value: _vm.item.last_name },
-                          on: { input: _vm.updateLast_name }
+                          domProps: { value: _vm.item.opening_balance },
+                          on: { input: _vm.updateOpening_balance }
                         })
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "email" } }, [
-                          _vm._v("Email")
+                        _c("label", { attrs: { for: "current_balance" } }, [
+                          _vm._v("Current Balance")
                         ]),
                         _vm._v(" "),
                         _c("input", {
                           staticClass: "form-control",
-                          attrs: {
-                            type: "email",
-                            name: "email",
-                            placeholder: "Enter Email"
-                          },
-                          domProps: { value: _vm.item.email },
-                          on: { input: _vm.updateEmail }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "phone" } }, [
-                          _vm._v("Phone")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "phone",
-                            placeholder: "Enter Phone"
-                          },
-                          domProps: { value: _vm.item.phone },
-                          on: { input: _vm.updatePhone }
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.item.current_balance }
                         })
                       ])
                     ]),
@@ -29837,7 +31564,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "content-header" }, [
-      _c("h1", [_vm._v("Employees")])
+      _c("h1", [_vm._v("Cases")])
     ])
   },
   function() {
@@ -30197,7 +31924,7 @@ if (false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6306529d\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Currency/Create.vue":
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-60f4b908\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Transaction/Edit.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -30240,93 +31967,377 @@ var render = function() {
                     _c("bootstrap-alert"),
                     _vm._v(" "),
                     _c("div", { staticClass: "box-body" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { attrs: { for: "company" } }, [
-                            _vm._v("Company")
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-xs-2" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-xs-4" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", { attrs: { for: "calc_type" } }, [
+                                _vm._v("Calculate Type")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-select", {
+                                attrs: {
+                                  name: "calc_type",
+                                  label: "calc_type",
+                                  value: _vm.item.calc_type,
+                                  options: [
+                                    "Multiplication",
+                                    "Division",
+                                    "Special"
+                                  ]
+                                },
+                                on: { input: _vm.updateCalculateType }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "name" } }, [
+                              _vm._v("Currency Name")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "name",
+                                placeholder: "Enter Currency Name"
+                              },
+                              domProps: { value: _vm.item.name },
+                              on: { input: _vm.updateName }
+                            })
                           ]),
                           _vm._v(" "),
-                          _c("v-select", {
-                            attrs: {
-                              name: "company",
-                              label: "name",
-                              value: _vm.item.company,
-                              options: _vm.companiesAll
-                            },
-                            on: { input: _vm.updateCompany }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "first_name" } }, [
-                          _vm._v("First name")
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "code" } }, [
+                              _vm._v("Currency Code")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "code",
+                                placeholder: "Enter Currency Code"
+                              },
+                              domProps: { value: _vm.item.code },
+                              on: { input: _vm.updateCode }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "buy_code" } }, [
+                              _vm._v("Buy Code")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "buy_code",
+                                name: "buy_code",
+                                placeholder: "Enter Buy Code"
+                              },
+                              domProps: { value: _vm.item.buy_code },
+                              on: { input: _vm.updateBuyCode }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "sell_code" } }, [
+                              _vm._v("Sell Code")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "sell_code",
+                                placeholder: "Enter Sell Code"
+                              },
+                              domProps: { value: _vm.item.sell_code },
+                              on: { input: _vm.updateSellCode }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-xs-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "buy_rate_from" } },
+                                  [_vm._v("Buy Rate From")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "buy_rate_from",
+                                    placeholder: "Enter Buy Rate From"
+                                  },
+                                  domProps: { value: _vm.item.buy_rate_from },
+                                  on: { input: _vm.updateBuyRateFrom }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-xs-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", { attrs: { for: "buy_rate_to" } }, [
+                                  _vm._v("Buy Rate To")
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "buy_rate_to",
+                                    placeholder: "Enter Buy Rate To"
+                                  },
+                                  domProps: { value: _vm.item.buy_rate_to },
+                                  on: { input: _vm.updateBuyRateTo }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-xs-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "sell_rate_from" } },
+                                  [_vm._v("Sell Rate From")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "sell_rate_from",
+                                    placeholder: "Enter Sell Rate From"
+                                  },
+                                  domProps: { value: _vm.item.sell_rate_from },
+                                  on: { input: _vm.updateSellRateFrom }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-xs-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "sell_rate_to" } },
+                                  [_vm._v("Sell Rate To")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "sell_rate_to",
+                                    placeholder: "Enter Sell Rate To"
+                                  },
+                                  domProps: { value: _vm.item.sell_rate_to },
+                                  on: { input: _vm.updateSellRateTo }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "opening_balance" } }, [
+                              _vm._v("Opening Balance")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "opening_balance",
+                                placeholder: "Enter Opening Balance"
+                              },
+                              domProps: { value: _vm.item.opening_balance },
+                              on: { input: _vm.updateOpeningBalance }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "current_balance" } }, [
+                              _vm._v("Current Balance")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "current_balance",
+                                placeholder: "Enter Current Balance"
+                              },
+                              domProps: { value: _vm.item.current_balance }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "opening_avg_rate" } },
+                              [_vm._v("Opening Average Rate")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "opening_avg_rate",
+                                placeholder: "Enter Opening Average Rate"
+                              },
+                              domProps: { value: _vm.item.opening_avg_rate },
+                              on: { input: _vm.updateOpeningAverageRate }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "last_avg_rate" } }, [
+                              _vm._v("Last Average Rate")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "last_avg_rate",
+                                placeholder: "Enter Last Average Rate"
+                              },
+                              domProps: { value: _vm.item.last_avg_rate }
+                            })
+                          ])
                         ]),
                         _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "first_name",
-                            placeholder: "Enter First name"
-                          },
-                          domProps: { value: _vm.item.first_name },
-                          on: { input: _vm.updateFirst_name }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "last_name" } }, [
-                          _vm._v("Last name")
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-xs-12" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "bs_amount_dec_limit" } },
+                                  [_vm._v("Currency Flag Image")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { id: "flag_img", type: "file" },
+                                  on: { change: _vm.updateFlagImage }
+                                }),
+                                _vm._v(" "),
+                                _c("img", {
+                                  staticStyle: {
+                                    width: "100%",
+                                    "margin-top": "10px"
+                                  },
+                                  attrs: {
+                                    src: _vm.getFlagImage(),
+                                    id: "flag-img-tag"
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "bs_amount_dec_limit" } },
+                                  [_vm._v("BS Amount Dec Limit")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "bs_amount_dec_limit",
+                                    placeholder: "Enter BS Amount Dec Limit"
+                                  },
+                                  domProps: {
+                                    value: _vm.item.bs_amount_dec_limit
+                                  },
+                                  on: { input: _vm.updateBSAmountDecLimit }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "avg_rate_dec_limit" } },
+                                  [_vm._v("Average Rate Dec Limit")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "avg_rate_dec_limit",
+                                    placeholder: "Enter Average Rate Dec Limit"
+                                  },
+                                  domProps: {
+                                    value: _vm.item.avg_rate_dec_limit
+                                  },
+                                  on: { input: _vm.updateAverageRateDecLimit }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "balance_dec_limit" } },
+                                  [_vm._v("Balance Dec Limit")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "balance_dec_limit",
+                                    placeholder: "Enter Balance Dec Limit"
+                                  },
+                                  domProps: {
+                                    value: _vm.item.balance_dec_limit
+                                  },
+                                  on: { input: _vm.updateBalanceDecLimit }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "last_avg_rate_dec_limit" } },
+                                  [_vm._v("Last Average Rate Dec Limit")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "last_avg_rate_dec_limit",
+                                    placeholder:
+                                      "Enter Last Average Rate Dec Limit"
+                                  },
+                                  domProps: {
+                                    value: _vm.item.last_avg_rate_dec_limit
+                                  },
+                                  on: {
+                                    input: _vm.updataLastAverageRateDecLimit
+                                  }
+                                })
+                              ])
+                            ])
+                          ])
                         ]),
                         _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "last_name",
-                            placeholder: "Enter Last name"
-                          },
-                          domProps: { value: _vm.item.last_name },
-                          on: { input: _vm.updateLast_name }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "email" } }, [
-                          _vm._v("Email")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "email",
-                            name: "email",
-                            placeholder: "Enter Email"
-                          },
-                          domProps: { value: _vm.item.email },
-                          on: { input: _vm.updateEmail }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "phone" } }, [
-                          _vm._v("Phone")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "phone",
-                            placeholder: "Enter Phone"
-                          },
-                          domProps: { value: _vm.item.phone },
-                          on: { input: _vm.updatePhone }
-                        })
+                        _c("div", { staticClass: "col-xs-2" })
                       ])
                     ]),
                     _vm._v(" "),
@@ -30369,7 +32380,486 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "content-header" }, [
-      _c("h1", [_vm._v("Employees")])
+      _c("h1", [_vm._v("Currency")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Edit")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-60f4b908", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6306529d\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Currency/Create.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    { staticClass: "content-wrapper", staticStyle: { "min-height": "960px" } },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.submitForm($event)
+                  }
+                }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "box" },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "box-body" },
+                      [_c("back-buttton")],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("bootstrap-alert"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "box-body" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-2" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", { attrs: { for: "calc_type" } }, [
+                                _vm._v("Calculate Type")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-select", {
+                                attrs: {
+                                  name: "calc_type",
+                                  label: "calc_type",
+                                  value: _vm.item.calc_type,
+                                  options: [
+                                    "Multiplication",
+                                    "Division",
+                                    "Special"
+                                  ]
+                                },
+                                on: { input: _vm.updateCalculateType }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "name" } }, [
+                              _vm._v("Currency Name")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "name",
+                                placeholder: "Enter Currency Name"
+                              },
+                              domProps: { value: _vm.item.name },
+                              on: { input: _vm.updateName }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "code" } }, [
+                              _vm._v("Currency Code")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "code",
+                                placeholder: "Enter Currency Code"
+                              },
+                              domProps: { value: _vm.item.code },
+                              on: { input: _vm.updateCode }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "buy_code" } }, [
+                              _vm._v("Buy Code")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "buy_code",
+                                name: "buy_code",
+                                placeholder: "Enter Buy Code"
+                              },
+                              domProps: { value: _vm.item.buy_code },
+                              on: { input: _vm.updateBuyCode }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "sell_code" } }, [
+                              _vm._v("Sell Code")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "sell_code",
+                                placeholder: "Enter Sell Code"
+                              },
+                              domProps: { value: _vm.item.sell_code },
+                              on: { input: _vm.updateSellCode }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "buy_rate_from" } },
+                                  [_vm._v("Buy Rate From")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "buy_rate_from",
+                                    placeholder: "Enter Buy Rate From"
+                                  },
+                                  domProps: { value: _vm.item.buy_rate_from },
+                                  on: { input: _vm.updateBuyRateFrom }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", { attrs: { for: "buy_rate_to" } }, [
+                                  _vm._v("Buy Rate To")
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "buy_rate_to",
+                                    placeholder: "Enter Buy Rate To"
+                                  },
+                                  domProps: { value: _vm.item.buy_rate_to },
+                                  on: { input: _vm.updateBuyRateTo }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "sell_rate_from" } },
+                                  [_vm._v("Sell Rate From")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "sell_rate_from",
+                                    placeholder: "Enter Sell Rate From"
+                                  },
+                                  domProps: { value: _vm.item.sell_rate_from },
+                                  on: { input: _vm.updateSellRateFrom }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "sell_rate_to" } },
+                                  [_vm._v("Sell Rate To")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "sell_rate_to",
+                                    placeholder: "Enter Sell Rate To"
+                                  },
+                                  domProps: { value: _vm.item.sell_rate_to },
+                                  on: { input: _vm.updateSellRateTo }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "opening_balance" } }, [
+                              _vm._v("Opening Balance")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "opening_balance",
+                                placeholder: "Enter Opening Balance"
+                              },
+                              domProps: { value: _vm.item.opening_balance },
+                              on: { input: _vm.updateOpeningBalance }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "current_balance" } }, [
+                              _vm._v("Current Balance")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "current_balance",
+                                placeholder: "Enter Current Balance"
+                              },
+                              domProps: { value: _vm.item.current_balance }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "opening_avg_rate" } },
+                              [_vm._v("Opening Average Rate")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "opening_avg_rate",
+                                placeholder: "Enter Opening Average Rate"
+                              },
+                              domProps: { value: _vm.item.opening_avg_rate },
+                              on: { input: _vm.updateOpeningAverageRate }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "last_avg_rate" } }, [
+                              _vm._v("Last Average Rate")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "last_avg_rate",
+                                placeholder: "Enter Last Average Rate"
+                              },
+                              domProps: { value: _vm.item.last_avg_rate }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-md-12" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "bs_amount_dec_limit" } },
+                                  [_vm._v("Currency Flag Image")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { id: "flag_img", type: "file" },
+                                  on: { change: _vm.updateFlagImage }
+                                }),
+                                _vm._v(" "),
+                                _c("img", {
+                                  staticStyle: {
+                                    width: "100%",
+                                    "margin-top": "10px"
+                                  },
+                                  attrs: {
+                                    src: _vm.flag_image_show,
+                                    id: "flag-img-tag"
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "bs_amount_dec_limit" } },
+                                  [_vm._v("BS Amount Dec Limit")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "bs_amount_dec_limit",
+                                    placeholder: "Enter BS Amount Dec Limit"
+                                  },
+                                  domProps: {
+                                    value: _vm.item.bs_amount_dec_limit
+                                  },
+                                  on: { input: _vm.updateBSAmountDecLimit }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "avg_rate_dec_limit" } },
+                                  [_vm._v("Average Rate Dec Limit")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "avg_rate_dec_limit",
+                                    placeholder: "Enter Average Rate Dec Limit"
+                                  },
+                                  domProps: {
+                                    value: _vm.item.avg_rate_dec_limit
+                                  },
+                                  on: { input: _vm.updateAverageRateDecLimit }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "balance_dec_limit" } },
+                                  [_vm._v("Balance Dec Limit")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "balance_dec_limit",
+                                    placeholder: "Enter Balance Dec Limit"
+                                  },
+                                  domProps: {
+                                    value: _vm.item.balance_dec_limit
+                                  },
+                                  on: { input: _vm.updateBalanceDecLimit }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "last_avg_rate_dec_limit" } },
+                                  [_vm._v("Last Average Rate Dec Limit")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "last_avg_rate_dec_limit",
+                                    placeholder:
+                                      "Enter Last Average Rate Dec Limit"
+                                  },
+                                  domProps: {
+                                    value: _vm.item.last_avg_rate_dec_limit
+                                  },
+                                  on: {
+                                    input: _vm.updataLastAverageRateDecLimit
+                                  }
+                                })
+                              ])
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-2" })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "box-footer" },
+                      [
+                        _c(
+                          "vue-button-spinner",
+                          {
+                            staticClass: "btn btn-primary btn-sm",
+                            attrs: {
+                              isLoading: _vm.loading,
+                              disabled: _vm.loading
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Save\n                            "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "content-header" }, [
+      _c("h1", [_vm._v("Currency")])
     ])
   },
   function() {
@@ -31139,7 +33629,7 @@ var render = function() {
                               value: _vm.item.expire_date,
                               config: { format: "YYYY-MM-DD" }
                             },
-                            on: { input: _vm.updateExpire_date }
+                            on: { change: _vm.updateExpire_date }
                           })
                         ],
                         1
@@ -31935,93 +34425,377 @@ var render = function() {
                     _c("bootstrap-alert"),
                     _vm._v(" "),
                     _c("div", { staticClass: "box-body" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { attrs: { for: "company" } }, [
-                            _vm._v("Company")
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-xs-2" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-xs-4" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", { attrs: { for: "calc_type" } }, [
+                                _vm._v("Calculate Type")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-select", {
+                                attrs: {
+                                  name: "calc_type",
+                                  label: "calc_type",
+                                  value: _vm.item.calc_type,
+                                  options: [
+                                    "Multiplication",
+                                    "Division",
+                                    "Special"
+                                  ]
+                                },
+                                on: { input: _vm.updateCalculateType }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "name" } }, [
+                              _vm._v("Currency Name")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "name",
+                                placeholder: "Enter Currency Name"
+                              },
+                              domProps: { value: _vm.item.name },
+                              on: { input: _vm.updateName }
+                            })
                           ]),
                           _vm._v(" "),
-                          _c("v-select", {
-                            attrs: {
-                              name: "company",
-                              label: "name",
-                              value: _vm.item.company,
-                              options: _vm.companiesAll
-                            },
-                            on: { input: _vm.updateCompany }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "first_name" } }, [
-                          _vm._v("First name")
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "code" } }, [
+                              _vm._v("Currency Code")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "code",
+                                placeholder: "Enter Currency Code"
+                              },
+                              domProps: { value: _vm.item.code },
+                              on: { input: _vm.updateCode }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "buy_code" } }, [
+                              _vm._v("Buy Code")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "buy_code",
+                                name: "buy_code",
+                                placeholder: "Enter Buy Code"
+                              },
+                              domProps: { value: _vm.item.buy_code },
+                              on: { input: _vm.updateBuyCode }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "sell_code" } }, [
+                              _vm._v("Sell Code")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "sell_code",
+                                placeholder: "Enter Sell Code"
+                              },
+                              domProps: { value: _vm.item.sell_code },
+                              on: { input: _vm.updateSellCode }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-xs-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "buy_rate_from" } },
+                                  [_vm._v("Buy Rate From")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "buy_rate_from",
+                                    placeholder: "Enter Buy Rate From"
+                                  },
+                                  domProps: { value: _vm.item.buy_rate_from },
+                                  on: { input: _vm.updateBuyRateFrom }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-xs-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", { attrs: { for: "buy_rate_to" } }, [
+                                  _vm._v("Buy Rate To")
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "buy_rate_to",
+                                    placeholder: "Enter Buy Rate To"
+                                  },
+                                  domProps: { value: _vm.item.buy_rate_to },
+                                  on: { input: _vm.updateBuyRateTo }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-xs-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "sell_rate_from" } },
+                                  [_vm._v("Sell Rate From")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "sell_rate_from",
+                                    placeholder: "Enter Sell Rate From"
+                                  },
+                                  domProps: { value: _vm.item.sell_rate_from },
+                                  on: { input: _vm.updateSellRateFrom }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-xs-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "sell_rate_to" } },
+                                  [_vm._v("Sell Rate To")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "sell_rate_to",
+                                    placeholder: "Enter Sell Rate To"
+                                  },
+                                  domProps: { value: _vm.item.sell_rate_to },
+                                  on: { input: _vm.updateSellRateTo }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "opening_balance" } }, [
+                              _vm._v("Opening Balance")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "opening_balance",
+                                placeholder: "Enter Opening Balance"
+                              },
+                              domProps: { value: _vm.item.opening_balance },
+                              on: { input: _vm.updateOpeningBalance }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "current_balance" } }, [
+                              _vm._v("Current Balance")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "current_balance",
+                                placeholder: "Enter Current Balance"
+                              },
+                              domProps: { value: _vm.item.current_balance }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "opening_avg_rate" } },
+                              [_vm._v("Opening Average Rate")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "opening_avg_rate",
+                                placeholder: "Enter Opening Average Rate"
+                              },
+                              domProps: { value: _vm.item.opening_avg_rate },
+                              on: { input: _vm.updateOpeningAverageRate }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "last_avg_rate" } }, [
+                              _vm._v("Last Average Rate")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "last_avg_rate",
+                                placeholder: "Enter Last Average Rate"
+                              },
+                              domProps: { value: _vm.item.last_avg_rate }
+                            })
+                          ])
                         ]),
                         _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "first_name",
-                            placeholder: "Enter First name"
-                          },
-                          domProps: { value: _vm.item.first_name },
-                          on: { input: _vm.updateFirst_name }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "last_name" } }, [
-                          _vm._v("Last name")
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-xs-12" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "bs_amount_dec_limit" } },
+                                  [_vm._v("Currency Flag Image")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { id: "flag_img", type: "file" },
+                                  on: { change: _vm.updateFlagImage }
+                                }),
+                                _vm._v(" "),
+                                _c("img", {
+                                  staticStyle: {
+                                    width: "100%",
+                                    "margin-top": "10px"
+                                  },
+                                  attrs: {
+                                    src: _vm.getFlagImage(),
+                                    id: "flag-img-tag"
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "bs_amount_dec_limit" } },
+                                  [_vm._v("BS Amount Dec Limit")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "bs_amount_dec_limit",
+                                    placeholder: "Enter BS Amount Dec Limit"
+                                  },
+                                  domProps: {
+                                    value: _vm.item.bs_amount_dec_limit
+                                  },
+                                  on: { input: _vm.updateBSAmountDecLimit }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "avg_rate_dec_limit" } },
+                                  [_vm._v("Average Rate Dec Limit")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "avg_rate_dec_limit",
+                                    placeholder: "Enter Average Rate Dec Limit"
+                                  },
+                                  domProps: {
+                                    value: _vm.item.avg_rate_dec_limit
+                                  },
+                                  on: { input: _vm.updateAverageRateDecLimit }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "balance_dec_limit" } },
+                                  [_vm._v("Balance Dec Limit")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "balance_dec_limit",
+                                    placeholder: "Enter Balance Dec Limit"
+                                  },
+                                  domProps: {
+                                    value: _vm.item.balance_dec_limit
+                                  },
+                                  on: { input: _vm.updateBalanceDecLimit }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "last_avg_rate_dec_limit" } },
+                                  [_vm._v("Last Average Rate Dec Limit")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "last_avg_rate_dec_limit",
+                                    placeholder:
+                                      "Enter Last Average Rate Dec Limit"
+                                  },
+                                  domProps: {
+                                    value: _vm.item.last_avg_rate_dec_limit
+                                  },
+                                  on: {
+                                    input: _vm.updataLastAverageRateDecLimit
+                                  }
+                                })
+                              ])
+                            ])
+                          ])
                         ]),
                         _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "last_name",
-                            placeholder: "Enter Last name"
-                          },
-                          domProps: { value: _vm.item.last_name },
-                          on: { input: _vm.updateLast_name }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "email" } }, [
-                          _vm._v("Email")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "email",
-                            name: "email",
-                            placeholder: "Enter Email"
-                          },
-                          domProps: { value: _vm.item.email },
-                          on: { input: _vm.updateEmail }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "phone" } }, [
-                          _vm._v("Phone")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "phone",
-                            placeholder: "Enter Phone"
-                          },
-                          domProps: { value: _vm.item.phone },
-                          on: { input: _vm.updatePhone }
-                        })
+                        _c("div", { staticClass: "col-xs-2" })
                       ])
                     ]),
                     _vm._v(" "),
@@ -32064,7 +34838,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "content-header" }, [
-      _c("h1", [_vm._v("Employees")])
+      _c("h1", [_vm._v("Currency")])
     ])
   },
   function() {
@@ -32083,6 +34857,33 @@ if (false) {
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-ea46d22a", module.exports)
   }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-014bbc78\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Index.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-014bbc78\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Index.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("318a6a74", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-014bbc78\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Index.vue", function() {
+     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-014bbc78\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Index.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
 }
 
 /***/ }),
@@ -32212,6 +35013,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-126e0041\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Index.vue", function() {
      var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-126e0041\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Index.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-139e617a\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Create.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-139e617a\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Create.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("66977022", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-139e617a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Create.vue", function() {
+     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-139e617a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Create.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -32401,6 +35229,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-20369cfe\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Edit.vue", function() {
      var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-20369cfe\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Edit.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2575170a\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Show.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2575170a\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Show.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("53342a5d", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2575170a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Show.vue", function() {
+     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2575170a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Show.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -32752,6 +35607,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5faec504\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DatatableActions.vue", function() {
      var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5faec504\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DatatableActions.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60f4b908\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Edit.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60f4b908\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Edit.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("dc97c124", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60f4b908\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Edit.vue", function() {
+     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60f4b908\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Edit.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -34795,6 +37677,214 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/client/assets/js/components/cruds/Transaction/Create.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-139e617a\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Create.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Transaction/Create.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-139e617a\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Transaction/Create.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-139e617a"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/client/assets/js/components/cruds/Transaction/Create.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-139e617a", Component.options)
+  } else {
+    hotAPI.reload("data-v-139e617a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/client/assets/js/components/cruds/Transaction/Edit.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60f4b908\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Edit.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Transaction/Edit.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-60f4b908\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Transaction/Edit.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-60f4b908"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/client/assets/js/components/cruds/Transaction/Edit.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-60f4b908", Component.options)
+  } else {
+    hotAPI.reload("data-v-60f4b908", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/client/assets/js/components/cruds/Transaction/Index.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-014bbc78\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Index.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Transaction/Index.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-014bbc78\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Transaction/Index.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-014bbc78"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/client/assets/js/components/cruds/Transaction/Index.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-014bbc78", Component.options)
+  } else {
+    hotAPI.reload("data-v-014bbc78", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/client/assets/js/components/cruds/Transaction/Show.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2575170a\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/Show.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Transaction/Show.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-2575170a\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Transaction/Show.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-2575170a"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/client/assets/js/components/cruds/Transaction/Show.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2575170a", Component.options)
+  } else {
+    hotAPI.reload("data-v-2575170a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/client/assets/js/components/cruds/Users/Create.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35278,6 +38368,19 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_cruds_Currency_Show_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_30__components_cruds_Currency_Show_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_cruds_Currency_Edit_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Currency/Edit.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_cruds_Currency_Edit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_31__components_cruds_Currency_Edit_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_cruds_Transaction_Index_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Transaction/Index.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_cruds_Transaction_Index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_32__components_cruds_Transaction_Index_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_cruds_Transaction_Create_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Transaction/Create.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_cruds_Transaction_Create_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_33__components_cruds_Transaction_Create_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_cruds_Transaction_Show_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Transaction/Show.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_cruds_Transaction_Show_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_34__components_cruds_Transaction_Show_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_cruds_Transaction_Edit_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Transaction/Edit.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_cruds_Transaction_Edit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_35__components_cruds_Transaction_Edit_vue__);
+
+
+
+
+
 
 
 
@@ -35317,7 +38420,7 @@ module.exports = Component.exports
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]);
 
-var routes = [{ path: '/home', component: __WEBPACK_IMPORTED_MODULE_2__components_Home_vue___default.a, name: 'home.index' }, { path: '/change-password', component: __WEBPACK_IMPORTED_MODULE_3__components_ChangePassword_vue___default.a, name: 'auth.change_password' }, { path: '/roles', component: __WEBPACK_IMPORTED_MODULE_4__components_cruds_Roles_Index_vue___default.a, name: 'roles.index' }, { path: '/roles/create', component: __WEBPACK_IMPORTED_MODULE_5__components_cruds_Roles_Create_vue___default.a, name: 'roles.create' }, { path: '/roles/:id', component: __WEBPACK_IMPORTED_MODULE_6__components_cruds_Roles_Show_vue___default.a, name: 'roles.show' }, { path: '/roles/:id/edit', component: __WEBPACK_IMPORTED_MODULE_7__components_cruds_Roles_Edit_vue___default.a, name: 'roles.edit' }, { path: '/users', component: __WEBPACK_IMPORTED_MODULE_8__components_cruds_Users_Index_vue___default.a, name: 'users.index' }, { path: '/users/create', component: __WEBPACK_IMPORTED_MODULE_9__components_cruds_Users_Create_vue___default.a, name: 'users.create' }, { path: '/users/:id', component: __WEBPACK_IMPORTED_MODULE_10__components_cruds_Users_Show_vue___default.a, name: 'users.show' }, { path: '/users/:id/edit', component: __WEBPACK_IMPORTED_MODULE_11__components_cruds_Users_Edit_vue___default.a, name: 'users.edit' }, { path: '/companies', component: __WEBPACK_IMPORTED_MODULE_12__components_cruds_Companies_Index_vue___default.a, name: 'companies.index' }, { path: '/companies/create', component: __WEBPACK_IMPORTED_MODULE_13__components_cruds_Companies_Create_vue___default.a, name: 'companies.create' }, { path: '/companies/:id', component: __WEBPACK_IMPORTED_MODULE_14__components_cruds_Companies_Show_vue___default.a, name: 'companies.show' }, { path: '/companies/:id/edit', component: __WEBPACK_IMPORTED_MODULE_15__components_cruds_Companies_Edit_vue___default.a, name: 'companies.edit' }, { path: '/employees', component: __WEBPACK_IMPORTED_MODULE_16__components_cruds_Employees_Index_vue___default.a, name: 'employees.index' }, { path: '/employees/create', component: __WEBPACK_IMPORTED_MODULE_17__components_cruds_Employees_Create_vue___default.a, name: 'employees.create' }, { path: '/employees/:id', component: __WEBPACK_IMPORTED_MODULE_18__components_cruds_Employees_Show_vue___default.a, name: 'employees.show' }, { path: '/employees/:id/edit', component: __WEBPACK_IMPORTED_MODULE_19__components_cruds_Employees_Edit_vue___default.a, name: 'employees.edit' }, { path: '/customers', component: __WEBPACK_IMPORTED_MODULE_20__components_cruds_Customers_Index_vue___default.a, name: 'customers.index' }, { path: '/customers/create', component: __WEBPACK_IMPORTED_MODULE_21__components_cruds_Customers_Create_vue___default.a, name: 'customers.create' }, { path: '/customers/:id', component: __WEBPACK_IMPORTED_MODULE_22__components_cruds_Customers_Show_vue___default.a, name: 'customers.show' }, { path: '/customers/:id/edit', component: __WEBPACK_IMPORTED_MODULE_23__components_cruds_Customers_Edit_vue___default.a, name: 'customers.edit' }, { path: '/cases', component: __WEBPACK_IMPORTED_MODULE_24__components_cruds_Cases_Index_vue___default.a, name: 'cases.index' }, { path: '/cases/create', component: __WEBPACK_IMPORTED_MODULE_25__components_cruds_Cases_Create_vue___default.a, name: 'cases.create' }, { path: '/cases/:id', component: __WEBPACK_IMPORTED_MODULE_26__components_cruds_Cases_Show_vue___default.a, name: 'cases.show' }, { path: '/cases/:id/edit', component: __WEBPACK_IMPORTED_MODULE_27__components_cruds_Cases_Edit_vue___default.a, name: 'customers.edit' }, { path: '/currency', component: __WEBPACK_IMPORTED_MODULE_28__components_cruds_Currency_Index_vue___default.a, name: 'currency.index' }, { path: '/currency/create', component: __WEBPACK_IMPORTED_MODULE_29__components_cruds_Currency_Create_vue___default.a, name: 'currency.create' }, { path: '/currency/:id', component: __WEBPACK_IMPORTED_MODULE_30__components_cruds_Currency_Show_vue___default.a, name: 'currency.show' }, { path: '/currency/:id/edit', component: __WEBPACK_IMPORTED_MODULE_31__components_cruds_Currency_Edit_vue___default.a, name: 'currency.edit' }];
+var routes = [{ path: '/home', component: __WEBPACK_IMPORTED_MODULE_2__components_Home_vue___default.a, name: 'home.index' }, { path: '/change-password', component: __WEBPACK_IMPORTED_MODULE_3__components_ChangePassword_vue___default.a, name: 'auth.change_password' }, { path: '/roles', component: __WEBPACK_IMPORTED_MODULE_4__components_cruds_Roles_Index_vue___default.a, name: 'roles.index' }, { path: '/roles/create', component: __WEBPACK_IMPORTED_MODULE_5__components_cruds_Roles_Create_vue___default.a, name: 'roles.create' }, { path: '/roles/:id', component: __WEBPACK_IMPORTED_MODULE_6__components_cruds_Roles_Show_vue___default.a, name: 'roles.show' }, { path: '/roles/:id/edit', component: __WEBPACK_IMPORTED_MODULE_7__components_cruds_Roles_Edit_vue___default.a, name: 'roles.edit' }, { path: '/users', component: __WEBPACK_IMPORTED_MODULE_8__components_cruds_Users_Index_vue___default.a, name: 'users.index' }, { path: '/users/create', component: __WEBPACK_IMPORTED_MODULE_9__components_cruds_Users_Create_vue___default.a, name: 'users.create' }, { path: '/users/:id', component: __WEBPACK_IMPORTED_MODULE_10__components_cruds_Users_Show_vue___default.a, name: 'users.show' }, { path: '/users/:id/edit', component: __WEBPACK_IMPORTED_MODULE_11__components_cruds_Users_Edit_vue___default.a, name: 'users.edit' }, { path: '/companies', component: __WEBPACK_IMPORTED_MODULE_12__components_cruds_Companies_Index_vue___default.a, name: 'companies.index' }, { path: '/companies/create', component: __WEBPACK_IMPORTED_MODULE_13__components_cruds_Companies_Create_vue___default.a, name: 'companies.create' }, { path: '/companies/:id', component: __WEBPACK_IMPORTED_MODULE_14__components_cruds_Companies_Show_vue___default.a, name: 'companies.show' }, { path: '/companies/:id/edit', component: __WEBPACK_IMPORTED_MODULE_15__components_cruds_Companies_Edit_vue___default.a, name: 'companies.edit' }, { path: '/employees', component: __WEBPACK_IMPORTED_MODULE_16__components_cruds_Employees_Index_vue___default.a, name: 'employees.index' }, { path: '/employees/create', component: __WEBPACK_IMPORTED_MODULE_17__components_cruds_Employees_Create_vue___default.a, name: 'employees.create' }, { path: '/employees/:id', component: __WEBPACK_IMPORTED_MODULE_18__components_cruds_Employees_Show_vue___default.a, name: 'employees.show' }, { path: '/employees/:id/edit', component: __WEBPACK_IMPORTED_MODULE_19__components_cruds_Employees_Edit_vue___default.a, name: 'employees.edit' }, { path: '/customers', component: __WEBPACK_IMPORTED_MODULE_20__components_cruds_Customers_Index_vue___default.a, name: 'customers.index' }, { path: '/customers/create', component: __WEBPACK_IMPORTED_MODULE_21__components_cruds_Customers_Create_vue___default.a, name: 'customers.create' }, { path: '/customers/:id', component: __WEBPACK_IMPORTED_MODULE_22__components_cruds_Customers_Show_vue___default.a, name: 'customers.show' }, { path: '/customers/:id/edit', component: __WEBPACK_IMPORTED_MODULE_23__components_cruds_Customers_Edit_vue___default.a, name: 'customers.edit' }, { path: '/cases', component: __WEBPACK_IMPORTED_MODULE_24__components_cruds_Cases_Index_vue___default.a, name: 'cases.index' }, { path: '/cases/create', component: __WEBPACK_IMPORTED_MODULE_25__components_cruds_Cases_Create_vue___default.a, name: 'cases.create' }, { path: '/cases/:id', component: __WEBPACK_IMPORTED_MODULE_26__components_cruds_Cases_Show_vue___default.a, name: 'cases.show' }, { path: '/cases/:id/edit', component: __WEBPACK_IMPORTED_MODULE_27__components_cruds_Cases_Edit_vue___default.a, name: 'cases.edit' }, { path: '/currency', component: __WEBPACK_IMPORTED_MODULE_28__components_cruds_Currency_Index_vue___default.a, name: 'currency.index' }, { path: '/currency/create', component: __WEBPACK_IMPORTED_MODULE_29__components_cruds_Currency_Create_vue___default.a, name: 'currency.create' }, { path: '/currency/:id', component: __WEBPACK_IMPORTED_MODULE_30__components_cruds_Currency_Show_vue___default.a, name: 'currency.show' }, { path: '/currency/:id/edit', component: __WEBPACK_IMPORTED_MODULE_31__components_cruds_Currency_Edit_vue___default.a, name: 'currency.edit' },, { path: '/transaction', component: __WEBPACK_IMPORTED_MODULE_32__components_cruds_Transaction_Index_vue___default.a, name: 'transaction.index' }, { path: '/transaction/create', component: __WEBPACK_IMPORTED_MODULE_33__components_cruds_Transaction_Create_vue___default.a, name: 'transaction.create' }, { path: '/transaction/:id', component: __WEBPACK_IMPORTED_MODULE_34__components_cruds_Transaction_Show_vue___default.a, name: 'transaction.show' }, { path: '/transaction/:id/edit', component: __WEBPACK_IMPORTED_MODULE_35__components_cruds_Transaction_Edit_vue___default.a, name: 'transaction.edit' }];
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]({
     mode: 'history',
@@ -35348,8 +38451,12 @@ var routes = [{ path: '/home', component: __WEBPACK_IMPORTED_MODULE_2__component
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_Cases_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Cases/single.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_Currency__ = __webpack_require__("./resources/client/assets/js/store/modules/Currency/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_Currency_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Currency/single.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_alert__ = __webpack_require__("./resources/client/assets/js/store/modules/alert.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_change_password__ = __webpack_require__("./resources/client/assets/js/store/modules/change_password.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_Transaction__ = __webpack_require__("./resources/client/assets/js/store/modules/Transaction/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_Transaction_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Transaction/single.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_alert__ = __webpack_require__("./resources/client/assets/js/store/modules/alert.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__modules_change_password__ = __webpack_require__("./resources/client/assets/js/store/modules/change_password.js");
+
+
 
 
 
@@ -35378,8 +38485,8 @@ var debug = "development" !== 'production';
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["default"].Store({
     modules: {
-        Alert: __WEBPACK_IMPORTED_MODULE_16__modules_alert__["a" /* default */],
-        ChangePassword: __WEBPACK_IMPORTED_MODULE_17__modules_change_password__["a" /* default */],
+        Alert: __WEBPACK_IMPORTED_MODULE_18__modules_alert__["a" /* default */],
+        ChangePassword: __WEBPACK_IMPORTED_MODULE_19__modules_change_password__["a" /* default */],
         RolesIndex: __WEBPACK_IMPORTED_MODULE_2__modules_Roles__["a" /* default */],
         RolesSingle: __WEBPACK_IMPORTED_MODULE_3__modules_Roles_single__["a" /* default */],
         UsersIndex: __WEBPACK_IMPORTED_MODULE_4__modules_Users__["a" /* default */],
@@ -35393,7 +38500,9 @@ var debug = "development" !== 'production';
         CasesIndex: __WEBPACK_IMPORTED_MODULE_12__modules_Cases__["a" /* default */],
         CasesSingle: __WEBPACK_IMPORTED_MODULE_13__modules_Cases_single__["a" /* default */],
         CurrencyIndex: __WEBPACK_IMPORTED_MODULE_14__modules_Currency__["a" /* default */],
-        CurrencySingle: __WEBPACK_IMPORTED_MODULE_15__modules_Currency_single__["a" /* default */]
+        CurrencySingle: __WEBPACK_IMPORTED_MODULE_15__modules_Currency_single__["a" /* default */],
+        TransactionIndex: __WEBPACK_IMPORTED_MODULE_16__modules_Transaction__["a" /* default */],
+        TransactionSingle: __WEBPACK_IMPORTED_MODULE_17__modules_Transaction_single__["a" /* default */]
     },
     strict: debug
 }));
@@ -35505,14 +38614,10 @@ var mutations = {
 function initialState() {
     return {
         item: {
-            id: null,
-            company: null,
-            first_name: null,
-            last_name: null,
-            email: null,
-            phone: null
+            name: null,
+            opening_balance: null,
+            current_balance: null
         },
-        companiesAll: [],
         loading: false
     };
 }
@@ -35523,9 +38628,6 @@ var getters = {
     },
     loading: function loading(state) {
         return state.loading;
-    },
-    companiesAll: function companiesAll(state) {
-        return state.companiesAll;
     }
 };
 
@@ -35540,13 +38642,30 @@ var actions = {
 
         return new Promise(function (resolve, reject) {
             var params = _.cloneDeep(state.item);
-            if (!_.isEmpty(params.company)) {
-                params.company_id = params.company.id;
-            }
+            var config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            var formData = new FormData();
+            Object.keys(params).forEach(function (key) {
+                if (params[key] !== null) formData.append(key, params[key]);
+            });
+            axios.post('/api/v1/cases', formData, config).then(function (response) {
+                if (!response.data.hasCase) {
+                    var message = response.data.errors;
+                    var errors = response.data.errors;
 
-            axios.post('/api/v1/employees', params).then(function (response) {
-                commit('resetState');
-                resolve();
+                    dispatch('Alert/setAlert', {
+                        message: message,
+                        color: 'danger'
+                    }, {
+                        root: true
+                    });
+                } else {
+                    commit('resetState');
+                    resolve();
+                }
             }).catch(function (error) {
                 var message = error.response.data.message || error.message;
                 var errors = error.response.data.errors;
@@ -35569,11 +38688,17 @@ var actions = {
 
         return new Promise(function (resolve, reject) {
             var params = _.cloneDeep(state.item);
-            if (!_.isEmpty(params.company)) {
-                params.company_id = params.company.id;
-            }
+            var config = {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            };
+            var formData = new FormData();
+            formData.append("_method", "PATCH");
+            Object.keys(params).forEach(function (key) {
+                if (params[key] !== null) formData.append(key, params[key]);
+            });
 
-            axios.put('/api/v1/employees/' + params.id, params).then(function (response) {
+            axios.post('/api/v1/cases/' + params.id, formData, config).then(function (response) {
+                console.log(response);
                 commit('setItem', response.data.data);
                 resolve();
             }).catch(function (error) {
@@ -35592,46 +38717,28 @@ var actions = {
         var commit = _ref3.commit,
             dispatch = _ref3.dispatch;
 
-        axios.get('/api/v1/employees/' + id).then(function (response) {
+        axios.get('/api/v1/cases/' + id).then(function (response) {
+            response.data.data.password = null;
             commit('setItem', response.data.data);
         });
-
-        dispatch('fetchCompaniesAll');
     },
-    fetchCompaniesAll: function fetchCompaniesAll(_ref4) {
+    setName: function setName(_ref4, value) {
         var commit = _ref4.commit;
 
-        axios.get('/api/v1/companies').then(function (response) {
-            commit('setCompaniesAll', response.data.data);
-        });
+        commit('setName', value);
     },
-    setCompany: function setCompany(_ref5, value) {
+    setOpening_balance: function setOpening_balance(_ref5, value) {
         var commit = _ref5.commit;
 
-        commit('setCompany', value);
+        commit('setOpening_balance', value);
     },
-    setFirst_name: function setFirst_name(_ref6, value) {
+    setCurrent_balance: function setCurrent_balance(_ref6, value) {
         var commit = _ref6.commit;
 
-        commit('setFirst_name', value);
+        commit('setCurrent_balance', value);
     },
-    setLast_name: function setLast_name(_ref7, value) {
+    resetState: function resetState(_ref7) {
         var commit = _ref7.commit;
-
-        commit('setLast_name', value);
-    },
-    setEmail: function setEmail(_ref8, value) {
-        var commit = _ref8.commit;
-
-        commit('setEmail', value);
-    },
-    setPhone: function setPhone(_ref9, value) {
-        var commit = _ref9.commit;
-
-        commit('setPhone', value);
-    },
-    resetState: function resetState(_ref10) {
-        var commit = _ref10.commit;
 
         commit('resetState');
     }
@@ -35641,23 +38748,14 @@ var mutations = {
     setItem: function setItem(state, item) {
         state.item = item;
     },
-    setCompany: function setCompany(state, value) {
-        state.item.company = value;
+    setName: function setName(state, value) {
+        state.item.name = value;
     },
-    setFirst_name: function setFirst_name(state, value) {
-        state.item.first_name = value;
+    setOpening_balance: function setOpening_balance(state, value) {
+        state.item.opening_balance = value;
     },
-    setLast_name: function setLast_name(state, value) {
-        state.item.last_name = value;
-    },
-    setEmail: function setEmail(state, value) {
-        state.item.email = value;
-    },
-    setPhone: function setPhone(state, value) {
-        state.item.phone = value;
-    },
-    setCompaniesAll: function setCompaniesAll(state, value) {
-        state.companiesAll = value;
+    setCurrent_balance: function setCurrent_balance(state, value) {
+        state.item.current_balance = value;
     },
     setLoading: function setLoading(state, loading) {
         state.loading = loading;
@@ -36035,14 +39133,25 @@ var mutations = {
 function initialState() {
     return {
         item: {
-            id: null,
-            company: null,
-            first_name: null,
-            last_name: null,
-            email: null,
-            phone: null
+            name: null,
+            code: null,
+            buy_code: null,
+            sell_code: null,
+            buy_rate_from: null,
+            buy_rate_to: null,
+            sell_rate_from: null,
+            sell_rate_to: null,
+            opening_balance: null,
+            current_balance: null,
+            opening_avg_rate: null,
+            last_avg_rate: null,
+            calc_type: null,
+            bs_amount_dec_limit: null,
+            avg_rate_dec_limit: null,
+            balance_dec_limit: null,
+            last_avg_rate_dec_limit: null,
+            flag_img: null
         },
-        companiesAll: [],
         loading: false
     };
 }
@@ -36053,9 +39162,6 @@ var getters = {
     },
     loading: function loading(state) {
         return state.loading;
-    },
-    companiesAll: function companiesAll(state) {
-        return state.companiesAll;
     }
 };
 
@@ -36070,18 +39176,29 @@ var actions = {
 
         return new Promise(function (resolve, reject) {
             var params = _.cloneDeep(state.item);
-            if (!_.isEmpty(params.company)) {
-                params.company_id = params.company.id;
-            }
-
-            axios.post('/api/v1/employees', params).then(function (response) {
+            var config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            var formData = new FormData();
+            Object.keys(params).forEach(function (key) {
+                if (params[key] !== null) formData.append(key, params[key]);
+            });
+            axios.post('/api/v1/currency', formData, config).then(function (response) {
                 commit('resetState');
                 resolve();
             }).catch(function (error) {
                 var message = error.response.data.message || error.message;
                 var errors = error.response.data.errors;
 
-                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+                dispatch('Alert/setAlert', {
+                    message: message,
+                    errors: errors,
+                    color: 'danger'
+                }, {
+                    root: true
+                });
 
                 reject(error);
             }).finally(function () {
@@ -36099,11 +39216,16 @@ var actions = {
 
         return new Promise(function (resolve, reject) {
             var params = _.cloneDeep(state.item);
-            if (!_.isEmpty(params.company)) {
-                params.company_id = params.company.id;
-            }
-
-            axios.put('/api/v1/employees/' + params.id, params).then(function (response) {
+            var config = {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            };
+            var formData = new FormData();
+            formData.append("_method", "PATCH");
+            Object.keys(params).forEach(function (key) {
+                if (params[key] !== null) formData.append(key, params[key]);
+            });
+            axios.post('/api/v1/currency/' + params.id, formData, config).then(function (response) {
+                console.log(response);
                 commit('setItem', response.data.data);
                 resolve();
             }).catch(function (error) {
@@ -36122,46 +39244,102 @@ var actions = {
         var commit = _ref3.commit,
             dispatch = _ref3.dispatch;
 
-        axios.get('/api/v1/employees/' + id).then(function (response) {
+        axios.get('/api/v1/currency/' + id).then(function (response) {
             commit('setItem', response.data.data);
         });
-
-        dispatch('fetchCompaniesAll');
     },
-    fetchCompaniesAll: function fetchCompaniesAll(_ref4) {
+    setFlagImage: function setFlagImage(_ref4, value) {
         var commit = _ref4.commit;
 
-        axios.get('/api/v1/companies').then(function (response) {
-            commit('setCompaniesAll', response.data.data);
-        });
+        commit('setFlagImage', value);
     },
-    setCompany: function setCompany(_ref5, value) {
+    setName: function setName(_ref5, value) {
         var commit = _ref5.commit;
 
-        commit('setCompany', value);
+        commit('setName', value);
     },
-    setFirst_name: function setFirst_name(_ref6, value) {
+    setCode: function setCode(_ref6, value) {
         var commit = _ref6.commit;
 
-        commit('setFirst_name', value);
+        commit('setCode', value);
     },
-    setLast_name: function setLast_name(_ref7, value) {
+    setBuyCode: function setBuyCode(_ref7, value) {
         var commit = _ref7.commit;
 
-        commit('setLast_name', value);
+        commit('setBuyCode', value);
     },
-    setEmail: function setEmail(_ref8, value) {
+    setSellCode: function setSellCode(_ref8, value) {
         var commit = _ref8.commit;
 
-        commit('setEmail', value);
+        commit('setSellCode', value);
     },
-    setPhone: function setPhone(_ref9, value) {
+    setBuyRateFrom: function setBuyRateFrom(_ref9, value) {
         var commit = _ref9.commit;
 
-        commit('setPhone', value);
+        commit('setBuyRateFrom', value);
     },
-    resetState: function resetState(_ref10) {
+    setBuyRateTo: function setBuyRateTo(_ref10, value) {
         var commit = _ref10.commit;
+
+        commit('setBuyRateTo', value);
+    },
+    setSellRateFrom: function setSellRateFrom(_ref11, value) {
+        var commit = _ref11.commit;
+
+        commit('setSellRateFrom', value);
+    },
+    setSellRateTo: function setSellRateTo(_ref12, value) {
+        var commit = _ref12.commit;
+
+        commit('setSellRateTo', value);
+    },
+    setOpeningBalance: function setOpeningBalance(_ref13, value) {
+        var commit = _ref13.commit;
+
+        commit('setOpeningBalance', value);
+    },
+    setCurrentBalance: function setCurrentBalance(_ref14, value) {
+        var commit = _ref14.commit;
+
+        commit('setCurrentBalance', value);
+    },
+    setOpeningAverageRate: function setOpeningAverageRate(_ref15, value) {
+        var commit = _ref15.commit;
+
+        commit('setOpeningAverageRate', value);
+    },
+    setLastAverageRate: function setLastAverageRate(_ref16, value) {
+        var commit = _ref16.commit;
+
+        commit('setLastAverageRate', value);
+    },
+    setCalculateType: function setCalculateType(_ref17, value) {
+        var commit = _ref17.commit;
+
+        commit('setCalculateType', value);
+    },
+    setBSAmountDecLimit: function setBSAmountDecLimit(_ref18, value) {
+        var commit = _ref18.commit;
+
+        commit('setBSAmountDecLimit', value);
+    },
+    setAverageRateDecLimit: function setAverageRateDecLimit(_ref19, value) {
+        var commit = _ref19.commit;
+
+        commit('setAverageRateDecLimit', value);
+    },
+    setBalanceDecLimit: function setBalanceDecLimit(_ref20, value) {
+        var commit = _ref20.commit;
+
+        commit('setBalanceDecLimit', value);
+    },
+    setLastAverageRateDecLimit: function setLastAverageRateDecLimit(_ref21, value) {
+        var commit = _ref21.commit;
+
+        commit('setLastAverageRateDecLimit', value);
+    },
+    resetState: function resetState(_ref22) {
+        var commit = _ref22.commit;
 
         commit('resetState');
     }
@@ -36171,23 +39349,59 @@ var mutations = {
     setItem: function setItem(state, item) {
         state.item = item;
     },
-    setCompany: function setCompany(state, value) {
-        state.item.company = value;
+    setFlagImage: function setFlagImage(state, value) {
+        state.item.flag_img = value;
     },
-    setFirst_name: function setFirst_name(state, value) {
-        state.item.first_name = value;
+    setName: function setName(state, value) {
+        state.item.name = value;
     },
-    setLast_name: function setLast_name(state, value) {
-        state.item.last_name = value;
+    setCode: function setCode(state, value) {
+        state.item.code = value;
     },
-    setEmail: function setEmail(state, value) {
-        state.item.email = value;
+    setBuyCode: function setBuyCode(state, value) {
+        state.item.buy_code = value;
     },
-    setPhone: function setPhone(state, value) {
-        state.item.phone = value;
+    setSellCode: function setSellCode(state, value) {
+        state.item.sell_code = value;
     },
-    setCompaniesAll: function setCompaniesAll(state, value) {
-        state.companiesAll = value;
+    setBuyRateFrom: function setBuyRateFrom(state, value) {
+        state.item.buy_rate_from = value;
+    },
+    setBuyRateTo: function setBuyRateTo(state, value) {
+        state.item.buy_rate_to = value;
+    },
+    setSellRateFrom: function setSellRateFrom(state, value) {
+        state.item.sell_rate_from = value;
+    },
+    setSellRateTo: function setSellRateTo(state, value) {
+        state.item.sell_rate_to = value;
+    },
+    setOpeningBalance: function setOpeningBalance(state, value) {
+        state.item.opening_balance = value;
+    },
+    setCurrentBalance: function setCurrentBalance(state, value) {
+        state.item.current_balance = value;
+    },
+    setOpeningAverageRate: function setOpeningAverageRate(state, value) {
+        state.item.opening_avg_rate = value;
+    },
+    setLastAverageRate: function setLastAverageRate(state, value) {
+        state.item.last_avg_rate = value;
+    },
+    setCalculateType: function setCalculateType(state, value) {
+        state.item.calc_type = value;
+    },
+    setBSAmountDecLimit: function setBSAmountDecLimit(state, value) {
+        state.item.bs_amount_dec_limit = value;
+    },
+    setAverageRateDecLimit: function setAverageRateDecLimit(state, value) {
+        state.item.avg_rate_dec_limit = value;
+    },
+    setBalanceDecLimit: function setBalanceDecLimit(state, value) {
+        state.item.balance_dec_limit = value;
+    },
+    setLastAverageRateDecLimit: function setLastAverageRateDecLimit(state, value) {
+        state.item.last_avg_rate_dec_limit = value;
     },
     setLoading: function setLoading(state, loading) {
         state.loading = loading;
@@ -36364,7 +39578,6 @@ var actions = {
 
         return new Promise(function (resolve, reject) {
             var params = _.cloneDeep(state.item);
-            console.log(params);
             var config = {
                 headers: { 'Content-Type': 'multipart/form-data' }
             };
@@ -36451,103 +39664,108 @@ var actions = {
 
         commit('setPhone', value);
     },
-    setCompanyName: function setCompanyName(_ref8, value) {
+    setCustomerCode: function setCustomerCode(_ref8, value) {
         var commit = _ref8.commit;
+
+        commit('setCustomerCode', value);
+    },
+    setCompanyName: function setCompanyName(_ref9, value) {
+        var commit = _ref9.commit;
 
         commit('setCompanyName', value);
     },
-    setMobile: function setMobile(_ref9, value) {
-        var commit = _ref9.commit;
+    setMobile: function setMobile(_ref10, value) {
+        var commit = _ref10.commit;
 
         commit('setMobile', value);
     },
-    setFax: function setFax(_ref10, value) {
-        var commit = _ref10.commit;
+    setFax: function setFax(_ref11, value) {
+        var commit = _ref11.commit;
 
         commit('setFax', value);
     },
-    setBirthday: function setBirthday(_ref11, value) {
-        var commit = _ref11.commit;
+    setBirthday: function setBirthday(_ref12, value) {
+        var commit = _ref12.commit;
 
         commit('setBirthday', value);
     },
-    setEco_ben: function setEco_ben(_ref12, value) {
-        var commit = _ref12.commit;
+    setEco_ben: function setEco_ben(_ref13, value) {
+        var commit = _ref13.commit;
 
         commit('setEco_ben', value);
     },
-    setAddress: function setAddress(_ref13, value) {
-        var commit = _ref13.commit;
+    setAddress: function setAddress(_ref14, value) {
+        var commit = _ref14.commit;
 
         commit('setAddress', value);
     },
-    setCity: function setCity(_ref14, value) {
-        var commit = _ref14.commit;
+    setCity: function setCity(_ref15, value) {
+        var commit = _ref15.commit;
 
         commit('setCity', value);
     },
-    setCoutry: function setCoutry(_ref15, value) {
-        var commit = _ref15.commit;
-
-        commit('setCoutry', value);
-    },
-    setPassword: function setPassword(_ref16, value) {
+    setCountry: function setCountry(_ref16, value) {
         var commit = _ref16.commit;
+
+        commit('setCountry', value);
+    },
+    setPassword: function setPassword(_ref17, value) {
+        var commit = _ref17.commit;
 
         commit('setPassword', value);
     },
-    setName_id: function setName_id(_ref17, value) {
-        var commit = _ref17.commit;
+    setName_id: function setName_id(_ref18, value) {
+        var commit = _ref18.commit;
 
         commit('setName_id', value);
     },
-    setID_type: function setID_type(_ref18, value) {
-        var commit = _ref18.commit;
+    setID_type: function setID_type(_ref19, value) {
+        var commit = _ref19.commit;
 
         commit('setID_type', value);
     },
-    setID_number: function setID_number(_ref19, value) {
-        var commit = _ref19.commit;
+    setID_number: function setID_number(_ref20, value) {
+        var commit = _ref20.commit;
 
         commit('setID_number', value);
     },
-    setPlace_issue: function setPlace_issue(_ref20, value) {
-        var commit = _ref20.commit;
+    setPlace_issue: function setPlace_issue(_ref21, value) {
+        var commit = _ref21.commit;
 
         commit('setPlace_issue', value);
     },
-    setPlace_birthday: function setPlace_birthday(_ref21, value) {
-        var commit = _ref21.commit;
+    setPlace_birthday: function setPlace_birthday(_ref22, value) {
+        var commit = _ref22.commit;
 
         commit('setPlace_birthday', value);
     },
-    setNational: function setNational(_ref22, value) {
-        var commit = _ref22.commit;
+    setNational: function setNational(_ref23, value) {
+        var commit = _ref23.commit;
 
         commit('setNational', value);
     },
-    setExpire_date: function setExpire_date(_ref23, value) {
-        var commit = _ref23.commit;
+    setExpire_date: function setExpire_date(_ref24, value) {
+        var commit = _ref24.commit;
 
         commit('setExpire_date', value);
     },
-    setId_img: function setId_img(_ref24, value) {
-        var commit = _ref24.commit;
+    setId_img: function setId_img(_ref25, value) {
+        var commit = _ref25.commit;
 
         commit('setId_img', value);
     },
-    setComapny_img: function setComapny_img(_ref25, value) {
-        var commit = _ref25.commit;
-
-        commit('setComapny_img', value);
-    },
-    setMix_img: function setMix_img(_ref26, value) {
+    setCompany_img: function setCompany_img(_ref26, value) {
         var commit = _ref26.commit;
+
+        commit('setCompany_img', value);
+    },
+    setMix_img: function setMix_img(_ref27, value) {
+        var commit = _ref27.commit;
 
         commit('setMix_img', value);
     },
-    resetState: function resetState(_ref27) {
-        var commit = _ref27.commit;
+    resetState: function resetState(_ref28) {
+        var commit = _ref28.commit;
 
         commit('resetState');
     }
@@ -36591,9 +39809,9 @@ var mutations = {
         state.item.address = value;
     },
     setCity: function setCity(state, value) {
-        state.item.address = value;
+        state.item.city = value;
     },
-    setCoutry: function setCoutry(state, value) {
+    setCountry: function setCountry(state, value) {
         state.item.country = value;
     },
     setPassword: function setPassword(state, value) {
@@ -36623,7 +39841,7 @@ var mutations = {
     setId_img: function setId_img(state, value) {
         state.item.id_img = value;
     },
-    setComapny_img: function setComapny_img(state, value) {
+    setCompany_img: function setCompany_img(state, value) {
         state.item.company_img = value;
     },
     setMix_img: function setMix_img(state, value) {
@@ -37139,6 +40357,327 @@ var mutations = {
     },
     setLoading: function setLoading(state, loading) {
         state.loading = loading;
+    },
+    resetState: function resetState(state) {
+        state = Object.assign(state, initialState());
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: initialState,
+    getters: getters,
+    actions: actions,
+    mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/client/assets/js/store/modules/Transaction/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function initialState() {
+    return {
+        all: [],
+        query: {},
+        loading: false
+    };
+}
+
+var getters = {
+    data: function data(state) {
+        var rows = state.all;
+
+        if (state.query.sort) {
+            rows = _.orderBy(state.all, state.query.sort, state.query.order);
+        }
+
+        return rows.slice(state.query.offset, state.query.offset + state.query.limit);
+    },
+    total: function total(state) {
+        return state.all.length;
+    },
+    loading: function loading(state) {
+        return state.loading;
+    }
+};
+
+var actions = {
+    fetchData: function fetchData(_ref) {
+        var commit = _ref.commit,
+            state = _ref.state;
+
+        commit('setLoading', true);
+
+        axios.get('/api/v1/transaction').then(function (response) {
+            commit('setAll', response.data.data);
+        }).catch(function (error) {
+            message = error.response.data.message || error.message;
+            commit('setError', message);
+            console.log(message);
+        }).finally(function () {
+            commit('setLoading', false);
+        });
+    },
+    destroyData: function destroyData(_ref2, id) {
+        var commit = _ref2.commit,
+            state = _ref2.state;
+
+        axios.delete('/api/v1/transaction/' + id).then(function (response) {
+            commit('setAll', state.all.filter(function (item) {
+                return item.id != id;
+            }));
+        }).catch(function (error) {
+            message = error.response.data.message || error.message;
+            commit('setError', message);
+            console.log(message);
+        });
+    },
+    setQuery: function setQuery(_ref3, value) {
+        var commit = _ref3.commit;
+
+        commit('setQuery', purify(value));
+    },
+    resetState: function resetState(_ref4) {
+        var commit = _ref4.commit;
+
+        commit('resetState');
+    }
+};
+
+var mutations = {
+    setAll: function setAll(state, items) {
+        state.all = items;
+    },
+    setLoading: function setLoading(state, loading) {
+        state.loading = loading;
+    },
+    setQuery: function setQuery(state, query) {
+        state.query = query;
+    },
+    resetState: function resetState(state) {
+        state = Object.assign(state, initialState());
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: initialState,
+    getters: getters,
+    actions: actions,
+    mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/client/assets/js/store/modules/Transaction/single.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function initialState() {
+    return {
+        item: {
+            name: null,
+            currency_id: null,
+            amount: null,
+            rate: null,
+            paid_by_client: null,
+            return_to_client: null,
+            description: null,
+            profit: null,
+            type: null,
+            last_avg_rate: null,
+            current_balance: null
+        },
+        currency_all: [],
+        loading: false
+    };
+}
+
+var getters = {
+    item: function item(state) {
+        return state.item;
+    },
+    loading: function loading(state) {
+        return state.loading;
+    },
+    currency_all: function currency_all(state) {
+        return state.currency_all;
+    }
+};
+
+var actions = {
+    storeData: function storeData(_ref) {
+        var commit = _ref.commit,
+            state = _ref.state,
+            dispatch = _ref.dispatch;
+
+        commit('setLoading', true);
+        dispatch('Alert/resetState', null, { root: true });
+
+        return new Promise(function (resolve, reject) {
+            var params = _.cloneDeep(state.item);
+            var config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            var formData = new FormData();
+            Object.keys(params).forEach(function (key) {
+                if (params[key] !== null) formData.append(key, params[key]);
+            });
+            axios.post('/api/v1/transaction', formData, config).then(function (response) {
+                commit('resetState');
+                resolve();
+            }).catch(function (error) {
+                var message = error.response.data.message || error.message;
+                var errors = error.response.data.errors;
+
+                dispatch('Alert/setAlert', {
+                    message: message,
+                    errors: errors,
+                    color: 'danger'
+                }, {
+                    root: true
+                });
+
+                reject(error);
+            }).finally(function () {
+                commit('setLoading', false);
+            });
+        });
+    },
+    updateData: function updateData(_ref2) {
+        var commit = _ref2.commit,
+            state = _ref2.state,
+            dispatch = _ref2.dispatch;
+
+        commit('setLoading', true);
+        dispatch('Alert/resetState', null, { root: true });
+
+        return new Promise(function (resolve, reject) {
+            var params = _.cloneDeep(state.item);
+            var config = {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            };
+            var formData = new FormData();
+            formData.append("_method", "PATCH");
+            Object.keys(params).forEach(function (key) {
+                if (params[key] !== null) formData.append(key, params[key]);
+            });
+            axios.post('/api/v1/transaction/' + params.id, formData, config).then(function (response) {
+                console.log(response);
+                commit('setItem', response.data.data);
+                resolve();
+            }).catch(function (error) {
+                var message = error.response.data.message || error.message;
+                var errors = error.response.data.errors;
+
+                dispatch('Alert/setAlert', { message: message, errors: errors, color: 'danger' }, { root: true });
+
+                reject(error);
+            }).finally(function () {
+                commit('setLoading', false);
+            });
+        });
+    },
+    fetchData: function fetchData(_ref3, id) {
+        var commit = _ref3.commit,
+            dispatch = _ref3.dispatch;
+
+        axios.get('/api/v1/transaction/' + id).then(function (response) {
+            commit('setItem', response.data.data);
+        });
+
+        dispatch('fetchCurrencyAll');
+    },
+    fetchCurrencyAll: function fetchCurrencyAll(_ref4) {
+        var commit = _ref4.commit;
+
+        axios.get('/api/v1/currency').then(function (response) {
+            var currency_all = Array();
+            response.data.data.forEach(function (element) {
+                currency_all.push("Buy-" + element.buy_code + "-" + element.name + "-" + element.id);
+                currency_all.push("Sell-" + element.sell_code + "-" + element.name + "-" + element.id);
+            });
+            commit('setCurrencyAll', currency_all);
+        });
+    },
+    fetchCurrencyData: function fetchCurrencyData(_ref5, id) {
+        var commit = _ref5.commit;
+
+        axios.get('/api/v1/currency/' + id).then(function (response) {
+            commit('setCurrencyName', response.data.data.name);
+            commit('setCurrentBalance', response.data.data.current_balance);
+            commit('setLastAverageRate', response.data.data.last_avg_rate);
+        });
+    },
+    setBSAmount: function setBSAmount(_ref6, value) {
+        var commit = _ref6.commit;
+
+        commit('setBSAmount', value);
+    },
+    setBSRate: function setBSRate(_ref7, value) {
+        var commit = _ref7.commit;
+
+        commit('setBSRate', value);
+    },
+    setPaidByClient: function setPaidByClient(_ref8, value) {
+        var commit = _ref8.commit;
+
+        commit('setPaidByClient', value);
+    },
+    setReturnToClient: function setReturnToClient(_ref9, value) {
+        var commit = _ref9.commit;
+
+        commit('setReturnToClient', value);
+    },
+    setType: function setType(_ref10, value) {
+        var commit = _ref10.commit;
+
+        commit('setType', value);
+    },
+    resetState: function resetState(_ref11) {
+        var commit = _ref11.commit;
+
+        commit('resetState');
+    }
+};
+
+var mutations = {
+    setItem: function setItem(state, item) {
+        state.item = item;
+    },
+    setBSAmount: function setBSAmount(state, value) {
+        state.item.amount = value;
+    },
+    setBSRate: function setBSRate(state, value) {
+        state.item.rate = value;
+    },
+    setPaidByClient: function setPaidByClient(state, value) {
+        state.item.paid_by_client = value;
+    },
+    setReturnToClient: function setReturnToClient(state, value) {
+        state.item.return_to_client = value;
+    },
+    setLoading: function setLoading(state, loading) {
+        state.loading = loading;
+    },
+    setCurrencyAll: function setCurrencyAll(state, value) {
+        state.currency_all = value;
+    },
+    setCurrencyName: function setCurrencyName(state, value) {
+        state.item.name = value;
+    },
+    setCurrentBalance: function setCurrentBalance(state, value) {
+        state.item.current_balance = value;
+    },
+    setLastAverageRate: function setLastAverageRate(state, value) {
+        state.item.last_avg_rate = value;
+    },
+    setType: function setType(state, value) {
+        state.item.type = value;
     },
     resetState: function resetState(state) {
         state = Object.assign(state, initialState());

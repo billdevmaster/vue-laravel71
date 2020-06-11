@@ -1,7 +1,7 @@
 <template>
     <section class="content-wrapper" style="min-height: 960px;">
         <section class="content-header">
-            <h1>Currency</h1>
+            <h1>Transaction</h1>
         </section>
 
         <section class="content">
@@ -60,22 +60,26 @@ export default {
     data() {
         return {
             columns: [
-                { title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' },
-                { title: 'Name', field: 'name', sortable: true },
-                { title: 'Code', field: 'code', sortable: true },
-                { title: 'Current Balance', field: 'current_balance', sortable: true },
-                { title: 'Last Avg Rate', field: 'last_avg_rate', sortable: true },
-                { title: 'Buy Rate From', field: 'buy_rate_from', sortable: true },
-                { title: 'Buy Rate To', field: 'buy_rate_to', sortable: true },
-                { title: 'Sell Rate From', field: 'sell_rate_from', sortable: true },
-                { title: 'Sell Rate To', field: 'sell_rate_to', sortable: true },
-                { title: 'Calculation Type', field: 'calc_type', sortable: true },
+                { title: 'TransactionID', field: 'id', sortable: true },
+                { title: 'Type', field: 'calc_type', sortable: true },
+                { title: 'DateTime', field: 'created_at', sortable: true },
+                { title: 'Currency', field: 'code', sortable: true },
+                { title: 'B.Amount', field: 'current_balance', sortable: true },
+                { title: 'TTL For Buy', field: 'last_avg_rate', sortable: true },
+                { title: 'B / S Rate', field: 'buy_rate_from', sortable: true },
+                { title: 'S.Amount', field: 'buy_rate_to', sortable: true },
+                { title: 'TTL For Sell', field: 'sell_rate_from', sortable: true },
+                { title: 'Profit', field: 'sell_rate_to', sortable: true },
+                { title: 'Current Balance', field: 'calc_type', sortable: true },
+                { title: 'Last Average Rate', field: 'buy_rate_to', sortable: true },
+                { title: 'Paid Buy Client', field: 'sell_rate_from', sortable: true },
+                { title: 'Return To Client', field: 'sell_rate_to', sortable: true },
                 { title: 'Actions', tdComp: DatatableActions, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
             ],
             query: { sort: 'id', order: 'desc' },
             xprops: {
-                module: 'CurrencyIndex',
-                route: 'currency'
+                module: 'TransactionIndex',
+                route: 'transaction'
             }
         }
     },
@@ -86,7 +90,7 @@ export default {
         this.resetState()
     },
     computed: {
-        ...mapGetters('CurrencyIndex', ['data', 'total', 'loading', 'relationships']),
+        ...mapGetters('TransactionIndex', ['data', 'total', 'loading', 'relationships']),
     },
     watch: {
         query: {
@@ -97,7 +101,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions('CurrencyIndex', ['fetchData', 'setQuery', 'resetState']),
+        ...mapActions('TransactionIndex', ['fetchData', 'setQuery', 'resetState']),
     }
 }
 </script>

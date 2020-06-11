@@ -16,6 +16,8 @@ import CasesIndex from './modules/Cases'
 import CasesSingle from './modules/Cases/single'
 import CurrencyIndex from './modules/Currency'
 import CurrencySingle from './modules/Currency/single'
+import TransactionIndex from './modules/Transaction'
+import TransactionSingle from './modules/Transaction/single'
 
 import Alert from './modules/alert'
 import ChangePassword from './modules/change_password'
@@ -42,6 +44,8 @@ export default new Vuex.Store({
         CasesSingle,
         CurrencyIndex,
         CurrencySingle,
+        TransactionIndex,
+        TransactionSingle,
     },
     strict: debug,
 })

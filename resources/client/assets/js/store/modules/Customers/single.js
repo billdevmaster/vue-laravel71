@@ -45,7 +45,6 @@ const actions = {
 
         return new Promise((resolve, reject) => {
             let params = _.cloneDeep(state.item)
-            console.log(params);
             const config = {
                 headers: { 'Content-Type': 'multipart/form-data' }
             }
@@ -133,6 +132,9 @@ const actions = {
     setPhone({ commit }, value) {
         commit('setPhone', value)
     },
+    setCustomerCode({ commit }, value) {
+        commit('setCustomerCode', value)
+    },
     setCompanyName({ commit }, value) {
         commit('setCompanyName', value)
     },
@@ -154,8 +156,8 @@ const actions = {
     setCity({ commit }, value) {
         commit('setCity', value)
     },
-    setCoutry({ commit }, value) {
-        commit('setCoutry', value)
+    setCountry({ commit }, value) {
+        commit('setCountry', value)
     },
     setPassword({ commit }, value) {
         commit('setPassword', value)
@@ -184,8 +186,8 @@ const actions = {
     setId_img({ commit }, value) {
         commit('setId_img', value)
     },
-    setComapny_img({ commit }, value) {
-        commit('setComapny_img', value)
+    setCompany_img({ commit }, value) {
+        commit('setCompany_img', value)
     },
     setMix_img({ commit }, value) {
         commit('setMix_img', value)
@@ -234,9 +236,9 @@ const mutations = {
         state.item.address = value
     },
     setCity(state, value) {
-        state.item.address = value
+        state.item.city = value
     },
-    setCoutry(state, value) {
+    setCountry(state, value) {
         state.item.country = value
     },
     setPassword(state, value) {
@@ -266,7 +268,7 @@ const mutations = {
     setId_img(state, value) {
         state.item.id_img = value
     },
-    setComapny_img(state, value) {
+    setCompany_img(state, value) {
         state.item.company_img = value
     },
     setMix_img(state, value) {
