@@ -26,7 +26,7 @@ const actions = {
 
         axios.get('/api/v1/transaction')
             .then(response => {
-                commit('setAll', response.data.data)
+                commit('setAll', response.data)
             })
             .catch(error => {
                 message = error.response.data.message || error.message

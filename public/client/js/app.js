@@ -4341,6 +4341,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4391,10 +4400,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         updatePaidByClient: function updatePaidByClient(e) {
             this.setPaidByClient(e.target.value);
-        },
-        updateReturnToClient: function updateReturnToClient(e) {
-            console.log(e.target);
-            this.setReturnToClient(e.target.value);
+            this.setReturnToClient(e.target.value - this.item.total);
         },
         submitForm: function submitForm() {
             var _this = this;
@@ -4859,7 +4865,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            columns: [{ title: 'TransactionID', field: 'id', sortable: true }, { title: 'Type', field: 'calc_type', sortable: true }, { title: 'DateTime', field: 'created_at', sortable: true }, { title: 'Currency', field: 'code', sortable: true }, { title: 'B.Amount', field: 'current_balance', sortable: true }, { title: 'TTL For Buy', field: 'last_avg_rate', sortable: true }, { title: 'B / S Rate', field: 'buy_rate_from', sortable: true }, { title: 'S.Amount', field: 'buy_rate_to', sortable: true }, { title: 'TTL For Sell', field: 'sell_rate_from', sortable: true }, { title: 'Profit', field: 'sell_rate_to', sortable: true }, { title: 'Current Balance', field: 'calc_type', sortable: true }, { title: 'Last Average Rate', field: 'buy_rate_to', sortable: true }, { title: 'Paid Buy Client', field: 'sell_rate_from', sortable: true }, { title: 'Return To Client', field: 'sell_rate_to', sortable: true }, { title: 'Actions', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
+            columns: [{ title: 'TransactionID', field: 'id', sortable: true }, { title: 'Type', field: 'calc_type', sortable: true }, { title: 'DateTime', field: 'created_at', sortable: true }, { title: 'Currency', field: 'name', sortable: true }, { title: 'B.Amount', field: 'amount', sortable: true }, { title: 'TTL For Buy', field: 'total', sortable: true }, { title: 'B / S Rate', field: 'rate', sortable: true }, { title: 'S.Amount', field: 'amount', sortable: true }, { title: 'TTL For Sell', field: 'total', sortable: true }, { title: 'Profit', field: 'profit', sortable: true }, { title: 'Current Balance', field: 'current_balance', sortable: true }, { title: 'Last Average Rate', field: 'last_avg_rate', sortable: true }, { title: 'Paid By Client', field: 'paid_by_client', sortable: true }, { title: 'Return To Client', field: 'return_to_client', sortable: true }, { title: 'Actions', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
             query: { sort: 'id', order: 'desc' },
             xprops: {
                 module: 'TransactionIndex',
@@ -7706,7 +7712,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -29106,6 +29112,16 @@ var render = function() {
                               _c("input", {
                                 attrs: { type: "hidden", name: "type" },
                                 domProps: { value: _vm.item.type }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: { type: "hidden", name: "currency_id" },
+                                domProps: { value: _vm.item.currency_id }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: { type: "hidden", name: "calc_type" },
+                                domProps: { value: _vm.item.calc_type }
                               })
                             ],
                             1
@@ -29198,8 +29214,7 @@ var render = function() {
                                 name: "return_to_client",
                                 placeholder: "Enter Return To Client"
                               },
-                              domProps: { value: _vm.item.return_to_client },
-                              on: { input: _vm.updateReturnToClient }
+                              domProps: { value: _vm.item.return_to_client }
                             })
                           ])
                         ]),
@@ -40411,7 +40426,7 @@ var actions = {
         commit('setLoading', true);
 
         axios.get('/api/v1/transaction').then(function (response) {
-            commit('setAll', response.data.data);
+            commit('setAll', response.data);
         }).catch(function (error) {
             message = error.response.data.message || error.message;
             commit('setError', message);
@@ -40480,6 +40495,7 @@ function initialState() {
         item: {
             name: null,
             currency_id: null,
+            calc_type: null,
             amount: null,
             rate: null,
             paid_by_client: null,
@@ -40611,6 +40627,8 @@ var actions = {
             commit('setCurrencyName', response.data.data.name);
             commit('setCurrentBalance', response.data.data.current_balance);
             commit('setLastAverageRate', response.data.data.last_avg_rate);
+            commit('setCurrencyID', response.data.data.id);
+            commit('setCurrencyCalculationType', response.data.data.calc_type);
         });
     },
     setBSAmount: function setBSAmount(_ref6, value) {
@@ -40678,6 +40696,12 @@ var mutations = {
     },
     setType: function setType(state, value) {
         state.item.type = value;
+    },
+    setCurrencyID: function setCurrencyID(state, value) {
+        state.item.currency_id = value;
+    },
+    setCurrencyCalculationType: function setCurrencyCalculationType(state, value) {
+        state.item.calc_type = value;
     },
     resetState: function resetState(state) {
         state = Object.assign(state, initialState());

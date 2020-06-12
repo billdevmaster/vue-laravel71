@@ -37,6 +37,16 @@
                                                     name="type"
                                                     :value="item.type"
                                                     >
+                                            <input 
+                                                    type="hidden"
+                                                    name="currency_id"
+                                                    :value="item.currency_id"
+                                                    >
+                                            <input 
+                                                    type="hidden"
+                                                    name="calc_type"
+                                                    :value="item.calc_type"
+                                                    >
                                         </div>         
                                     </div>                                    
                                     <div class="col-md-4">
@@ -96,7 +106,6 @@
                                                     name="return_to_client"
                                                     placeholder="Enter Return To Client"
                                                     :value="item.return_to_client"
-                                                    @input="updateReturnToClient"
                                                     >
                                         </div>
                                     </div>     
@@ -240,10 +249,7 @@ export default {
         },
         updatePaidByClient(e) {
             this.setPaidByClient(e.target.value)
-        },
-        updateReturnToClient(e) {
-            console.log(e.target)
-            this.setReturnToClient(e.target.value)
+            this.setReturnToClient(e.target.value - this.item.total)
         },
         submitForm() {
             this.storeData()

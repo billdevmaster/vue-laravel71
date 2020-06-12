@@ -13,6 +13,7 @@ class Transaction extends Model
         'currency_id',
         'amount',
         'rate',
+        'total',
         'paid_by_client',
         'return_to_client',
         'description',

@@ -3,6 +3,7 @@ function initialState() {
         item: {
             name: null,
             currency_id: null,
+            calc_type: null,
             amount: null,
             rate: null,
             paid_by_client: null,
@@ -128,6 +129,8 @@ const actions = {
                 commit('setCurrencyName', response.data.data.name)
                 commit('setCurrentBalance', response.data.data.current_balance)
                 commit('setLastAverageRate', response.data.data.last_avg_rate)
+                commit('setCurrencyID', response.data.data.id)
+                commit('setCurrencyCalculationType', response.data.data.calc_type)
             })
     },
     setBSAmount({ commit }, value) {
@@ -183,6 +186,12 @@ const mutations = {
     },
     setType(state, value) {
         state.item.type = value
+    },
+    setCurrencyID(state, value) {
+        state.item.currency_id = value
+    },
+    setCurrencyCalculationType(state, value) {
+        state.item.calc_type = value
     },
     resetState(state) {
         state = Object.assign(state, initialState())
