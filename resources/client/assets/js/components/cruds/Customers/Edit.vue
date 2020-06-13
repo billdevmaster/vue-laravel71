@@ -370,8 +370,8 @@ export default {
             };
             reader.readAsDataURL(e.target.files[0]);
         },
-        updateExpire_date(e) {
-            this.setExpire_date(e.target.value);
+        updateExpire_date(value) {
+            this.setExpire_date(value);
         },
         updateNational(e) {
             this.setNational(e.target.value);
@@ -412,8 +412,8 @@ export default {
         updateFax(e) {
             this.setFax(e.target.value);
         },
-        updateBirthday(e) {
-            this.setBirthday(e.target.value);
+        updateBirthday(value) {
+            this.setBirthday(value);
         },
         updateEco_ben(e) {
             this.setEco_ben(e.target.value);

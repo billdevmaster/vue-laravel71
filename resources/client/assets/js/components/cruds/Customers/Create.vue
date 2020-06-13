@@ -246,16 +246,25 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                     <input id="id_img" type="file" class="form-control" v-on:change="updateId_img">
-                     <img :src="id_image_show" id="id-img-tag" style="width:100%;margin-top: 10px"/>
+                  <div class="form-group">
+                    <label for="">Customer Photo</label>
+                    <input id="id_img" type="file" class="form-control" v-on:change="updateId_img">
+                    <img :src="id_image_show" id="id-img-tag" style="width:100%;margin-top: 10px"/>
+                  </div>
                 </div>
                 <div class="col-md-4">
-                     <input id="company_img" type="file" class="form-control" v-on:change="updateCompany_img">
-                     <img :src="company_imgae_show" id="company-img-tag" style="width:100%;margin-top: 10px"/>
+                  <div class="form-group">
+                    <label for="">Company Image</label>
+                    <input id="company_img" type="file" class="form-control" v-on:change="updateCompany_img">
+                    <img :src="company_imgae_show" id="company-img-tag" style="width:100%;margin-top: 10px"/>
+                  </div>
                 </div>
                 <div class="col-md-4">
-                     <input id="mix_img" type="file" class="form-control" v-on:change="updateMix_img">
-                     <img :src="mix_image_show" id="mix-img-tag" style="width:100%;margin-top: 10px"/>
+                  <div class="form-group">
+                    <label for="">Mix Image</label>
+                    <input id="mix_img" type="file" class="form-control" v-on:change="updateMix_img">
+                    <img :src="mix_image_show" id="mix-img-tag" style="width:100%;margin-top: 10px"/>
+                  </div>
                 </div>
             </div>
           </div>
@@ -310,7 +319,7 @@ export default {
       "setEco_ben",
       "setAddress",
       "setCity",
-      "setCoutry",
+      "setCountry",
       "setPassword",
       "setName_id",
       "setID_type",
@@ -320,7 +329,7 @@ export default {
       "setNational",
       "setExpire_date",
       "setId_img",
-      "setComapny_img",
+      "setCompany_img",
       "setMix_img"
     ]),
 
@@ -334,7 +343,7 @@ export default {
         reader.readAsDataURL(e.target.files[0]);
     },
     updateCompany_img(e) {
-        this.setComapny_img(e.target.files[0]);
+        this.setCompany_img(e.target.files[0]);
         var image = new Image();
         var reader = new FileReader();
         reader.onload = (e) => {
@@ -351,8 +360,8 @@ export default {
         };
         reader.readAsDataURL(e.target.files[0]);
     },
-    updateExpire_date(e) {
-        this.setExpire_date(e.target.value);
+    updateExpire_date(value) {
+        this.setExpire_date(value);
     },
     updateNational(e) {
         this.setNational(e.target.value);
@@ -393,8 +402,8 @@ export default {
     updateFax(e) {
         this.setFax(e.target.value);
     },
-    updateBirthday(e) {
-        this.setBirthday(e.target.value);
+    updateBirthday(value) {
+        this.setBirthday(value);
     },
     updateEco_ben(e) {
         this.setEco_ben(e.target.value);
@@ -406,7 +415,7 @@ export default {
         this.setCity(e.target.value);
     },
     updateCountry(e) {
-        this.setCoutry(e.target.value);
+        this.setCountry(e.target.value);
     },
     updatePassword(e) {
         this.setPassword(e.target.value);

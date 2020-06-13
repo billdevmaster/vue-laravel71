@@ -2475,6 +2475,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2493,7 +2502,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("CustomersSingle", ["storeData", "resetState", "setFirst_name", "setLast_name", "setEmail", "setPhone", "setCustomerCode", "setCompanyName", "setMobile", "setFax", "setBirthday", "setEco_ben", "setAddress", "setCity", "setCoutry", "setPassword", "setName_id", "setID_type", "setID_number", "setPlace_issue", "setPlace_birthday", "setNational", "setExpire_date", "setId_img", "setComapny_img", "setMix_img"]), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])("CustomersSingle", ["storeData", "resetState", "setFirst_name", "setLast_name", "setEmail", "setPhone", "setCustomerCode", "setCompanyName", "setMobile", "setFax", "setBirthday", "setEco_ben", "setAddress", "setCity", "setCountry", "setPassword", "setName_id", "setID_type", "setID_number", "setPlace_issue", "setPlace_birthday", "setNational", "setExpire_date", "setId_img", "setCompany_img", "setMix_img"]), {
         updateId_img: function updateId_img(e) {
             var _this = this;
 
@@ -2508,7 +2517,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         updateCompany_img: function updateCompany_img(e) {
             var _this2 = this;
 
-            this.setComapny_img(e.target.files[0]);
+            this.setCompany_img(e.target.files[0]);
             var image = new Image();
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -2527,8 +2536,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             };
             reader.readAsDataURL(e.target.files[0]);
         },
-        updateExpire_date: function updateExpire_date(e) {
-            this.setExpire_date(e.target.value);
+        updateExpire_date: function updateExpire_date(value) {
+            this.setExpire_date(value);
         },
         updateNational: function updateNational(e) {
             this.setNational(e.target.value);
@@ -2569,8 +2578,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         updateFax: function updateFax(e) {
             this.setFax(e.target.value);
         },
-        updateBirthday: function updateBirthday(e) {
-            this.setBirthday(e.target.value);
+        updateBirthday: function updateBirthday(value) {
+            this.setBirthday(value);
         },
         updateEco_ben: function updateEco_ben(e) {
             this.setEco_ben(e.target.value);
@@ -2582,7 +2591,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.setCity(e.target.value);
         },
         updateCountry: function updateCountry(e) {
-            this.setCoutry(e.target.value);
+            this.setCountry(e.target.value);
         },
         updatePassword: function updatePassword(e) {
             this.setPassword(e.target.value);
@@ -2962,8 +2971,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             };
             reader.readAsDataURL(e.target.files[0]);
         },
-        updateExpire_date: function updateExpire_date(e) {
-            this.setExpire_date(e.target.value);
+        updateExpire_date: function updateExpire_date(value) {
+            this.setExpire_date(value);
         },
         updateNational: function updateNational(e) {
             this.setNational(e.target.value);
@@ -3004,8 +3013,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         updateFax: function updateFax(e) {
             this.setFax(e.target.value);
         },
-        updateBirthday: function updateBirthday(e) {
-            this.setBirthday(e.target.value);
+        updateBirthday: function updateBirthday(value) {
+            this.setBirthday(value);
         },
         updateEco_ben: function updateEco_ben(e) {
             this.setEco_ben(e.target.value);
@@ -7637,7 +7646,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -28699,45 +28708,63 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
                     _c("div", { staticClass: "col-md-4" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { id: "id_img", type: "file" },
-                        on: { change: _vm.updateId_img }
-                      }),
-                      _vm._v(" "),
-                      _c("img", {
-                        staticStyle: { width: "100%", "margin-top": "10px" },
-                        attrs: { src: _vm.id_image_show, id: "id-img-tag" }
-                      })
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Customer Photo")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { id: "id_img", type: "file" },
+                          on: { change: _vm.updateId_img }
+                        }),
+                        _vm._v(" "),
+                        _c("img", {
+                          staticStyle: { width: "100%", "margin-top": "10px" },
+                          attrs: { src: _vm.id_image_show, id: "id-img-tag" }
+                        })
+                      ])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { id: "company_img", type: "file" },
-                        on: { change: _vm.updateCompany_img }
-                      }),
-                      _vm._v(" "),
-                      _c("img", {
-                        staticStyle: { width: "100%", "margin-top": "10px" },
-                        attrs: {
-                          src: _vm.company_imgae_show,
-                          id: "company-img-tag"
-                        }
-                      })
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Company Image")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { id: "company_img", type: "file" },
+                          on: { change: _vm.updateCompany_img }
+                        }),
+                        _vm._v(" "),
+                        _c("img", {
+                          staticStyle: { width: "100%", "margin-top": "10px" },
+                          attrs: {
+                            src: _vm.company_imgae_show,
+                            id: "company-img-tag"
+                          }
+                        })
+                      ])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { id: "mix_img", type: "file" },
-                        on: { change: _vm.updateMix_img }
-                      }),
-                      _vm._v(" "),
-                      _c("img", {
-                        staticStyle: { width: "100%", "margin-top": "10px" },
-                        attrs: { src: _vm.mix_image_show, id: "mix-img-tag" }
-                      })
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Mix Image")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { id: "mix_img", type: "file" },
+                          on: { change: _vm.updateMix_img }
+                        }),
+                        _vm._v(" "),
+                        _c("img", {
+                          staticStyle: { width: "100%", "margin-top": "10px" },
+                          attrs: { src: _vm.mix_image_show, id: "mix-img-tag" }
+                        })
+                      ])
                     ])
                   ])
                 ]),

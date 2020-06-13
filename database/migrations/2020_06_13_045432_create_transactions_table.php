@@ -20,7 +20,7 @@ class CreateTransactionsTable extends Migration {
 			$table->integer('currency_id')->nullable();
 			$table->decimal('amount', 65, 5)->nullable();
 			$table->decimal('rate', 65, 5)->nullable();
-			$table->decimal('total', 65, 5)->nullable();
+			$table->decimal('total', 65, 0)->nullable();
 			$table->decimal('paid_by_client', 65, 5)->nullable();
 			$table->decimal('return_to_client', 65, 5)->nullable();
 			$table->decimal('description', 65, 5)->nullable();
