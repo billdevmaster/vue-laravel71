@@ -1,12 +1,12 @@
 <template>
     <section class="content-wrapper" style="min-height: 960px;">
         <section class="content-header">
-            <h1>Currency</h1>
+            <h1>Transaction</h1>
         </section>
 
         <section class="content">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-md-12">
                     <form @submit.prevent="submitForm">
                         <div class="box">
                             <div class="box-header with-border">
@@ -18,21 +18,98 @@
                             </div>
 
                             <bootstrap-alert />
-
-                            <div class="box-body">                    
+                            
+                            <div class="box-body">
                                 <div class="row">
-                                    <div class="col-xs-2"></div>
-                                    <div class="col-xs-4">         
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="calc_type">Calculate Type</label>
+                                            <label for="currency_code">Currency Code</label>
                                             <v-select
-                                                    name="calc_type"
-                                                    label="calc_type"
-                                                    @input="updateCalculateType"
-                                                    :value="item.calc_type"
-                                                    :options="['Multiplication', 'Division', 'Special']"
+                                                    name="currency_code"
+                                                    label="currency_code"
+                                                    @input="updateCurrencyCode"
+                                                    :value="item.currency_code"
+                                                    :options="currency_all"
                                                     />
-                                        </div>                               
+                                            <input 
+                                                    type="hidden"
+                                                    name="type"
+                                                    :value="item.type"
+                                                    >
+                                            <input 
+                                                    type="hidden"
+                                                    name="currency_id"
+                                                    :value="item.currency_id"
+                                                    >
+                                            <input 
+                                                    type="hidden"
+                                                    name="calc_type"
+                                                    :value="item.calc_type"
+                                                    >
+                                        </div>         
+                                    </div>                                    
+                                    <div class="col-md-4">
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>                    
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="amount">Buy / Sell Amount</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="amount"
+                                                    placeholder="Enter Buy / Sell Amount"
+                                                    :value="item.amount"
+                                                    @input="updateBSAmount"
+                                                    >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="rate">Buy / Sell Rate</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="rate"
+                                                    placeholder="Enter Buy / Sell Rate"
+                                                    :value="item.rate"
+                                                    @input="updateBSRate"
+                                                    >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="total">Total</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="total"
+                                                    :value="item.total"
+                                                    >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="paid_by_client">Paid By Client</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="paid_by_client"
+                                                    placeholder="Enter Paid By Client"
+                                                    :value="item.paid_by_client"
+                                                    @input="updatePaidByClient"
+                                                    >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="return_to_client">Return To Client</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="return_to_client"
+                                                    placeholder="Enter Return To Client"
+                                                    :value="item.return_to_client"
+                                                    >
+                                        </div>
+                                    </div>     
+                                    <div class="col-md-4">         
                                         <div class="form-group">
                                             <label for="name">Currency Name</label>
                                             <input
@@ -41,107 +118,6 @@
                                                     name="name"
                                                     placeholder="Enter Currency Name"
                                                     :value="item.name"
-                                                    @input="updateName"
-                                                    >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="code">Currency Code</label>
-                                            <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    name="code"
-                                                    placeholder="Enter Currency Code"
-                                                    :value="item.code"
-                                                    @input="updateCode"
-                                                    >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="buy_code">Buy Code</label>
-                                            <input
-                                                    type="buy_code"
-                                                    class="form-control"
-                                                    name="buy_code"
-                                                    placeholder="Enter Buy Code"
-                                                    :value="item.buy_code"
-                                                    @input="updateBuyCode"
-                                                    >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sell_code">Sell Code</label>
-                                            <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    name="sell_code"
-                                                    placeholder="Enter Sell Code"
-                                                    :value="item.sell_code"
-                                                    @input="updateSellCode"
-                                                    >
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-6">                                                
-                                                <div class="form-group">
-                                                    <label for="buy_rate_from">Buy Rate From</label>
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            name="buy_rate_from"
-                                                            placeholder="Enter Buy Rate From"
-                                                            :value="item.buy_rate_from"
-                                                            @input="updateBuyRateFrom"
-                                                            >
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <div class="form-group">
-                                                    <label for="buy_rate_to">Buy Rate To</label>
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            name="buy_rate_to"
-                                                            placeholder="Enter Buy Rate To"
-                                                            :value="item.buy_rate_to"
-                                                            @input="updateBuyRateTo"
-                                                            >
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-6">                  
-                                                <div class="form-group">
-                                                    <label for="sell_rate_from">Sell Rate From</label>
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            name="sell_rate_from"
-                                                            placeholder="Enter Sell Rate From"
-                                                            :value="item.sell_rate_from"
-                                                            @input="updateSellRateFrom"
-                                                            >
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <div class="form-group">
-                                                    <label for="sell_rate_to">Sell Rate To</label>
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            name="sell_rate_to"
-                                                            placeholder="Enter Sell Rate To"
-                                                            :value="item.sell_rate_to"
-                                                            @input="updateSellRateTo"
-                                                            >
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="opening_balance">Opening Balance</label>
-                                            <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    name="opening_balance"
-                                                    placeholder="Enter Opening Balance"
-                                                    :value="item.opening_balance"
-                                                    @input="updateOpeningBalance"
                                                     >
                                         </div>
                                         <div class="form-group">
@@ -155,83 +131,37 @@
                                                     >
                                         </div>
                                         <div class="form-group">
-                                            <label for="opening_avg_rate">Opening Average Rate</label>
-                                            <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    name="opening_avg_rate"
-                                                    placeholder="Enter Opening Average Rate"
-                                                    :value="item.opening_avg_rate"
-                                                    @input="updateOpeningAverageRate"
-                                                    >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="last_avg_rate">Last Average Rate</label>
+                                            <label for="last_avg_rate">Currency Average Rate</label>
                                             <input
                                                     type="text"
                                                     class="form-control"
                                                     name="last_avg_rate"
-                                                    placeholder="Enter Last Average Rate"
+                                                    placeholder="Enter Currency Average Rate"
                                                     :value="item.last_avg_rate"
                                                     >
                                         </div>
-                                    </div>     
-                                    <div class="col-md-4">         
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <div class="form-group">
-                                                    <label for="bs_amount_dec_limit">Currency Flag Image</label>
-                                                    <input id="flag_img" type="file" class="form-control" v-on:change="updateFlagImage">
-                                                    <img :src="getFlagImage()" id="flag-img-tag" style="width:100%; margin-top: 10px"/>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="bs_amount_dec_limit">BS Amount Dec Limit</label>
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            name="bs_amount_dec_limit"
-                                                            placeholder="Enter BS Amount Dec Limit"
-                                                            :value="item.bs_amount_dec_limit"
-                                                            @input="updateBSAmountDecLimit"
-                                                            >
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="avg_rate_dec_limit">Average Rate Dec Limit</label>
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            name="avg_rate_dec_limit"
-                                                            placeholder="Enter Average Rate Dec Limit"
-                                                            :value="item.avg_rate_dec_limit"
-                                                            @input="updateAverageRateDecLimit"
-                                                            >
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="balance_dec_limit">Balance Dec Limit</label>
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            name="balance_dec_limit"
-                                                            placeholder="Enter Balance Dec Limit"
-                                                            :value="item.balance_dec_limit"
-                                                            @input="updateBalanceDecLimit"
-                                                            >
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="last_avg_rate_dec_limit">Last Average Rate Dec Limit</label>
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            name="last_avg_rate_dec_limit"
-                                                            placeholder="Enter Last Average Rate Dec Limit"
-                                                            :value="item.last_avg_rate_dec_limit"
-                                                            @input="updataLastAverageRateDecLimit"
-                                                            >
-                                                </div>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="profit">Total Profit</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="profit"
+                                                    placeholder="Enter Total Profit"
+                                                    :value="item.profit"
+                                                    >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ttl_bs">Today TTL Buy / Sell</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="ttl_bs"
+                                                    placeholder="Enter Today TTL Buy / Sell"
+                                                    :value="item.ttl_bs"
+                                                    >
                                         </div>
                                     </div>                                       
-                                    <div class="col-xs-2"></div>
+                                    <div class="col-md-2"></div>
                                 </div>                     
                             </div>
 
@@ -259,14 +189,15 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
     data() {
         return {
-            flag_image_show: false,
+            flag_image_show: false
         };
     },
     computed: {
-        ...mapGetters('CurrencySingle', ['item', 'loading']),
+        ...mapGetters('TransactionSingle', ['item', 'loading', 'currency_all']),
     },
     created() {
         this.fetchData(this.$route.params.id)
+        this.fetchCurrencyAll()
     },
     destroyed() {
         this.resetState()
@@ -278,97 +209,60 @@ export default {
         }
     },
     methods: {
-        ...mapActions('CurrencySingle', ['fetchData', 
+        ...mapActions('TransactionSingle', [ 'fetchData', 
         'updateData', 
         'resetState', 
-        "setFlagImage",
-        "setName",
-        "setCode",
-        "setBuyCode",
-        "setSellCode",
-        "setBuyRateFrom",
-        "setBuyRateTo",
-        "setSellRateFrom",
-        "setSellRateTo",
-        "setOpeningBalance",
-        "setCurrentBalance",
-        "setOpeningAverageRate",
-        "setLastAverageRate",
-        "setCalculateType",
-        "setBSAmountDecLimit",
-        "setAverageRateDecLimit",
-        "setBalanceDecLimit",
-        "setLastAverageRateDecLimit"
+        "setBSAmount",
+        "setBSRate",
+        "setPaidByClient",
+        "setReturnToClient",
+        "setType",
+        "setTotal",
+        "fetchCurrencyAll",
+        "fetchCurrencyData"
         ]),
-        getFlagImage() {
-            let photo = (this.flag_image_show.length > 100) ? this.flag_image_show : "/images/flag/"+ this.item.flag_img;
-                return photo;
+        updateCurrencyCode(value) {
+            if (value != null) {
+                let currency_data = value.split("-")
+                this.fetchCurrencyData(currency_data[3])
+                if (currency_data[0] == 'Buy')
+                {
+                    this.setType(0)
+                    $('input[name="paid_by_client"]').attr('disabled', 'disabled')
+                    $('input[name="return_to_client"]').attr('disabled', 'disabled')
+                }
+                else
+                {
+                    this.setType(1)
+                    $('input[name="paid_by_client"]').removeAttr('disabled')
+                    $('input[name="return_to_client"]').removeAttr('disabled')
+                }
+            }
+            else 
+            {
+                this.resetState()
+            }
         },
-        updateFlagImage(e) {
-            this.setFlagImage(e.target.files[0]);
-            var image = new Image();
-            var reader = new FileReader();
-            reader.onload = (e) => {
-                this.flag_image_show = e.target.result;
-            };
-            reader.readAsDataURL(e.target.files[0]);
+        updateBSAmount(e) {
+            this.setBSAmount(e.target.value)
+            if (this.item.rate > 0) {
+                this.setTotal(this.item.rate * e.target.value)
+            }
         },
-        updateName(e) {
-            this.setName(e.target.value)
+        updateBSRate(e) {
+            this.setBSRate(e.target.value)
+            if (this.item.amount > 0) {
+                this.setTotal(this.item.amount * e.target.value)
+            }
         },
-        updateCode(e) {
-            this.setCode(e.target.value)
-        },
-        updateBuyCode(e) {
-            this.setBuyCode(e.target.value)
-        },
-        updateSellCode(e) {
-            this.setSellCode(e.target.value)
-        },
-        updateBuyRateFrom(e) {
-            console.log(e.target)
-            this.setBuyRateFrom(e.target.value)
-        },
-        updateBuyRateTo(e) {
-            this.setBuyRateTo(e.target.value)
-        },
-        updateSellRateFrom(e) {
-            this.setSellRateFrom(e.target.value)
-        },
-        updateSellRateTo(e) {
-            this.setSellRateTo(e.target.value)
-        },
-        updateOpeningBalance(e) {
-            this.setOpeningBalance(e.target.value)
-        },
-        updateCurrentBalance(e) {
-            this.setCurrentBalance(e.target.value)
-        },
-        updateOpeningAverageRate(e) {
-            this.setOpeningAverageRate(e.target.value)
-        },
-        updateLastAverageRate(e) {
-            this.setLastAverageRate(e.target.value)
-        },
-        updateCalculateType(value) {
-            this.setCalculateType(value)
-        },
-        updateBSAmountDecLimit(e) {
-            this.setBSAmountDecLimit(e.target.value)
-        },
-        updateAverageRateDecLimit(e) {
-            this.setAverageRateDecLimit(e.target.value)
-        },
-        updateBalanceDecLimit(e) {
-            this.setBalanceDecLimit(e.target.value)
-        },
-        updataLastAverageRateDecLimit(e) {
-            this.setLastAverageRateDecLimit(e.target.value)
+        updatePaidByClient(e) {
+            this.setPaidByClient(e.target.value)
+            this.setReturnToClient(e.target.value - this.item.total)
         },
         submitForm() {
             this.updateData()
                 .then(() => {
-                    this.$router.push({ name: 'currency.index' })
+                    this.$router.push({ name: 'transaction.index' })
                     this.$eventHub.$emit('update-success')
                 })
                 .catch((error) => {

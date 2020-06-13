@@ -1518,6 +1518,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
@@ -1559,7 +1561,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.setSellCode(e.target.value);
         },
         updateBuyRateFrom: function updateBuyRateFrom(e) {
-            console.log(e.target);
             this.setBuyRateFrom(e.target.value);
         },
         updateBuyRateTo: function updateBuyRateTo(e) {
@@ -1621,6 +1622,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
 //
 //
 //
@@ -4432,79 +4435,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4700,9 +4633,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('CurrencySingle', ['item', 'loading'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading', 'currency_all'])),
     created: function created() {
         this.fetchData(this.$route.params.id);
+        this.fetchCurrencyAll();
     },
     destroyed: function destroyed() {
         this.resetState();
@@ -4714,86 +4648,53 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.fetchData(this.$route.params.id);
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CurrencySingle', ['fetchData', 'updateData', 'resetState', "setFlagImage", "setName", "setCode", "setBuyCode", "setSellCode", "setBuyRateFrom", "setBuyRateTo", "setSellRateFrom", "setSellRateTo", "setOpeningBalance", "setCurrentBalance", "setOpeningAverageRate", "setLastAverageRate", "setCalculateType", "setBSAmountDecLimit", "setAverageRateDecLimit", "setBalanceDecLimit", "setLastAverageRateDecLimit"]), {
-        getFlagImage: function getFlagImage() {
-            var photo = this.flag_image_show.length > 100 ? this.flag_image_show : "/images/flag/" + this.item.flag_img;
-            return photo;
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionSingle', ['fetchData', 'updateData', 'resetState', "setBSAmount", "setBSRate", "setPaidByClient", "setReturnToClient", "setType", "setTotal", "fetchCurrencyAll", "fetchCurrencyData"]), {
+        updateCurrencyCode: function updateCurrencyCode(value) {
+            if (value != null) {
+                var currency_data = value.split("-");
+                this.fetchCurrencyData(currency_data[3]);
+                if (currency_data[0] == 'Buy') {
+                    this.setType(0);
+                    $('input[name="paid_by_client"]').attr('disabled', 'disabled');
+                    $('input[name="return_to_client"]').attr('disabled', 'disabled');
+                } else {
+                    this.setType(1);
+                    $('input[name="paid_by_client"]').removeAttr('disabled');
+                    $('input[name="return_to_client"]').removeAttr('disabled');
+                }
+            } else {
+                this.resetState();
+            }
         },
-        updateFlagImage: function updateFlagImage(e) {
-            var _this = this;
-
-            this.setFlagImage(e.target.files[0]);
-            var image = new Image();
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                _this.flag_image_show = e.target.result;
-            };
-            reader.readAsDataURL(e.target.files[0]);
+        updateBSAmount: function updateBSAmount(e) {
+            this.setBSAmount(e.target.value);
+            if (this.item.rate > 0) {
+                this.setTotal(this.item.rate * e.target.value);
+            }
         },
-        updateName: function updateName(e) {
-            this.setName(e.target.value);
+        updateBSRate: function updateBSRate(e) {
+            this.setBSRate(e.target.value);
+            if (this.item.amount > 0) {
+                this.setTotal(this.item.amount * e.target.value);
+            }
         },
-        updateCode: function updateCode(e) {
-            this.setCode(e.target.value);
-        },
-        updateBuyCode: function updateBuyCode(e) {
-            this.setBuyCode(e.target.value);
-        },
-        updateSellCode: function updateSellCode(e) {
-            this.setSellCode(e.target.value);
-        },
-        updateBuyRateFrom: function updateBuyRateFrom(e) {
-            console.log(e.target);
-            this.setBuyRateFrom(e.target.value);
-        },
-        updateBuyRateTo: function updateBuyRateTo(e) {
-            this.setBuyRateTo(e.target.value);
-        },
-        updateSellRateFrom: function updateSellRateFrom(e) {
-            this.setSellRateFrom(e.target.value);
-        },
-        updateSellRateTo: function updateSellRateTo(e) {
-            this.setSellRateTo(e.target.value);
-        },
-        updateOpeningBalance: function updateOpeningBalance(e) {
-            this.setOpeningBalance(e.target.value);
-        },
-        updateCurrentBalance: function updateCurrentBalance(e) {
-            this.setCurrentBalance(e.target.value);
-        },
-        updateOpeningAverageRate: function updateOpeningAverageRate(e) {
-            this.setOpeningAverageRate(e.target.value);
-        },
-        updateLastAverageRate: function updateLastAverageRate(e) {
-            this.setLastAverageRate(e.target.value);
-        },
-        updateCalculateType: function updateCalculateType(value) {
-            this.setCalculateType(value);
-        },
-        updateBSAmountDecLimit: function updateBSAmountDecLimit(e) {
-            this.setBSAmountDecLimit(e.target.value);
-        },
-        updateAverageRateDecLimit: function updateAverageRateDecLimit(e) {
-            this.setAverageRateDecLimit(e.target.value);
-        },
-        updateBalanceDecLimit: function updateBalanceDecLimit(e) {
-            this.setBalanceDecLimit(e.target.value);
-        },
-        updataLastAverageRateDecLimit: function updataLastAverageRateDecLimit(e) {
-            this.setLastAverageRateDecLimit(e.target.value);
+        updatePaidByClient: function updatePaidByClient(e) {
+            this.setPaidByClient(e.target.value);
+            this.setReturnToClient(e.target.value - this.item.total);
         },
         submitForm: function submitForm() {
-            var _this2 = this;
+            var _this = this;
 
             this.updateData().then(function () {
-                _this2.$router.push({ name: 'currency.index' });
-                _this2.$eventHub.$emit('update-success');
+                _this.$router.push({ name: 'transaction.index' });
+                _this.$eventHub.$emit('update-success');
             }).catch(function (error) {
                 console.error(error);
             });
         }
     })
 });
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
@@ -8051,7 +7952,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8066,7 +7967,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8246,7 +8147,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -31981,7 +31882,7 @@ var render = function() {
       _vm._v(" "),
       _c("section", { staticClass: "content" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-xs-12" }, [
+          _c("div", { staticClass: "col-md-12" }, [
             _c(
               "form",
               {
@@ -32010,34 +31911,138 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "box-body" }, [
                       _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-xs-2" }),
+                        _c("div", { staticClass: "col-md-2" }),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-xs-4" }, [
+                        _c("div", { staticClass: "col-md-4" }, [
                           _c(
                             "div",
                             { staticClass: "form-group" },
                             [
-                              _c("label", { attrs: { for: "calc_type" } }, [
-                                _vm._v("Calculate Type")
+                              _c("label", { attrs: { for: "currency_code" } }, [
+                                _vm._v("Currency Code")
                               ]),
                               _vm._v(" "),
                               _c("v-select", {
                                 attrs: {
-                                  name: "calc_type",
-                                  label: "calc_type",
-                                  value: _vm.item.calc_type,
-                                  options: [
-                                    "Multiplication",
-                                    "Division",
-                                    "Special"
-                                  ]
+                                  name: "currency_code",
+                                  label: "currency_code",
+                                  value: _vm.item.currency_code,
+                                  options: _vm.currency_all
                                 },
-                                on: { input: _vm.updateCalculateType }
+                                on: { input: _vm.updateCurrencyCode }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: { type: "hidden", name: "type" },
+                                domProps: { value: _vm.item.type }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: { type: "hidden", name: "currency_id" },
+                                domProps: { value: _vm.item.currency_id }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: { type: "hidden", name: "calc_type" },
+                                domProps: { value: _vm.item.calc_type }
                               })
                             ],
                             1
-                          ),
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-2" })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-2" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "amount" } }, [
+                              _vm._v("Buy / Sell Amount")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "amount",
+                                placeholder: "Enter Buy / Sell Amount"
+                              },
+                              domProps: { value: _vm.item.amount },
+                              on: { input: _vm.updateBSAmount }
+                            })
+                          ]),
                           _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "rate" } }, [
+                              _vm._v("Buy / Sell Rate")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "rate",
+                                placeholder: "Enter Buy / Sell Rate"
+                              },
+                              domProps: { value: _vm.item.rate },
+                              on: { input: _vm.updateBSRate }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "total" } }, [
+                              _vm._v("Total")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: { type: "text", name: "total" },
+                              domProps: { value: _vm.item.total }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "paid_by_client" } }, [
+                              _vm._v("Paid By Client")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "paid_by_client",
+                                placeholder: "Enter Paid By Client"
+                              },
+                              domProps: { value: _vm.item.paid_by_client },
+                              on: { input: _vm.updatePaidByClient }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "return_to_client" } },
+                              [_vm._v("Return To Client")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "return_to_client",
+                                placeholder: "Enter Return To Client"
+                              },
+                              domProps: { value: _vm.item.return_to_client }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
                           _c("div", { staticClass: "form-group" }, [
                             _c("label", { attrs: { for: "name" } }, [
                               _vm._v("Currency Name")
@@ -32050,162 +32055,7 @@ var render = function() {
                                 name: "name",
                                 placeholder: "Enter Currency Name"
                               },
-                              domProps: { value: _vm.item.name },
-                              on: { input: _vm.updateName }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("label", { attrs: { for: "code" } }, [
-                              _vm._v("Currency Code")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                name: "code",
-                                placeholder: "Enter Currency Code"
-                              },
-                              domProps: { value: _vm.item.code },
-                              on: { input: _vm.updateCode }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("label", { attrs: { for: "buy_code" } }, [
-                              _vm._v("Buy Code")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "buy_code",
-                                name: "buy_code",
-                                placeholder: "Enter Buy Code"
-                              },
-                              domProps: { value: _vm.item.buy_code },
-                              on: { input: _vm.updateBuyCode }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("label", { attrs: { for: "sell_code" } }, [
-                              _vm._v("Sell Code")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                name: "sell_code",
-                                placeholder: "Enter Sell Code"
-                              },
-                              domProps: { value: _vm.item.sell_code },
-                              on: { input: _vm.updateSellCode }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-xs-6" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c(
-                                  "label",
-                                  { attrs: { for: "buy_rate_from" } },
-                                  [_vm._v("Buy Rate From")]
-                                ),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    name: "buy_rate_from",
-                                    placeholder: "Enter Buy Rate From"
-                                  },
-                                  domProps: { value: _vm.item.buy_rate_from },
-                                  on: { input: _vm.updateBuyRateFrom }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-xs-6" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", { attrs: { for: "buy_rate_to" } }, [
-                                  _vm._v("Buy Rate To")
-                                ]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    name: "buy_rate_to",
-                                    placeholder: "Enter Buy Rate To"
-                                  },
-                                  domProps: { value: _vm.item.buy_rate_to },
-                                  on: { input: _vm.updateBuyRateTo }
-                                })
-                              ])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-xs-6" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c(
-                                  "label",
-                                  { attrs: { for: "sell_rate_from" } },
-                                  [_vm._v("Sell Rate From")]
-                                ),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    name: "sell_rate_from",
-                                    placeholder: "Enter Sell Rate From"
-                                  },
-                                  domProps: { value: _vm.item.sell_rate_from },
-                                  on: { input: _vm.updateSellRateFrom }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-xs-6" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c(
-                                  "label",
-                                  { attrs: { for: "sell_rate_to" } },
-                                  [_vm._v("Sell Rate To")]
-                                ),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    name: "sell_rate_to",
-                                    placeholder: "Enter Sell Rate To"
-                                  },
-                                  domProps: { value: _vm.item.sell_rate_to },
-                                  on: { input: _vm.updateSellRateTo }
-                                })
-                              ])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("label", { attrs: { for: "opening_balance" } }, [
-                              _vm._v("Opening Balance")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                name: "opening_balance",
-                                placeholder: "Enter Opening Balance"
-                              },
-                              domProps: { value: _vm.item.opening_balance },
-                              on: { input: _vm.updateOpeningBalance }
+                              domProps: { value: _vm.item.name }
                             })
                           ]),
                           _vm._v(" "),
@@ -32226,27 +32076,8 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group" }, [
-                            _c(
-                              "label",
-                              { attrs: { for: "opening_avg_rate" } },
-                              [_vm._v("Opening Average Rate")]
-                            ),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                name: "opening_avg_rate",
-                                placeholder: "Enter Opening Average Rate"
-                              },
-                              domProps: { value: _vm.item.opening_avg_rate },
-                              on: { input: _vm.updateOpeningAverageRate }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-group" }, [
                             _c("label", { attrs: { for: "last_avg_rate" } }, [
-                              _vm._v("Last Average Rate")
+                              _vm._v("Currency Average Rate")
                             ]),
                             _vm._v(" "),
                             _c("input", {
@@ -32254,132 +32085,46 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "last_avg_rate",
-                                placeholder: "Enter Last Average Rate"
+                                placeholder: "Enter Currency Average Rate"
                               },
                               domProps: { value: _vm.item.last_avg_rate }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "profit" } }, [
+                              _vm._v("Total Profit")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "profit",
+                                placeholder: "Enter Total Profit"
+                              },
+                              domProps: { value: _vm.item.profit }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "ttl_bs" } }, [
+                              _vm._v("Today TTL Buy / Sell")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "ttl_bs",
+                                placeholder: "Enter Today TTL Buy / Sell"
+                              },
+                              domProps: { value: _vm.item.ttl_bs }
                             })
                           ])
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-md-4" }, [
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-xs-12" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c(
-                                  "label",
-                                  { attrs: { for: "bs_amount_dec_limit" } },
-                                  [_vm._v("Currency Flag Image")]
-                                ),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: { id: "flag_img", type: "file" },
-                                  on: { change: _vm.updateFlagImage }
-                                }),
-                                _vm._v(" "),
-                                _c("img", {
-                                  staticStyle: {
-                                    width: "100%",
-                                    "margin-top": "10px"
-                                  },
-                                  attrs: {
-                                    src: _vm.getFlagImage(),
-                                    id: "flag-img-tag"
-                                  }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "form-group" }, [
-                                _c(
-                                  "label",
-                                  { attrs: { for: "bs_amount_dec_limit" } },
-                                  [_vm._v("BS Amount Dec Limit")]
-                                ),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    name: "bs_amount_dec_limit",
-                                    placeholder: "Enter BS Amount Dec Limit"
-                                  },
-                                  domProps: {
-                                    value: _vm.item.bs_amount_dec_limit
-                                  },
-                                  on: { input: _vm.updateBSAmountDecLimit }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "form-group" }, [
-                                _c(
-                                  "label",
-                                  { attrs: { for: "avg_rate_dec_limit" } },
-                                  [_vm._v("Average Rate Dec Limit")]
-                                ),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    name: "avg_rate_dec_limit",
-                                    placeholder: "Enter Average Rate Dec Limit"
-                                  },
-                                  domProps: {
-                                    value: _vm.item.avg_rate_dec_limit
-                                  },
-                                  on: { input: _vm.updateAverageRateDecLimit }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "form-group" }, [
-                                _c(
-                                  "label",
-                                  { attrs: { for: "balance_dec_limit" } },
-                                  [_vm._v("Balance Dec Limit")]
-                                ),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    name: "balance_dec_limit",
-                                    placeholder: "Enter Balance Dec Limit"
-                                  },
-                                  domProps: {
-                                    value: _vm.item.balance_dec_limit
-                                  },
-                                  on: { input: _vm.updateBalanceDecLimit }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "form-group" }, [
-                                _c(
-                                  "label",
-                                  { attrs: { for: "last_avg_rate_dec_limit" } },
-                                  [_vm._v("Last Average Rate Dec Limit")]
-                                ),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    name: "last_avg_rate_dec_limit",
-                                    placeholder:
-                                      "Enter Last Average Rate Dec Limit"
-                                  },
-                                  domProps: {
-                                    value: _vm.item.last_avg_rate_dec_limit
-                                  },
-                                  on: {
-                                    input: _vm.updataLastAverageRateDecLimit
-                                  }
-                                })
-                              ])
-                            ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-xs-2" })
+                        _c("div", { staticClass: "col-md-2" })
                       ])
                     ]),
                     _vm._v(" "),
@@ -32422,7 +32167,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "content-header" }, [
-      _c("h1", [_vm._v("Currency")])
+      _c("h1", [_vm._v("Transaction")])
     ])
   },
   function() {
@@ -32700,7 +32445,8 @@ var render = function() {
                                 name: "current_balance",
                                 placeholder: "Enter Current Balance"
                               },
-                              domProps: { value: _vm.item.current_balance }
+                              domProps: { value: _vm.item.current_balance },
+                              on: { input: _vm.updateCurrentBalance }
                             })
                           ]),
                           _vm._v(" "),
@@ -32735,7 +32481,8 @@ var render = function() {
                                 name: "last_avg_rate",
                                 placeholder: "Enter Last Average Rate"
                               },
-                              domProps: { value: _vm.item.last_avg_rate }
+                              domProps: { value: _vm.item.last_avg_rate },
+                              on: { input: _vm.updateLastAverageRate }
                             })
                           ])
                         ]),
@@ -34679,7 +34426,8 @@ var render = function() {
                                 name: "current_balance",
                                 placeholder: "Enter Current Balance"
                               },
-                              domProps: { value: _vm.item.current_balance }
+                              domProps: { value: _vm.item.current_balance },
+                              on: { input: _vm.updateCurrentBalance }
                             })
                           ]),
                           _vm._v(" "),
@@ -34714,7 +34462,8 @@ var render = function() {
                                 name: "last_avg_rate",
                                 placeholder: "Enter Last Average Rate"
                               },
-                              domProps: { value: _vm.item.last_avg_rate }
+                              domProps: { value: _vm.item.last_avg_rate },
+                              on: { input: _vm.updateLastAverageRate }
                             })
                           ])
                         ]),
@@ -38740,7 +38489,6 @@ var actions = {
             });
 
             axios.post('/api/v1/cases/' + params.id, formData, config).then(function (response) {
-                console.log(response);
                 commit('setItem', response.data.data);
                 resolve();
             }).catch(function (error) {
@@ -40467,6 +40215,11 @@ var actions = {
             state = _ref2.state;
 
         axios.delete('/api/v1/transaction/' + id).then(function (response) {
+            if (response.data.hasCase == false) {
+                console.log(response);
+                var _message = response.data.errors;
+                var errors = response.data.errors;
+            }
             commit('setAll', state.all.filter(function (item) {
                 return item.id != id;
             }));
@@ -40522,6 +40275,7 @@ function initialState() {
         item: {
             name: null,
             currency_id: null,
+            currency_code: null,
             calc_type: null,
             amount: null,
             rate: null,
@@ -40630,7 +40384,7 @@ var actions = {
             dispatch = _ref3.dispatch;
 
         axios.get('/api/v1/transaction/' + id).then(function (response) {
-            commit('setItem', response.data.data);
+            commit('setItem', response.data[0]);
         });
 
         dispatch('fetchCurrencyAll');
@@ -40683,8 +40437,13 @@ var actions = {
 
         commit('setType', value);
     },
-    resetState: function resetState(_ref11) {
+    setTotal: function setTotal(_ref11, value) {
         var commit = _ref11.commit;
+
+        commit('setTotal', value);
+    },
+    resetState: function resetState(_ref12) {
+        var commit = _ref12.commit;
 
         commit('resetState');
     }
@@ -40726,6 +40485,9 @@ var mutations = {
     },
     setCurrencyID: function setCurrencyID(state, value) {
         state.item.currency_id = value;
+    },
+    setTotal: function setTotal(state, value) {
+        state.item.total = value;
     },
     setCurrencyCalculationType: function setCurrencyCalculationType(state, value) {
         state.item.calc_type = value;

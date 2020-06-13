@@ -3,6 +3,7 @@ function initialState() {
         item: {
             name: null,
             currency_id: null,
+            currency_code: null,
             calc_type: null,
             amount: null,
             rate: null,
@@ -107,7 +108,7 @@ const actions = {
     fetchData({ commit, dispatch }, id) {
         axios.get('/api/v1/transaction/' + id)
             .then(response => {
-                commit('setItem', response.data.data)
+                commit('setItem', response.data[0])
             })
 
         dispatch('fetchCurrencyAll')
@@ -147,6 +148,9 @@ const actions = {
     },
     setType({ commit }, value) {
         commit('setType', value)
+    },
+    setTotal({ commit }, value) {
+        commit('setTotal', value)
     },
     resetState({ commit }) {
         commit('resetState')
@@ -189,6 +193,9 @@ const mutations = {
     },
     setCurrencyID(state, value) {
         state.item.currency_id = value
+    },
+    setTotal(state, value) {
+        state.item.total = value
     },
     setCurrencyCalculationType(state, value) {
         state.item.calc_type = value

@@ -40,6 +40,11 @@ const actions = {
     destroyData({ commit, state }, id) {
         axios.delete('/api/v1/transaction/' + id)
             .then(response => {
+                if (response.data.hasCase == false) {
+                    console.log(response)
+                    let message = response.data.errors
+                    let errors = response.data.errors
+                }
                 commit('setAll', state.all.filter((item) => {
                     return item.id != id
                 }))

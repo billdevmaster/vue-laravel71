@@ -23,6 +23,7 @@ class TransactionController extends Controller
                         'transactions.rate as rate', 
                         'transactions.total as total', 
                         'transactions.profit as profit', 
+                        'transactions.type as type', 
                         'transactions.current_balance as current_balance', 
                         'transactions.last_avg_rate as last_avg_rate', 
                         'transactions.paid_by_client as paid_by_client', 
@@ -34,9 +35,35 @@ class TransactionController extends Controller
 
     public function show($id)
     {
-        $transaction = Transaction::with([])->findOrFail($id);
+        $transactions = DB::table('transactions')
+          ->join('currencies', 'transactions.currency_id', '=', 'currencies.id')
+          ->where('transactions.id', '=', $id)
+          ->select(     'transactions.id as id', 
+                        'currencies.calc_type as calc_type', 
+                        'currencies.code as currency_code', 
+                        'currencies.buy_code as buy_code', 
+                        'currencies.sell_code as sell_code', 
+                        'currencies.name as name', 
+                        'currencies.id as currency_id', 
+                        'transactions.created_at as created_at', 
+                        'transactions.amount as amount', 
+                        'transactions.rate as rate', 
+                        'transactions.total as total', 
+                        'transactions.profit as profit', 
+                        'transactions.type as type', 
+                        'transactions.current_balance as current_balance', 
+                        'transactions.last_avg_rate as last_avg_rate', 
+                        'transactions.paid_by_client as paid_by_client', 
+                        'transactions.return_to_client as return_to_client' )
+          ->get();
+        if ($transactions[0]->type == 0)
+            $currency_code = 'Buy-'.$transactions[0]->buy_code.'-'.$transactions[0]->name.'-'.$transactions[0]->currency_id;
+        else
+            $currency_code = 'Sell-'.$transactions[0]->sell_code.'-'.$transactions[0]->name.'-'.$transactions[0]->currency_id;
+        
+        $transactions[0]->currency_code = $currency_code;
 
-        return new TransactionResource($transaction);
+        return json_encode($transactions);
     }
 
     public function store(Request $request)
@@ -114,16 +141,146 @@ class TransactionController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        request()->validate([
-            'name' => 'required|min:3|max:5',
-            'opening_balance' => 'required|numeric',
-            'current_balance' => 'required|numeric'
-        ]);
-        
+    {        
         $transaction = Transaction::findOrFail($id);
-        $transaction->update($request->all());
-        $transaction->touch();
+
+        $profit = 0;
+        if ($request->type == 0) 
+            $new_current_balance = $request->current_balance + $request->amount;
+        else
+            $new_current_balance = $request->current_balance - $request->amount;
+
+        switch ($request->calc_type) {
+            case 'Multiplication':
+                if ($request->type == 0) 
+                    $new_currency_avg_rate = ((($request->current_balance * $request->last_avg_rate) + ($request->amount * $request->rate)) / ($new_current_balance));
+                else
+                {
+                    $new_currency_avg_rate = ((($request->current_balance * $request->last_avg_rate) - ($request->amount * $request->last_avg_rate)) / ($new_current_balance));
+                    $profit = ($request->amount * $request->rate) - ($request->amount * $request->last_avg_rate);
+                }
+                break;
+            case 'Division':                
+                if ($request->type == 0) 
+                    $new_currency_avg_rate = (($new_current_balance) / (($request->current_balance / $request->last_avg_rate) + ($request->amount / $request->rate)));
+                else
+                {
+                    $new_currency_avg_rate = (($new_current_balance) / (($request->current_balance / $request->last_avg_rate) - ($request->amount / $request->last_avg_rate)));
+                    $profit = ($request->amount / $request->rate) - ($request->amount / $request->last_avg_rate);
+                }
+                break;
+            case 'Special':
+                if ($request->type == 0) 
+                    $new_currency_avg_rate = (($new_current_balance) / (($request->current_balance / $request->last_avg_rate) + ($request->amount / $request->rate)));
+                else
+                {
+                    $new_currency_avg_rate = (($new_current_balance) / (($request->current_balance / $request->last_avg_rate) - ($request->amount / $request->last_avg_rate)));
+                    $profit = ($request->amount / $request->rate) - ($request->amount / $request->last_avg_rate);
+                }
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+        $transaction_data = array(            
+            'name'              => $request->name,
+            'customer_id'       => $request->customer_id,
+            'currency_id'       => $request->currency_id,
+            'amount'            => $request->amount,
+            'rate'              => $request->rate,
+            'total'             => $request->amount * $request->rate,
+            'paid_by_client'    => $request->paid_by_client,
+            'return_to_client'  => $request->return_to_client,
+            'description'       => $request->description,
+            'profit'            => $profit,
+            'type'              => $request->type,
+            'last_avg_rate'     => $new_currency_avg_rate,
+            'current_balance'   => $new_current_balance
+        );
+
+        $transaction->update($transaction_data);
+        $transaction->touch();        
+
+        $transactions = DB::table('transactions')
+        ->join('currencies', 'transactions.currency_id', '=', 'currencies.id')
+        ->select(     'transactions.id as id', 
+                        'currencies.calc_type as calc_type', 
+                        'transactions.created_at as created_at', 
+                        'transactions.currency_id as currency_id', 
+                        'currencies.name as name', 
+                        'transactions.amount as amount', 
+                        'transactions.rate as rate', 
+                        'transactions.total as total', 
+                        'transactions.profit as profit', 
+                        'transactions.type as type', 
+                        'transactions.current_balance as current_balance', 
+                        'transactions.last_avg_rate as last_avg_rate', 
+                        'transactions.paid_by_client as paid_by_client', 
+                        'transactions.return_to_client as return_to_client' )
+        ->get();
+        
+        for ($i = 1; $i < count($transactions); $i++ ) {
+            $transaction = Transaction::findOrFail($transactions[$i]->id);
+                $profit = 0;
+                if ($transactions[$i]->type == 0) 
+                    $new_current_balance = $transactions[$i-1]->current_balance + $transactions[$i]->amount;
+                else
+                    $new_current_balance = $transactions[$i-1]->current_balance - $transactions[$i]->amount;
+
+                switch ($transactions[$i]->calc_type) {
+                    case 'Multiplication':
+                        if ($transactions[$i]->type == 0) 
+                            $new_currency_avg_rate = ((($transactions[$i-1]->current_balance * $transactions[$i-1]->last_avg_rate) + ($transactions[$i]->amount * $transactions[$i]->rate)) / ($new_current_balance));
+                        else
+                        {
+                            $new_currency_avg_rate = ((($transactions[$i-1]->current_balance * $transactions[$i-1]->last_avg_rate) - ($transactions[$i]->amount * $transactions[$i-1]->last_avg_rate)) / ($new_current_balance));
+                            $profit = ($transactions[$i]->amount * $transactions[$i]->rate) - ($transactions[$i]->amount * $transactions[$i-1]->last_avg_rate);
+                        }
+                        break;
+                    case 'Division':                
+                        if ($transactions[$i]->type == 0) 
+                            $new_currency_avg_rate = (($new_current_balance) / (($transactions[$i-1]->current_balance / $transactions[$i-1]->last_avg_rate) + ($transactions[$i]->amount / $transactions[$i]->rate)));
+                        else
+                        {
+                            $new_currency_avg_rate = (($new_current_balance) / (($transactions[$i-1]->current_balance / $transactions[$i-1]->last_avg_rate) - ($transactions[$i]->amount / $transactions[$i-1]->last_avg_rate)));
+                            $profit = ($transactions[$i]->amount / $transactions[$i]->rate) - ($transactions[$i]->amount / $transactions[$i-1]->last_avg_rate);
+                        }
+                        break;
+                    case 'Special':
+                        if ($transactions[$i]->type == 0) 
+                            $new_currency_avg_rate = (($new_current_balance) / (($transactions[$i-1]->current_balance / $transactions[$i-1]->last_avg_rate) + ($transactions[$i]->amount / $transactions[$i]->rate)));
+                        else
+                        {
+                            $new_currency_avg_rate = (($new_current_balance) / (($transactions[$i-1]->current_balance / $transactions[$i-1]->last_avg_rate) - ($transactions[$i]->amount / $transactions[$i-1]->last_avg_rate)));
+                            $profit = ($transactions[$i]->amount / $transactions[$i]->rate) - ($transactions[$i]->amount / $transactions[$i-1]->last_avg_rate);
+                        }
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
+
+                $transaction_data = array(            
+                    'profit'            => $profit,
+                    'last_avg_rate'     => $new_currency_avg_rate,
+                    'current_balance'   => $new_current_balance
+                );
+
+                $transaction->update($transaction_data); 
+                
+                $currency = Currency::findOrFail($transactions[$i]->currency_id);
+                
+                $currency_data = Array(
+                    'current_balance' => $new_current_balance,
+                    'last_avg_rate' => $new_currency_avg_rate
+                );
+                
+                $currency->update($currency_data);       
+        }
+        
         return (new TransactionResource($transaction))
             ->response()
             ->setStatusCode(202);
@@ -131,9 +288,96 @@ class TransactionController extends Controller
 
     public function destroy($id)
     {
-        $transaction = Transaction::findOrFail($id);
-        $transaction->delete();
+        $transaction = Transaction::findOrFail($id);   
 
-        return response(null, 204);
+        $first_transaction = DB::table('transactions')->first();
+
+        if($id != $first_transaction->id)
+        {
+            $transaction->delete();
+
+            $transactions = DB::table('transactions')
+            ->join('currencies', 'transactions.currency_id', '=', 'currencies.id')
+            ->select(     'transactions.id as id', 
+                            'currencies.calc_type as calc_type', 
+                            'transactions.created_at as created_at', 
+                            'transactions.currency_id as currency_id', 
+                            'currencies.name as name', 
+                            'transactions.amount as amount', 
+                            'transactions.rate as rate', 
+                            'transactions.total as total', 
+                            'transactions.profit as profit', 
+                            'transactions.type as type', 
+                            'transactions.current_balance as current_balance', 
+                            'transactions.last_avg_rate as last_avg_rate', 
+                            'transactions.paid_by_client as paid_by_client', 
+                            'transactions.return_to_client as return_to_client' )
+            ->get();
+            
+            for ($i = 1; $i < count($transactions); $i++ ) {
+                $transaction = Transaction::findOrFail($transactions[$i]->id);
+                    $profit = 0;
+                    if ($transactions[$i]->type == 0) 
+                        $new_current_balance = $transactions[$i-1]->current_balance + $transactions[$i]->amount;
+                    else
+                        $new_current_balance = $transactions[$i-1]->current_balance - $transactions[$i]->amount;
+
+                    switch ($transactions[$i]->calc_type) {
+                        case 'Multiplication':
+                            if ($transactions[$i]->type == 0) 
+                                $new_currency_avg_rate = ((($transactions[$i-1]->current_balance * $transactions[$i-1]->last_avg_rate) + ($transactions[$i]->amount * $transactions[$i]->rate)) / ($new_current_balance));
+                            else
+                            {
+                                $new_currency_avg_rate = ((($transactions[$i-1]->current_balance * $transactions[$i-1]->last_avg_rate) - ($transactions[$i]->amount * $transactions[$i-1]->last_avg_rate)) / ($new_current_balance));
+                                $profit = ($transactions[$i]->amount * $transactions[$i]->rate) - ($transactions[$i]->amount * $transactions[$i-1]->last_avg_rate);
+                            }
+                            break;
+                        case 'Division':                
+                            if ($transactions[$i]->type == 0) 
+                                $new_currency_avg_rate = (($new_current_balance) / (($transactions[$i-1]->current_balance / $transactions[$i-1]->last_avg_rate) + ($transactions[$i]->amount / $transactions[$i]->rate)));
+                            else
+                            {
+                                $new_currency_avg_rate = (($new_current_balance) / (($transactions[$i-1]->current_balance / $transactions[$i-1]->last_avg_rate) - ($transactions[$i]->amount / $transactions[$i-1]->last_avg_rate)));
+                                $profit = ($transactions[$i]->amount / $transactions[$i]->rate) - ($transactions[$i]->amount / $transactions[$i-1]->last_avg_rate);
+                            }
+                            break;
+                        case 'Special':
+                            if ($transactions[$i]->type == 0) 
+                                $new_currency_avg_rate = (($new_current_balance) / (($transactions[$i-1]->current_balance / $transactions[$i-1]->last_avg_rate) + ($transactions[$i]->amount / $transactions[$i]->rate)));
+                            else
+                            {
+                                $new_currency_avg_rate = (($new_current_balance) / (($transactions[$i-1]->current_balance / $transactions[$i-1]->last_avg_rate) - ($transactions[$i]->amount / $transactions[$i-1]->last_avg_rate)));
+                                $profit = ($transactions[$i]->amount / $transactions[$i]->rate) - ($transactions[$i]->amount / $transactions[$i-1]->last_avg_rate);
+                            }
+                            break;
+                        
+                        default:
+                            # code...
+                            break;
+                    }
+
+                    $transaction_data = array(            
+                        'profit'            => $profit,
+                        'last_avg_rate'     => $new_currency_avg_rate,
+                        'current_balance'   => $new_current_balance
+                    );
+
+                    $transaction->update($transaction_data); 
+                    
+                    $currency = Currency::findOrFail($transactions[$i]->currency_id);
+                    
+                    $currency_data = Array(
+                        'current_balance' => $new_current_balance,
+                        'last_avg_rate' => $new_currency_avg_rate
+                    );
+                    
+                    $currency->update($currency_data);       
+            }
+
+            return response(null, 204);
+        }
+        else            
+            return response()->json(['hasCase'=>false,'errors'=>'First Transaction can not be removed!!!']);
+
     }
 }

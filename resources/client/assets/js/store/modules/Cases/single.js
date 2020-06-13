@@ -86,7 +86,6 @@ const actions = {
             
             axios.post('/api/v1/cases/' + params.id, formData, config)
                 .then(response => {
-                    console.log(response)
                     commit('setItem', response.data.data)
                     resolve()
                 })

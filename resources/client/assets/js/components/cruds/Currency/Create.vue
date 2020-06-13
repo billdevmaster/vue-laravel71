@@ -152,6 +152,7 @@
                                                     name="current_balance"
                                                     placeholder="Enter Current Balance"
                                                     :value="item.current_balance"
+                                                    @input="updateCurrentBalance"
                                                     >
                                         </div>
                                         <div class="form-group">
@@ -173,6 +174,7 @@
                                                     name="last_avg_rate"
                                                     placeholder="Enter Last Average Rate"
                                                     :value="item.last_avg_rate"
+                                                    @input="updateLastAverageRate"
                                                     >
                                         </div>
                                     </div>     
@@ -315,7 +317,6 @@ export default {
             this.setSellCode(e.target.value)
         },
         updateBuyRateFrom(e) {
-            console.log(e.target)
             this.setBuyRateFrom(e.target.value)
         },
         updateBuyRateTo(e) {
