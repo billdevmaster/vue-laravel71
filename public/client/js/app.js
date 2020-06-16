@@ -575,6 +575,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -1622,8 +1623,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
-//
 //
 //
 //
@@ -4362,6 +4361,46 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4372,19 +4411,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading', 'currency_all'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading', 'currency_all', 'customer_all'])),
     created: function created() {
         this.fetchCurrencyAll();
+        this.fetchCustomerAll();
     },
     destroyed: function destroyed() {
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionSingle', ['storeData', 'resetState', "setBSAmount", "setBSRate", "setPaidByClient", "setReturnToClient", "setType", "fetchCurrencyAll", "fetchCurrencyData"]), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionSingle', ['storeData', 'resetState', "setBSAmount", "setBSRate", "setPaidByClient", "setReturnToClient", "setType", "setTotal", "setCustomerCode", "fetchCurrencyAll", "fetchCurrencyData", "fetchCustomerAll"]), {
         updateCurrencyCode: function updateCurrencyCode(value) {
             if (value != null) {
                 var currency_data = value.split("-");
-                this.fetchCurrencyData(currency_data[3]);
+                this.fetchCurrencyData(currency_data[3] + '-' + currency_data[0]);
                 if (currency_data[0] == 'Buy') {
                     this.setType(0);
                     $('input[name="paid_by_client"]').attr('disabled', 'disabled');
@@ -4394,20 +4434,49 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     $('input[name="paid_by_client"]').removeAttr('disabled');
                     $('input[name="return_to_client"]').removeAttr('disabled');
                 }
-            } else {
-                this.resetState();
+            }
+        },
+        updateCustomer: function updateCustomer(value) {
+            if (value != null) {
+                var customer_data = value.split("-");
+                this.setCustomerCode(customer_data[0]);
             }
         },
         updateBSAmount: function updateBSAmount(e) {
-            this.setBSAmount(e.target.value);
-            if (this.item.rate > 0) {
-                this.item.total = this.item.rate * e.target.value;
+            var decimal = e.target.value.split('.');
+            if (decimal.length > 1 && decimal[1].length <= this.item.bs_amount_dec_limit) {
+                this.setBSAmount(e.target.value);
+                if (this.item.rate > 0) {
+                    this.setTotal(this.item.rate * e.target.value);
+                }
+                $('input[name="amount"]').css('border-color', '');
+            } else if (decimal.length == 1) {
+                this.setBSAmount(e.target.value);
+                if (this.item.rate > 0) {
+                    this.setTotal(this.item.rate * e.target.value);
+                }
+                $('input[name="amount"]').css('border-color', '');
+            } else {
+                $('input[name="amount"]').css('border-color', 'red');
             }
         },
         updateBSRate: function updateBSRate(e) {
-            this.setBSRate(e.target.value);
-            if (this.item.amount > 0) {
-                this.item.total = this.item.amount * e.target.value;
+            var decimal = e.target.value.split('.');
+
+            if (decimal.length > 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to && decimal[1].length <= this.item.avg_rate_dec_limit) {
+                this.setBSRate(e.target.value);
+                if (this.item.amount > 0) {
+                    this.setTotal(this.item.amount * e.target.value);
+                }
+                $('input[name="rate"]').css('border-color', '');
+            } else if (decimal.length == 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to) {
+                this.setBSRate(e.target.value);
+                if (this.item.amount > 0) {
+                    this.setTotal(this.item.amount * e.target.value);
+                }
+                $('input[name="rate"]').css('border-color', '');
+            } else {
+                $('input[name="rate"]').css('border-color', 'red');
             }
         },
         updatePaidByClient: function updatePaidByClient(e) {
@@ -4416,6 +4485,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         submitForm: function submitForm() {
             var _this = this;
+
+            var amount_validation = $('input[name="amount"]').css('border-color');
+            var rate_validation = $('input[name="rate"]').css('border-color');
+            if (amount_validation == 'rgb(255, 0, 0)' || rate_validation == 'rgb(255, 0, 0)') {
+                alert('Please check your amount or rate!!');
+                return false;
+            }
 
             this.storeData().then(function () {
                 _this.$router.push({ name: 'transaction.index' });
@@ -4623,6 +4699,46 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4633,10 +4749,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading', 'currency_all'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading', 'currency_all', 'customer_all'])),
     created: function created() {
         this.fetchData(this.$route.params.id);
         this.fetchCurrencyAll();
+        this.fetchCustomerAll();
     },
     destroyed: function destroyed() {
         this.resetState();
@@ -4648,11 +4765,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.fetchData(this.$route.params.id);
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionSingle', ['fetchData', 'updateData', 'resetState', "setBSAmount", "setBSRate", "setPaidByClient", "setReturnToClient", "setType", "setTotal", "fetchCurrencyAll", "fetchCurrencyData"]), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionSingle', ['fetchData', 'updateData', 'resetState', "setBSAmount", "setBSRate", "setPaidByClient", "setReturnToClient", "setType", "setTotal", "setCustomerCode", "fetchCurrencyAll", "fetchCurrencyData", "fetchCustomerAll"]), {
         updateCurrencyCode: function updateCurrencyCode(value) {
             if (value != null) {
                 var currency_data = value.split("-");
-                this.fetchCurrencyData(currency_data[3]);
+                this.fetchCurrencyData(currency_data[3] + '-' + currency_data[0]);
                 if (currency_data[0] == 'Buy') {
                     this.setType(0);
                     $('input[name="paid_by_client"]').attr('disabled', 'disabled');
@@ -4662,20 +4779,49 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     $('input[name="paid_by_client"]').removeAttr('disabled');
                     $('input[name="return_to_client"]').removeAttr('disabled');
                 }
-            } else {
-                this.resetState();
+            }
+        },
+        updateCustomer: function updateCustomer(value) {
+            if (value != null) {
+                var customer_data = value.split("-");
+                this.setCustomerCode(customer_data[0]);
             }
         },
         updateBSAmount: function updateBSAmount(e) {
-            this.setBSAmount(e.target.value);
-            if (this.item.rate > 0) {
-                this.setTotal(this.item.rate * e.target.value);
+            var decimal = e.target.value.split('.');
+            if (decimal.length > 1 && decimal[1].length <= this.item.bs_amount_dec_limit) {
+                this.setBSAmount(e.target.value);
+                if (this.item.rate > 0) {
+                    this.setTotal(this.item.rate * e.target.value);
+                }
+                $('input[name="amount"]').css('border-color', '');
+            } else if (decimal.length == 1) {
+                this.setBSAmount(e.target.value);
+                if (this.item.rate > 0) {
+                    this.setTotal(this.item.rate * e.target.value);
+                }
+                $('input[name="amount"]').css('border-color', '');
+            } else {
+                $('input[name="amount"]').css('border-color', 'red');
             }
         },
         updateBSRate: function updateBSRate(e) {
-            this.setBSRate(e.target.value);
-            if (this.item.amount > 0) {
-                this.setTotal(this.item.amount * e.target.value);
+            var decimal = e.target.value.split('.');
+
+            if (decimal.length > 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to && decimal[1].length <= this.item.avg_rate_dec_limit) {
+                this.setBSRate(e.target.value);
+                if (this.item.amount > 0) {
+                    this.setTotal(this.item.amount * e.target.value);
+                }
+                $('input[name="rate"]').css('border-color', '');
+            } else if (decimal.length == 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to) {
+                this.setBSRate(e.target.value);
+                if (this.item.amount > 0) {
+                    this.setTotal(this.item.amount * e.target.value);
+                }
+                $('input[name="rate"]').css('border-color', '');
+            } else {
+                $('input[name="rate"]').css('border-color', 'red');
             }
         },
         updatePaidByClient: function updatePaidByClient(e) {
@@ -4684,6 +4830,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         submitForm: function submitForm() {
             var _this = this;
+
+            var amount_validation = $('input[name="amount"]').css('border-color');
+            var rate_validation = $('input[name="rate"]').css('border-color');
+            if (amount_validation == 'rgb(255, 0, 0)' || rate_validation == 'rgb(255, 0, 0)') {
+                alert('Please check your amount or rate!!');
+                return false;
+            }
 
             this.updateData().then(function () {
                 _this.$router.push({ name: 'transaction.index' });
@@ -4712,6 +4865,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dtmodules_DatatableList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__dtmodules_DatatableList__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dtmodules_DatatableCheckbox__ = __webpack_require__("./resources/client/assets/js/components/dtmodules/DatatableCheckbox.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dtmodules_DatatableCheckbox___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__dtmodules_DatatableCheckbox__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableFilter__ = __webpack_require__("./resources/client/assets/js/components/dtmodules/DatatableFilter.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableFilter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableFilter__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -4764,7 +4919,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
+
 
 
 
@@ -4775,8 +4930,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            columns: [{ title: 'TransactionID', field: 'id', sortable: true }, { title: 'Type', field: 'calc_type', sortable: true }, { title: 'DateTime', field: 'created_at', sortable: true }, { title: 'Currency', field: 'name', sortable: true }, { title: 'B.Amount', field: 'amount', sortable: true }, { title: 'TTL For Buy', field: 'total', sortable: true }, { title: 'B / S Rate', field: 'rate', sortable: true }, { title: 'S.Amount', field: 'amount', sortable: true }, { title: 'TTL For Sell', field: 'total', sortable: true }, { title: 'Profit', field: 'profit', sortable: true }, { title: 'Current Balance', field: 'current_balance', sortable: true }, { title: 'Last Average Rate', field: 'last_avg_rate', sortable: true }, { title: 'Paid By Client', field: 'paid_by_client', sortable: true }, { title: 'Return To Client', field: 'return_to_client', sortable: true }, { title: 'Actions', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
-            query: { sort: 'id', order: 'desc' },
+            columns: [{ title: 'TransactionID', field: 'id', sortable: true }, { title: 'Customer', field: 'customer_first_name', thComp: __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableFilter___default.a, sortable: true }, { title: 'Type', field: 'calc_type', sortable: true }, { title: 'DateTime', field: 'created_at', sortable: true }, { title: 'Currency', field: 'name', sortable: true }, { title: 'Buy / Sell Amount', field: 'amount', sortable: true }, { title: 'TTL For Buy / Sell', field: 'total', sortable: true }, { title: 'B / S Rate', field: 'rate', sortable: true }, { title: 'Profit', field: 'profit', sortable: true }, { title: 'Current Balance', field: 'current_balance', sortable: true }, { title: 'Last Average Rate', field: 'last_avg_rate', sortable: true }, { title: 'Paid By Client', field: 'paid_by_client', sortable: true }, { title: 'Return To Client', field: 'return_to_client', sortable: true }, { title: 'Actions', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
+            query: { sort: 'id', order: 'desc', customer_first_name: '' },
             xprops: {
                 module: 'TransactionIndex',
                 route: 'transaction'
@@ -4790,17 +4945,29 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.resetState();
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionIndex', ['data', 'total', 'loading', 'relationships'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionIndex', ['data', 'data_all', 'total', 'loading', 'relationships'])),
     watch: {
         query: {
             handler: function handler(query) {
                 this.setQuery(query);
+                this.handleQueryChange();
             },
 
             deep: true
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionIndex', ['fetchData', 'setQuery', 'resetState']))
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionIndex', ['fetchData', 'setQuery', 'resetState', 'setAll']), {
+        handleQueryChange: function handleQueryChange() {
+            var _this = this;
+
+            var rows = Array();
+            console.log(this.data_all);
+            this.data_all.forEach(function (element) {
+                if (element.customer_first_name.toLowerCase().search(_this.query['customer_first_name'].toLowerCase()) >= 0) rows.push(element);
+            });
+            this.setAll(rows);
+        }
+    })
 });
 
 /***/ }),
@@ -5482,6 +5649,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // Code...
     }
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/dtmodules/DatatableFilter.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function($) {//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['field', 'title', 'query'],
+  data: function data() {
+    return {
+      keyword: ''
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    $(this.$el).on('shown.bs.dropdown', function (e) {
+      return _this.$refs.input.focus();
+    });
+  },
+
+  watch: {
+    keyword: function keyword(kw) {
+      // reset immediately if empty
+      if (kw === '') this.search();
+    }
+  },
+  methods: {
+    search: function search() {
+      var query = this.query;
+      // `$props.query` would be initialized to `{ limit: 10, offset: 0, sort: '', order: '' }` by default
+      // custom query conditions must be set to observable by using `Vue.set / $vm.$set`
+
+      this.$set(query, this.field, this.keyword);
+      query.offset = 0; // reset pagination
+    }
+  }
+});
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
@@ -7532,7 +7758,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -7622,7 +7848,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -7892,7 +8118,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -7952,7 +8178,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -7998,6 +8224,21 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7a153841\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/dtmodules/DatatableFilter.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\ninput[type=search]::-webkit-search-cancel-button {\r\n  -webkit-appearance: searchfield-cancel-button;\r\n  cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -8147,7 +8388,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -29023,6 +29264,37 @@ var render = function() {
                             "div",
                             { staticClass: "form-group" },
                             [
+                              _c("label", { attrs: { for: "customer" } }, [
+                                _vm._v("Customer")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-select", {
+                                attrs: {
+                                  name: "customer",
+                                  label: "customer",
+                                  value: _vm.item.customer_id,
+                                  options: _vm.customer_all
+                                },
+                                on: { input: _vm.updateCustomer }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: {
+                                  type: "hidden",
+                                  name: "customer_code"
+                                },
+                                domProps: { value: _vm.item.customer_code }
+                              })
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
                               _c("label", { attrs: { for: "currency_code" } }, [
                                 _vm._v("Currency Code")
                               ]),
@@ -29050,13 +29322,39 @@ var render = function() {
                               _c("input", {
                                 attrs: { type: "hidden", name: "calc_type" },
                                 domProps: { value: _vm.item.calc_type }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: { type: "hidden", name: "rate_from" },
+                                domProps: { value: _vm.item.rate_from }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: { type: "hidden", name: "rate_to" },
+                                domProps: { value: _vm.item.rate_to }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: {
+                                  type: "hidden",
+                                  name: "bs_amount_dec_limit"
+                                },
+                                domProps: {
+                                  value: _vm.item.bs_amount_dec_limit
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: {
+                                  type: "hidden",
+                                  name: "avg_rate_dec_limit"
+                                },
+                                domProps: { value: _vm.item.avg_rate_dec_limit }
                               })
                             ],
                             1
                           )
                         ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-4" }),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-2" })
                       ]),
@@ -29140,7 +29438,8 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "return_to_client",
-                                placeholder: "Enter Return To Client"
+                                placeholder: "Enter Return To Client",
+                                readonly: ""
                               },
                               domProps: { value: _vm.item.return_to_client }
                             })
@@ -29174,7 +29473,8 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "current_balance",
-                                placeholder: "Enter Current Balance"
+                                placeholder: "Enter Current Balance",
+                                readonly: ""
                               },
                               domProps: { value: _vm.item.current_balance }
                             })
@@ -29190,7 +29490,8 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "last_avg_rate",
-                                placeholder: "Enter Currency Average Rate"
+                                placeholder: "Enter Currency Average Rate",
+                                readonly: ""
                               },
                               domProps: { value: _vm.item.last_avg_rate }
                             })
@@ -29206,7 +29507,8 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "profit",
-                                placeholder: "Enter Total Profit"
+                                placeholder: "Enter Total Profit",
+                                readonly: ""
                               },
                               domProps: { value: _vm.item.profit }
                             })
@@ -29222,7 +29524,8 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "ttl_bs",
-                                placeholder: "Enter Today TTL Buy / Sell"
+                                placeholder: "Enter Today TTL Buy / Sell",
+                                readonly: ""
                               },
                               domProps: { value: _vm.item.ttl_bs }
                             })
@@ -31448,10 +31751,10 @@ var render = function() {
                           attrs: {
                             type: "text",
                             name: "opening_balance",
-                            placeholder: "Enter Opening Balance"
+                            placeholder: "Enter Opening Balance",
+                            readonly: ""
                           },
-                          domProps: { value: _vm.item.opening_balance },
-                          on: { input: _vm.updateOpening_balance }
+                          domProps: { value: _vm.item.opening_balance }
                         })
                       ]),
                       _vm._v(" "),
@@ -31462,7 +31765,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("input", {
                           staticClass: "form-control",
-                          attrs: { type: "text" },
+                          attrs: { type: "text", readonly: "" },
                           domProps: { value: _vm.item.current_balance }
                         })
                       ])
@@ -31918,6 +32221,37 @@ var render = function() {
                             "div",
                             { staticClass: "form-group" },
                             [
+                              _c("label", { attrs: { for: "customer" } }, [
+                                _vm._v("Customer")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-select", {
+                                attrs: {
+                                  name: "customer",
+                                  label: "customer",
+                                  value: _vm.item.customer_id,
+                                  options: _vm.customer_all
+                                },
+                                on: { input: _vm.updateCustomer }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: {
+                                  type: "hidden",
+                                  name: "customer_code"
+                                },
+                                domProps: { value: _vm.item.customer_code }
+                              })
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
                               _c("label", { attrs: { for: "currency_code" } }, [
                                 _vm._v("Currency Code")
                               ]),
@@ -31945,13 +32279,39 @@ var render = function() {
                               _c("input", {
                                 attrs: { type: "hidden", name: "calc_type" },
                                 domProps: { value: _vm.item.calc_type }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: { type: "hidden", name: "rate_from" },
+                                domProps: { value: _vm.item.rate_from }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: { type: "hidden", name: "rate_to" },
+                                domProps: { value: _vm.item.rate_to }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: {
+                                  type: "hidden",
+                                  name: "bs_amount_dec_limit"
+                                },
+                                domProps: {
+                                  value: _vm.item.bs_amount_dec_limit
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: {
+                                  type: "hidden",
+                                  name: "avg_rate_dec_limit"
+                                },
+                                domProps: { value: _vm.item.avg_rate_dec_limit }
                               })
                             ],
                             1
                           )
                         ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-4" }),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-2" })
                       ]),
@@ -32035,7 +32395,8 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "return_to_client",
-                                placeholder: "Enter Return To Client"
+                                placeholder: "Enter Return To Client",
+                                readonly: ""
                               },
                               domProps: { value: _vm.item.return_to_client }
                             })
@@ -32069,7 +32430,8 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "current_balance",
-                                placeholder: "Enter Current Balance"
+                                placeholder: "Enter Current Balance",
+                                readonly: ""
                               },
                               domProps: { value: _vm.item.current_balance }
                             })
@@ -32085,7 +32447,8 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "last_avg_rate",
-                                placeholder: "Enter Currency Average Rate"
+                                placeholder: "Enter Currency Average Rate",
+                                readonly: ""
                               },
                               domProps: { value: _vm.item.last_avg_rate }
                             })
@@ -32101,7 +32464,8 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "profit",
-                                placeholder: "Enter Total Profit"
+                                placeholder: "Enter Total Profit",
+                                readonly: ""
                               },
                               domProps: { value: _vm.item.profit }
                             })
@@ -32117,7 +32481,8 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "ttl_bs",
-                                placeholder: "Enter Today TTL Buy / Sell"
+                                placeholder: "Enter Today TTL Buy / Sell",
+                                readonly: ""
                               },
                               domProps: { value: _vm.item.ttl_bs }
                             })
@@ -32914,6 +33279,85 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-732cff23", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-7a153841\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/dtmodules/DatatableFilter.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "btn-group" }, [
+    _vm._v("\n  " + _vm._s(_vm.title) + "\n  "),
+    _c("a", { attrs: { href: "javascript:;", "data-toggle": "dropdown" } }, [
+      _c("i", {
+        staticClass: "fa fa-filter",
+        class: { "text-muted": !_vm.keyword }
+      })
+    ]),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "dropdown-menu", staticStyle: { padding: "3px" } },
+      [
+        _c("div", { staticClass: "input-group input-group-sm" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.keyword,
+                expression: "keyword"
+              }
+            ],
+            ref: "input",
+            staticClass: "form-control",
+            attrs: {
+              type: "search",
+              placeholder: "Search " + _vm.field + "..."
+            },
+            domProps: { value: _vm.keyword },
+            on: {
+              keydown: function($event) {
+                if (
+                  !("button" in $event) &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.search($event)
+              },
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.keyword = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "input-group-btn" }, [
+            _c("button", {
+              staticClass: "btn btn-default fa fa-search",
+              on: { click: _vm.search }
+            })
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7a153841", module.exports)
   }
 }
 
@@ -34230,14 +34674,8 @@ var render = function() {
                                 attrs: {
                                   name: "calc_type",
                                   label: "calc_type",
-                                  value: _vm.item.calc_type,
-                                  options: [
-                                    "Multiplication",
-                                    "Division",
-                                    "Special"
-                                  ]
-                                },
-                                on: { input: _vm.updateCalculateType }
+                                  value: _vm.item.calc_type
+                                }
                               })
                             ],
                             1
@@ -34407,10 +34845,10 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "opening_balance",
-                                placeholder: "Enter Opening Balance"
+                                placeholder: "Enter Opening Balance",
+                                readonly: ""
                               },
-                              domProps: { value: _vm.item.opening_balance },
-                              on: { input: _vm.updateOpeningBalance }
+                              domProps: { value: _vm.item.opening_balance }
                             })
                           ]),
                           _vm._v(" "),
@@ -34424,10 +34862,10 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "current_balance",
-                                placeholder: "Enter Current Balance"
+                                placeholder: "Enter Current Balance",
+                                readonly: ""
                               },
-                              domProps: { value: _vm.item.current_balance },
-                              on: { input: _vm.updateCurrentBalance }
+                              domProps: { value: _vm.item.current_balance }
                             })
                           ]),
                           _vm._v(" "),
@@ -34443,10 +34881,10 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "opening_avg_rate",
-                                placeholder: "Enter Opening Average Rate"
+                                placeholder: "Enter Opening Average Rate",
+                                readonly: ""
                               },
-                              domProps: { value: _vm.item.opening_avg_rate },
-                              on: { input: _vm.updateOpeningAverageRate }
+                              domProps: { value: _vm.item.opening_avg_rate }
                             })
                           ]),
                           _vm._v(" "),
@@ -34460,10 +34898,10 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 name: "last_avg_rate",
-                                placeholder: "Enter Last Average Rate"
+                                placeholder: "Enter Last Average Rate",
+                                readonly: ""
                               },
-                              domProps: { value: _vm.item.last_avg_rate },
-                              on: { input: _vm.updateLastAverageRate }
+                              domProps: { value: _vm.item.last_avg_rate }
                             })
                           ])
                         ]),
@@ -35506,6 +35944,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-732cff23\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Index.vue", function() {
      var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-732cff23\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Index.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7a153841\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/dtmodules/DatatableFilter.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7a153841\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/dtmodules/DatatableFilter.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("c20bead6", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7a153841\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DatatableFilter.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7a153841\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DatatableFilter.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -37988,6 +38453,58 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/client/assets/js/components/dtmodules/DatatableFilter.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7a153841\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/dtmodules/DatatableFilter.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/dtmodules/DatatableFilter.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-7a153841\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/dtmodules/DatatableFilter.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/client/assets/js/components/dtmodules/DatatableFilter.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7a153841", Component.options)
+  } else {
+    hotAPI.reload("data-v-7a153841", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/client/assets/js/components/dtmodules/DatatableList.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40171,7 +40688,8 @@ function initialState() {
     return {
         all: [],
         query: {},
-        loading: false
+        loading: false,
+        data_all: []
     };
 }
 
@@ -40181,6 +40699,15 @@ var getters = {
 
         if (state.query.sort) {
             rows = _.orderBy(state.all, state.query.sort, state.query.order);
+        }
+
+        return rows.slice(state.query.offset, state.query.offset + state.query.limit);
+    },
+    data_all: function data_all(state) {
+        var rows = state.data_all;
+
+        if (state.query.sort) {
+            rows = _.orderBy(state.data_all, state.query.sort, state.query.order);
         }
 
         return rows.slice(state.query.offset, state.query.offset + state.query.limit);
@@ -40202,6 +40729,7 @@ var actions = {
 
         axios.get('/api/v1/transaction').then(function (response) {
             commit('setAll', response.data);
+            commit('setInitialData', response.data);
         }).catch(function (error) {
             message = error.response.data.message || error.message;
             commit('setError', message);
@@ -40238,12 +40766,23 @@ var actions = {
         var commit = _ref4.commit;
 
         commit('resetState');
+    },
+    setAll: function setAll(_ref5, value) {
+        var commit = _ref5.commit;
+
+        commit('setAll', value);
+    },
+    setInitialData: function setInitialData(state, items) {
+        state.data_all = items;
     }
 };
 
 var mutations = {
     setAll: function setAll(state, items) {
         state.all = items;
+    },
+    setInitialData: function setInitialData(state, items) {
+        state.data_all = items;
     },
     setLoading: function setLoading(state, loading) {
         state.loading = loading;
@@ -40274,6 +40813,8 @@ function initialState() {
     return {
         item: {
             name: null,
+            customer_id: null,
+            customer_code: null,
             currency_id: null,
             currency_code: null,
             calc_type: null,
@@ -40285,9 +40826,14 @@ function initialState() {
             profit: null,
             type: null,
             last_avg_rate: null,
+            rate_from: null,
+            rate_to: null,
+            bs_amount_dec_limit: null,
+            avg_rate_dec_limit: null,
             current_balance: null
         },
         currency_all: [],
+        customer_all: [],
         loading: false
     };
 }
@@ -40301,6 +40847,9 @@ var getters = {
     },
     currency_all: function currency_all(state) {
         return state.currency_all;
+    },
+    customer_all: function customer_all(state) {
+        return state.customer_all;
     }
 };
 
@@ -40315,6 +40864,7 @@ var actions = {
 
         return new Promise(function (resolve, reject) {
             var params = _.cloneDeep(state.item);
+            console.log(params);
             var config = {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -40384,7 +40934,7 @@ var actions = {
             dispatch = _ref3.dispatch;
 
         axios.get('/api/v1/transaction/' + id).then(function (response) {
-            commit('setItem', response.data[0]);
+            commit('setItem', response.data);
         });
 
         dispatch('fetchCurrencyAll');
@@ -40401,49 +40951,99 @@ var actions = {
             commit('setCurrencyAll', currency_all);
         });
     },
-    fetchCurrencyData: function fetchCurrencyData(_ref5, id) {
+    fetchCustomerAll: function fetchCustomerAll(_ref5) {
         var commit = _ref5.commit;
 
-        axios.get('/api/v1/currency/' + id).then(function (response) {
+        axios.get('/api/v1/customers').then(function (response) {
+            var customer_all = Array();
+            response.data.data.forEach(function (element) {
+                customer_all.push(element.customer_code + "-" + element.first_name + " " + element.last_name);
+            });
+            commit('setCustomerAll', customer_all);
+        });
+    },
+    fetchCurrencyData: function fetchCurrencyData(_ref6, value) {
+        var commit = _ref6.commit;
+
+        var data = value.split('-');
+
+        axios.get('/api/v1/currency/' + data[0]).then(function (response) {
             commit('setCurrencyName', response.data.data.name);
             commit('setCurrentBalance', response.data.data.current_balance);
             commit('setLastAverageRate', response.data.data.last_avg_rate);
             commit('setCurrencyID', response.data.data.id);
             commit('setCurrencyCalculationType', response.data.data.calc_type);
+            commit('setAmountDecLimit', response.data.data.bs_amount_dec_limit);
+            commit('setRateDecLimit', response.data.data.avg_rate_dec_limit);
+
+            if (data[1] == 'Buy') {
+                commit('setRateFrom', response.data.data.buy_rate_from);
+                commit('setRateTo', response.data.data.buy_rate_to);
+                commit('setPaidByClient', 0);
+                commit('setReturnToClient', 0);
+            } else {
+                commit('setRateFrom', response.data.data.sell_rate_from);
+                commit('setRateTo', response.data.data.sell_rate_to);
+            }
         });
     },
-    setBSAmount: function setBSAmount(_ref6, value) {
-        var commit = _ref6.commit;
+    setBSAmount: function setBSAmount(_ref7, value) {
+        var commit = _ref7.commit;
 
         commit('setBSAmount', value);
     },
-    setBSRate: function setBSRate(_ref7, value) {
-        var commit = _ref7.commit;
+    setBSRate: function setBSRate(_ref8, value) {
+        var commit = _ref8.commit;
 
         commit('setBSRate', value);
     },
-    setPaidByClient: function setPaidByClient(_ref8, value) {
-        var commit = _ref8.commit;
+    setPaidByClient: function setPaidByClient(_ref9, value) {
+        var commit = _ref9.commit;
 
         commit('setPaidByClient', value);
     },
-    setReturnToClient: function setReturnToClient(_ref9, value) {
-        var commit = _ref9.commit;
+    setReturnToClient: function setReturnToClient(_ref10, value) {
+        var commit = _ref10.commit;
 
         commit('setReturnToClient', value);
     },
-    setType: function setType(_ref10, value) {
-        var commit = _ref10.commit;
+    setType: function setType(_ref11, value) {
+        var commit = _ref11.commit;
 
         commit('setType', value);
     },
-    setTotal: function setTotal(_ref11, value) {
-        var commit = _ref11.commit;
+    setTotal: function setTotal(_ref12, value) {
+        var commit = _ref12.commit;
 
         commit('setTotal', value);
     },
-    resetState: function resetState(_ref12) {
-        var commit = _ref12.commit;
+    setRateFrom: function setRateFrom(_ref13, value) {
+        var commit = _ref13.commit;
+
+        commit('setRateFrom', value);
+    },
+    setRateTo: function setRateTo(_ref14, value) {
+        var commit = _ref14.commit;
+
+        commit('setRateTo', value);
+    },
+    setAmountDecLimit: function setAmountDecLimit(_ref15, value) {
+        var commit = _ref15.commit;
+
+        commit('setAmountDecLimit', value);
+    },
+    setRateDecLimit: function setRateDecLimit(_ref16, value) {
+        var commit = _ref16.commit;
+
+        commit('setRateDecLimit', value);
+    },
+    setCustomerCode: function setCustomerCode(_ref17, value) {
+        var commit = _ref17.commit;
+
+        commit('setCustomerCode', value);
+    },
+    resetState: function resetState(_ref18) {
+        var commit = _ref18.commit;
 
         commit('resetState');
     }
@@ -40471,6 +41071,9 @@ var mutations = {
     setCurrencyAll: function setCurrencyAll(state, value) {
         state.currency_all = value;
     },
+    setCustomerAll: function setCustomerAll(state, value) {
+        state.customer_all = value;
+    },
     setCurrencyName: function setCurrencyName(state, value) {
         state.item.name = value;
     },
@@ -40483,11 +41086,26 @@ var mutations = {
     setType: function setType(state, value) {
         state.item.type = value;
     },
+    setCustomerCode: function setCustomerCode(state, value) {
+        state.item.customer_code = value;
+    },
     setCurrencyID: function setCurrencyID(state, value) {
         state.item.currency_id = value;
     },
     setTotal: function setTotal(state, value) {
         state.item.total = value;
+    },
+    setRateFrom: function setRateFrom(state, value) {
+        state.item.rate_from = value;
+    },
+    setRateTo: function setRateTo(state, value) {
+        state.item.rate_to = value;
+    },
+    setAmountDecLimit: function setAmountDecLimit(state, value) {
+        state.item.bs_amount_dec_limit = value;
+    },
+    setRateDecLimit: function setRateDecLimit(state, value) {
+        state.item.avg_rate_dec_limit = value;
     },
     setCurrencyCalculationType: function setCurrencyCalculationType(state, value) {
         state.item.calc_type = value;

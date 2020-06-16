@@ -13,7 +13,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        return new CustomerResource(Customer::where('role_id', 3)->get());
+        return new CustomerResource(Customer::where('role_id', '>', 1)->get());
     }
 
     public function show($id)

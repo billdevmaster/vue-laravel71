@@ -21,7 +21,24 @@
                             
                             <div class="box-body">
                                 <div class="row">
-                                    <div class="col-md-2"></div>
+                                    <div class="col-md-2"></div>                                  
+                                    <div class="col-md-4">     
+                                        <div class="form-group">
+                                            <label for="customer">Customer</label>
+                                            <v-select
+                                                    name="customer"
+                                                    label="customer"
+                                                    @input="updateCustomer"
+                                                    :value="item.customer_id"
+                                                    :options="customer_all"
+                                                    />
+                                            <input 
+                                                    type="hidden"
+                                                    name="customer_code"
+                                                    :value="item.customer_code"
+                                                    >
+                                        </div>    
+                                    </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="currency_code">Currency Code</label>
@@ -47,10 +64,28 @@
                                                     name="calc_type"
                                                     :value="item.calc_type"
                                                     >
-                                        </div>         
-                                    </div>                                    
-                                    <div class="col-md-4">
-                                    </div>
+                                            <input 
+                                                    type="hidden"
+                                                    name="rate_from"
+                                                    :value="item.rate_from"
+                                                    >
+                                            <input 
+                                                    type="hidden"
+                                                    name="rate_to"
+                                                    :value="item.rate_to"
+                                                    >
+                                            <input 
+                                                    type="hidden"
+                                                    name="bs_amount_dec_limit"
+                                                    :value="item.bs_amount_dec_limit"
+                                                    >
+                                            <input 
+                                                    type="hidden"
+                                                    name="avg_rate_dec_limit"
+                                                    :value="item.avg_rate_dec_limit"
+                                                    >
+                                        </div>
+                                    </div>  
                                     <div class="col-md-2"></div>
                                 </div>                    
                                 <div class="row">
@@ -106,6 +141,7 @@
                                                     name="return_to_client"
                                                     placeholder="Enter Return To Client"
                                                     :value="item.return_to_client"
+                                                    readonly
                                                     >
                                         </div>
                                     </div>     
@@ -128,6 +164,7 @@
                                                     name="current_balance"
                                                     placeholder="Enter Current Balance"
                                                     :value="item.current_balance"
+                                                    readonly
                                                     >
                                         </div>
                                         <div class="form-group">
@@ -138,6 +175,7 @@
                                                     name="last_avg_rate"
                                                     placeholder="Enter Currency Average Rate"
                                                     :value="item.last_avg_rate"
+                                                    readonly
                                                     >
                                         </div>
                                         <div class="form-group">
@@ -148,6 +186,7 @@
                                                     name="profit"
                                                     placeholder="Enter Total Profit"
                                                     :value="item.profit"
+                                                    readonly
                                                     >
                                         </div>
                                         <div class="form-group">
@@ -158,6 +197,7 @@
                                                     name="ttl_bs"
                                                     placeholder="Enter Today TTL Buy / Sell"
                                                     :value="item.ttl_bs"
+                                                    readonly
                                                     >
                                         </div>
                                     </div>                                       
@@ -193,11 +233,12 @@ export default {
         };
     },
     computed: {
-        ...mapGetters('TransactionSingle', ['item', 'loading', 'currency_all']),
+        ...mapGetters('TransactionSingle', ['item', 'loading', 'currency_all', 'customer_all']),
     },
     created() {
         this.fetchData(this.$route.params.id)
         this.fetchCurrencyAll()
+        this.fetchCustomerAll()
     },
     destroyed() {
         this.resetState()
@@ -218,13 +259,15 @@ export default {
         "setReturnToClient",
         "setType",
         "setTotal",
+        "setCustomerCode",
         "fetchCurrencyAll",
-        "fetchCurrencyData"
+        "fetchCurrencyData",
+        "fetchCustomerAll"
         ]),
         updateCurrencyCode(value) {
             if (value != null) {
                 let currency_data = value.split("-")
-                this.fetchCurrencyData(currency_data[3])
+                this.fetchCurrencyData(currency_data[3]+'-'+currency_data[0])
                 if (currency_data[0] == 'Buy')
                 {
                     this.setType(0)
@@ -238,21 +281,58 @@ export default {
                     $('input[name="return_to_client"]').removeAttr('disabled')
                 }
             }
-            else 
-            {
-                this.resetState()
+        },
+        updateCustomer(value) {
+            if (value != null) {
+                let customer_data = value.split("-")
+                this.setCustomerCode(customer_data[0])
             }
         },
         updateBSAmount(e) {
-            this.setBSAmount(e.target.value)
-            if (this.item.rate > 0) {
-                this.setTotal(this.item.rate * e.target.value)
+            let decimal = e.target.value.split('.')
+            if (decimal.length > 1 && decimal[1].length <= this.item.bs_amount_dec_limit)
+            {
+                this.setBSAmount(e.target.value)
+                if (this.item.rate > 0) {
+                    this.setTotal(this.item.rate * e.target.value)
+                }
+                $('input[name="amount"]').css('border-color', '')
+            }
+            else if (decimal.length == 1) 
+            {           
+                this.setBSAmount(e.target.value)
+                if (this.item.rate > 0) {
+                    this.setTotal(this.item.rate * e.target.value)
+                }
+                $('input[name="amount"]').css('border-color', '')
+            }
+            else
+            {
+                $('input[name="amount"]').css('border-color', 'red')
             }
         },
         updateBSRate(e) {
-            this.setBSRate(e.target.value)
-            if (this.item.amount > 0) {
-                this.setTotal(this.item.amount * e.target.value)
+            let decimal = e.target.value.split('.')
+            
+            if (decimal.length > 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to && decimal[1].length <= this.item.avg_rate_dec_limit)
+            {
+                this.setBSRate(e.target.value)
+                if (this.item.amount > 0) {
+                    this.setTotal(this.item.amount * e.target.value)
+                }
+                $('input[name="rate"]').css('border-color', '')
+            }
+            else if (decimal.length == 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to) 
+            {                
+                this.setBSRate(e.target.value)
+                if (this.item.amount > 0) {
+                    this.setTotal(this.item.amount * e.target.value)
+                }
+                $('input[name="rate"]').css('border-color', '')
+            }
+            else
+            {
+                $('input[name="rate"]').css('border-color', 'red')
             }
         },
         updatePaidByClient(e) {
@@ -260,6 +340,13 @@ export default {
             this.setReturnToClient(e.target.value - this.item.total)
         },
         submitForm() {
+            let amount_validation = $('input[name="amount"]').css('border-color')
+            let rate_validation = $('input[name="rate"]').css('border-color')
+            if (amount_validation == 'rgb(255, 0, 0)' || rate_validation == 'rgb(255, 0, 0)') {
+                alert('Please check your amount or rate!!')
+                return false;
+            }
+            
             this.updateData()
                 .then(() => {
                     this.$router.push({ name: 'transaction.index' })

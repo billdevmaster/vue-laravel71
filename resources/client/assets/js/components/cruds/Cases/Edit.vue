@@ -39,7 +39,7 @@
                                             name="opening_balance"
                                             placeholder="Enter Opening Balance"
                                             :value="item.opening_balance"
-                                            @input="updateOpening_balance"
+                                            readonly
                                             >
                                 </div>
                                 <div class="form-group">
@@ -48,6 +48,7 @@
                                             type="text"
                                             class="form-control"
                                             :value="item.current_balance"
+                                            readonly
                                             >
                                 </div>
                             </div>

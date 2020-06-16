@@ -2,6 +2,8 @@ function initialState() {
     return {
         item: {
             name: null,
+            customer_id: null,
+            customer_code: null,
             currency_id: null,
             currency_code: null,
             calc_type: null,
@@ -13,9 +15,14 @@ function initialState() {
             profit: null,
             type: null,
             last_avg_rate: null,
+            rate_from: null,
+            rate_to: null,
+            bs_amount_dec_limit: null,
+            avg_rate_dec_limit: null,
             current_balance: null            
         },
         currency_all: [],
+        customer_all: [],
         loading: false,
     }
 }
@@ -24,6 +31,7 @@ const getters = {
     item: state => state.item,
     loading: state => state.loading,
     currency_all: state => state.currency_all,
+    customer_all: state => state.customer_all,
 }
 
 const actions = {
@@ -33,6 +41,7 @@ const actions = {
 
         return new Promise((resolve, reject) => {
             let params = _.cloneDeep(state.item)
+            console.log(params)
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -108,7 +117,7 @@ const actions = {
     fetchData({ commit, dispatch }, id) {
         axios.get('/api/v1/transaction/' + id)
             .then(response => {
-                commit('setItem', response.data[0])
+                commit('setItem', response.data)
             })
 
         dispatch('fetchCurrencyAll')
@@ -118,20 +127,44 @@ const actions = {
             .then(response => {
                 let currency_all = Array();
                 response.data.data.forEach(element => {
-                    currency_all.push( "Buy-" + element.buy_code + "-" + element.name + "-" + element.id )
-                    currency_all.push( "Sell-" + element.sell_code + "-" + element.name + "-" + element.id )
+                    currency_all.push("Buy-" + element.buy_code + "-" + element.name + "-" + element.id)
+                    currency_all.push("Sell-" + element.sell_code + "-" + element.name + "-" + element.id)
                 });
                 commit('setCurrencyAll', currency_all)
             })
     },
-    fetchCurrencyData({ commit }, id) {
-        axios.get('/api/v1/currency/' + id)
+    fetchCustomerAll({ commit }) {
+        axios.get('/api/v1/customers')
+            .then(response => {
+                let customer_all = Array();
+                response.data.data.forEach(element => {
+                    customer_all.push(element.customer_code + "-" + element.first_name + " " + element.last_name)
+                });
+                commit('setCustomerAll', customer_all)
+            })
+    },
+    fetchCurrencyData({ commit }, value) {
+        let data = value.split('-')
+
+        axios.get('/api/v1/currency/' + data[0])
             .then(response => {
                 commit('setCurrencyName', response.data.data.name)
                 commit('setCurrentBalance', response.data.data.current_balance)
                 commit('setLastAverageRate', response.data.data.last_avg_rate)
                 commit('setCurrencyID', response.data.data.id)
                 commit('setCurrencyCalculationType', response.data.data.calc_type)
+                commit('setAmountDecLimit', response.data.data.bs_amount_dec_limit)
+                commit('setRateDecLimit', response.data.data.avg_rate_dec_limit)
+                
+                if (data[1] == 'Buy') {
+                    commit('setRateFrom', response.data.data.buy_rate_from)
+                    commit('setRateTo', response.data.data.buy_rate_to)
+                    commit('setPaidByClient', 0)
+                    commit('setReturnToClient', 0)
+                } else {
+                    commit('setRateFrom', response.data.data.sell_rate_from)
+                    commit('setRateTo', response.data.data.sell_rate_to)
+                }
             })
     },
     setBSAmount({ commit }, value) {
@@ -151,6 +184,21 @@ const actions = {
     },
     setTotal({ commit }, value) {
         commit('setTotal', value)
+    },
+    setRateFrom({ commit }, value) {
+        commit('setRateFrom', value)
+    },
+    setRateTo({ commit }, value) {
+        commit('setRateTo', value)
+    },
+    setAmountDecLimit({ commit }, value) {
+        commit('setAmountDecLimit', value)
+    },
+    setRateDecLimit({ commit }, value) {
+        commit('setRateDecLimit', value)
+    },
+    setCustomerCode({ commit }, value) {
+        commit('setCustomerCode', value)
     },
     resetState({ commit }) {
         commit('resetState')
@@ -179,6 +227,9 @@ const mutations = {
     setCurrencyAll(state, value) {
         state.currency_all = value
     },
+    setCustomerAll(state, value) {
+        state.customer_all = value
+    },
     setCurrencyName(state, value) {
         state.item.name = value
     },
@@ -191,11 +242,26 @@ const mutations = {
     setType(state, value) {
         state.item.type = value
     },
+    setCustomerCode(state, value) {
+        state.item.customer_code = value
+    },
     setCurrencyID(state, value) {
         state.item.currency_id = value
     },
     setTotal(state, value) {
         state.item.total = value
+    },
+    setRateFrom(state, value) {
+        state.item.rate_from = value
+    },
+    setRateTo(state, value) {
+        state.item.rate_to = value
+    },
+    setAmountDecLimit(state, value) {
+        state.item.bs_amount_dec_limit = value
+    },
+    setRateDecLimit(state, value) {
+        state.item.avg_rate_dec_limit = value
     },
     setCurrencyCalculationType(state, value) {
         state.item.calc_type = value

@@ -28,9 +28,7 @@
                                             <v-select
                                                     name="calc_type"
                                                     label="calc_type"
-                                                    @input="updateCalculateType"
                                                     :value="item.calc_type"
-                                                    :options="['Multiplication', 'Division', 'Special']"
                                                     />
                                         </div>                               
                                         <div class="form-group">
@@ -141,7 +139,7 @@
                                                     name="opening_balance"
                                                     placeholder="Enter Opening Balance"
                                                     :value="item.opening_balance"
-                                                    @input="updateOpeningBalance"
+                                                    readonly
                                                     >
                                         </div>
                                         <div class="form-group">
@@ -152,7 +150,7 @@
                                                     name="current_balance"
                                                     placeholder="Enter Current Balance"
                                                     :value="item.current_balance"
-                                                    @input="updateCurrentBalance"
+                                                    readonly
                                                     >
                                         </div>
                                         <div class="form-group">
@@ -163,7 +161,7 @@
                                                     name="opening_avg_rate"
                                                     placeholder="Enter Opening Average Rate"
                                                     :value="item.opening_avg_rate"
-                                                    @input="updateOpeningAverageRate"
+                                                    readonly
                                                     >
                                         </div>
                                         <div class="form-group">
@@ -174,7 +172,7 @@
                                                     name="last_avg_rate"
                                                     placeholder="Enter Last Average Rate"
                                                     :value="item.last_avg_rate"
-                                                    @input="updateLastAverageRate"
+                                                    readonly
                                                     >
                                         </div>
                                     </div>     

@@ -2,7 +2,8 @@ function initialState() {
     return {
         all: [],
         query: {},
-        loading: false
+        loading: false,
+        data_all: []
     }
 }
 
@@ -12,6 +13,15 @@ const getters = {
 
         if (state.query.sort) {
             rows = _.orderBy(state.all, state.query.sort, state.query.order)
+        }
+
+        return rows.slice(state.query.offset, state.query.offset + state.query.limit)
+    },
+    data_all: state => {
+        let rows = state.data_all
+
+        if (state.query.sort) {
+            rows = _.orderBy(state.data_all, state.query.sort, state.query.order)
         }
 
         return rows.slice(state.query.offset, state.query.offset + state.query.limit)
@@ -27,6 +37,7 @@ const actions = {
         axios.get('/api/v1/transaction')
             .then(response => {
                 commit('setAll', response.data)
+                commit('setInitialData', response.data)
             })
             .catch(error => {
                 message = error.response.data.message || error.message
@@ -60,12 +71,21 @@ const actions = {
     },
     resetState({ commit }) {
         commit('resetState')
-    }
+    },
+    setAll({ commit }, value) {
+        commit('setAll', value)
+    },
+    setInitialData(state, items) {
+        state.data_all = items
+    },
 }
 
 const mutations = {
     setAll(state, items) {
         state.all = items
+    },
+    setInitialData(state, items) {
+        state.data_all = items
     },
     setLoading(state, loading) {
         state.loading = loading
