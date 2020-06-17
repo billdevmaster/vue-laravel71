@@ -15,7 +15,7 @@
             </li>
             <li>
                 <router-link :to="{ name: 'transaction.index' }">
-                    <i class="fa fa-users"></i>
+                    <i class="fa fa-exchange"></i>
                     <span class="title">Transaction</span>
                 </router-link>
             </li>
@@ -35,6 +35,12 @@
                 <router-link :to="{ name: 'currency.index' }">
                     <i class="fa fa-gg"></i>
                     <span class="title">Currency</span>
+                </router-link>
+            </li>
+            <li>
+                <router-link :to="{ name: 'profit.index' }">
+                    <i class="fa fa-money"></i>
+                    <span class="title">Profit</span>
                 </router-link>
             </li>
             <li class="treeview">

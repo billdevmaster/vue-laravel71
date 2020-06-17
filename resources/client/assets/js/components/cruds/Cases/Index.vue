@@ -14,7 +14,7 @@
 
                         <div class="box-body">
                             <div class="btn-group">
-                                <router-link :to="{ name: xprops.route + '.create' }" class="btn btn-success btn-sm">
+                                <router-link :to="{ name: xprops.route + '.create' }" class="btn btn-success btn-sm" v-if="total == 0">
                                     <i class="fa fa-plus"></i> Add new
                                 </router-link>
                                 <button type="button" class="btn btn-default btn-sm" @click="fetchData">

@@ -40,6 +40,8 @@ import TransactionCreate from '../components/cruds/Transaction/Create.vue'
 import TransactionShow from '../components/cruds/Transaction/Show.vue'
 import TransactionEdit from '../components/cruds/Transaction/Edit.vue'
 
+import ProfitIndex from '../components/cruds/Profit/Index.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -81,6 +83,8 @@ const routes = [
     { path: '/transaction/create', component: TransactionCreate, name: 'transaction.create' },
     { path: '/transaction/:id', component: TransactionShow, name: 'transaction.show' },
     { path: '/transaction/:id/edit', component: TransactionEdit, name: 'transaction.edit' },
+
+    { path: '/profit', component: ProfitIndex, name: 'profit.index' },
 ]
 
 export default new VueRouter({

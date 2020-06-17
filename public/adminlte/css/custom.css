@@ -1,4 +1,5 @@
 
-.label {margin-right:5px;margin-bottom:5px !important;display:inline-block;} #wrapper {
+.label {margin-right:5px;margin-bottom:5px !important;display:inline-block; font-size: 100%; white-space: normal;}
+#wrapper {
     position: relative;
 }

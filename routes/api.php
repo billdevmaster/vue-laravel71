@@ -10,5 +10,6 @@ Route::group(['prefix' => '/v1', 'middleware' => ['auth:api'], 'namespace' => 'A
     Route::apiResource('cases', 'CasesController');
     Route::apiResource('currency', 'CurrencyController');
     Route::apiResource('transaction', 'TransactionController');
+    Route::apiResource('profit', 'ProfitController');
 
 });

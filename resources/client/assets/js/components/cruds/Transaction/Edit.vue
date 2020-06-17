@@ -92,7 +92,7 @@
                                     <div class="col-md-2"></div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="amount">Buy / Sell Amount</label>
+                                            <label for="amount">Buy / Sell Amount <span class="label label-danger" v-if="!amount_status">Floating-point numbers of Amount must be less than ( {{item.bs_amount_dec_limit}})</span></label>
                                             <input
                                                     type="text"
                                                     class="form-control"
@@ -103,7 +103,7 @@
                                                     >
                                         </div>
                                         <div class="form-group">
-                                            <label for="rate">Buy / Sell Rate</label>
+                                            <label for="rate">Buy / Sell Rate <span class="label label-danger" v-if="!rate_status">Floating-point numbers of Rate must be less than ( {{item.bs_amount_dec_limit}}) Or Rate must be between {{item.rate_from}} and {{item.rate_to}}</span></label>
                                             <input
                                                     type="text"
                                                     class="form-control"
@@ -229,7 +229,9 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
     data() {
         return {
-            flag_image_show: false
+            flag_image_show: false,
+            amount_status: true,
+            rate_status: true,
         };
     },
     computed: {
@@ -290,6 +292,7 @@ export default {
         },
         updateBSAmount(e) {
             let decimal = e.target.value.split('.')
+            this.amount_status = true
             if (decimal.length > 1 && decimal[1].length <= this.item.bs_amount_dec_limit)
             {
                 this.setBSAmount(e.target.value)
@@ -309,11 +312,13 @@ export default {
             else
             {
                 $('input[name="amount"]').css('border-color', 'red')
+                this.amount_status = false
             }
         },
         updateBSRate(e) {
-            let decimal = e.target.value.split('.')
-            
+            let decimal = e.target.value.split('.')            
+            this.rate_status = true
+
             if (decimal.length > 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to && decimal[1].length <= this.item.avg_rate_dec_limit)
             {
                 this.setBSRate(e.target.value)
@@ -333,6 +338,7 @@ export default {
             else
             {
                 $('input[name="rate"]').css('border-color', 'red')
+                this.rate_status = false
             }
         },
         updatePaidByClient(e) {
