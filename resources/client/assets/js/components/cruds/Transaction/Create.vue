@@ -230,7 +230,9 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
     data() {
         return {
-            flag_image_show: false
+            flag_image_show: false,
+            amount_status: true,
+            rate_status: true,
         };
     },
     computed: {
