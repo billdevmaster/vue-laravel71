@@ -1,7 +1,7 @@
 <template>
     <section class="content-wrapper" style="min-height: 960px;">
         <section class="content-header">
-            <h1>Employees</h1>
+            <h1>Cases</h1>
         </section>
 
         <section class="content">
@@ -22,32 +22,20 @@
                                     <table class="table table-bordered table-striped">
                                         <tbody>
                                         <tr>
-                                            <th>#</th>
-                                            <td>{{ item.id }}</td>
+                                            <th>Currency Name</th>
+                                            <td>{{ item.name }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Company</th>
+                                            <th>Opening Balance</th>
                                             <td>
                                                 <span class="label label-info" v-if="item.company !== null">
-                                                    {{ item.company.name }}
+                                                    {{ item.opening_balance }}
                                                 </span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>First name</th>
-                                            <td>{{ item.first_name }}</td>
-                                            </tr>
-                                        <tr>
-                                            <th>Last name</th>
-                                            <td>{{ item.last_name }}</td>
-                                            </tr>
-                                        <tr>
-                                            <th>Email</th>
-                                            <td>{{ item.email }}</td>
-                                            </tr>
-                                        <tr>
-                                            <th>Phone</th>
-                                            <td>{{ item.phone }}</td>
+                                            <th>Current Balance</th>
+                                            <td>{{ item.current_balance }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -71,23 +59,19 @@ export default {
             // Code...
         }
     },
+    computed: {
+        ...mapGetters('CasesSingle', ['item', 'loading']),
+    },
     created() {
         this.fetchData(this.$route.params.id)
     },
-    destroyed() {
-        this.resetState()
-    },
-    computed: {
-        ...mapGetters('EmployeesSingle', ['item'])
-    },
     watch: {
         "$route.params.id": function() {
-            this.resetState()
             this.fetchData(this.$route.params.id)
         }
     },
     methods: {
-        ...mapActions('EmployeesSingle', ['fetchData', 'resetState'])
+        ...mapActions('CasesSingle', ['fetchData'])
     }
 }
 </script>

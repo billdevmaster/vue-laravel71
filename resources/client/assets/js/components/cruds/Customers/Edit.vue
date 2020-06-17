@@ -246,16 +246,25 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                     <input name="id_img" type="file" class="form-control" v-on:change="updateId_img">
-                     <img :src="getId_img()" id="id-img-tag" style="width:100%;margin-top: 10px"/>
+                  <div class="form-group">
+                    <label for="">Customer Photo</label>
+                    <input id="id_img" type="file" class="form-control" v-on:change="updateId_img">
+                    <img :src="getId_img()" id="id-img-tag" style="width:100%;margin-top: 10px"/>
+                  </div>
                 </div>
                 <div class="col-md-4">
-                     <input id="company_img" type="file" class="form-control" v-on:change="updateCompany_img">
-                     <img :src="getCompany_img()" id="company-img-tag" style="width:100%;margin-top: 10px"/>
+                  <div class="form-group">
+                    <label for="">Company Image</label>
+                    <input id="company_img" type="file" class="form-control" v-on:change="updateCompany_img">
+                    <img :src="getCompany_img()" id="company-img-tag" style="width:100%;margin-top: 10px"/>
+                  </div>
                 </div>
                 <div class="col-md-4">
-                     <input id="mix_img" type="file" class="form-control" v-on:change="updateMix_img">
-                     <img :src="getMix_img()" id="mix-img-tag" style="width:100%;margin-top: 10px"/>
+                  <div class="form-group">
+                    <label for="">Mix Image</label>
+                    <input id="mix_img" type="file" class="form-control" v-on:change="updateMix_img">
+                    <img :src="getMix_img()" id="mix-img-tag" style="width:100%;margin-top: 10px"/>
+                  </div>
                 </div>
             </div>
           </div>

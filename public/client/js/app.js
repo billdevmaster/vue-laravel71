@@ -792,18 +792,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -813,21 +801,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             // Code...
         };
     },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('CasesSingle', ['item', 'loading'])),
     created: function created() {
         this.fetchData(this.$route.params.id);
     },
-    destroyed: function destroyed() {
-        this.resetState();
-    },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('EmployeesSingle', ['item'])),
     watch: {
         "$route.params.id": function $routeParamsId() {
-            this.resetState();
             this.fetchData(this.$route.params.id);
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('EmployeesSingle', ['fetchData', 'resetState']))
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CasesSingle', ['fetchData']))
 });
 
 /***/ }),
@@ -2164,30 +2149,90 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            // Code...
+            flag_image_show: false
         };
     },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('CurrencySingle', ['item', 'loading'])),
     created: function created() {
         this.fetchData(this.$route.params.id);
     },
-    destroyed: function destroyed() {
-        this.resetState();
-    },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('EmployeesSingle', ['item'])),
     watch: {
         "$route.params.id": function $routeParamsId() {
-            this.resetState();
             this.fetchData(this.$route.params.id);
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('EmployeesSingle', ['fetchData', 'resetState']))
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CurrencySingle', ['fetchData']), {
+        getFlagImage: function getFlagImage() {
+            var photo = this.flag_image_show.length > 100 ? this.flag_image_show : "/images/flag/" + this.item.flag_img;
+            return photo;
+        }
+    })
 });
 
 /***/ }),
@@ -2900,6 +2945,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3230,30 +3284,102 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            // Code...
+            id_image_show: false,
+            company_imgae_show: false,
+            mix_image_show: false
         };
     },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('CustomersSingle', ['item', 'loading'])),
     created: function created() {
         this.fetchData(this.$route.params.id);
     },
-    destroyed: function destroyed() {
-        this.resetState();
-    },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('EmployeesSingle', ['item'])),
     watch: {
         "$route.params.id": function $routeParamsId() {
-            this.resetState();
             this.fetchData(this.$route.params.id);
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('EmployeesSingle', ['fetchData', 'resetState']))
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('CustomersSingle', ['fetchData']), {
+        getId_img: function getId_img() {
+            var photo = this.id_image_show.length > 100 ? this.id_image_show : "/images/users/" + this.item.id_img;
+            return photo;
+        },
+        getCompany_img: function getCompany_img() {
+            var photo = this.company_imgae_show.length > 100 ? this.company_imgae_show : "/images/users/" + this.item.company_img;
+            return photo;
+        },
+        getMix_img: function getMix_img() {
+            var photo = this.mix_image_show.length > 100 ? this.mix_image_show : "/images/users/" + this.item.mix_img;
+            return photo;
+        }
+    })
 });
 
 /***/ }),
@@ -5044,30 +5170,57 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            // Code...
+            flag_image_show: false
         };
     },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading'])),
     created: function created() {
         this.fetchData(this.$route.params.id);
     },
-    destroyed: function destroyed() {
-        this.resetState();
-    },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('EmployeesSingle', ['item'])),
     watch: {
         "$route.params.id": function $routeParamsId() {
-            this.resetState();
             this.fetchData(this.$route.params.id);
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('EmployeesSingle', ['fetchData', 'resetState']))
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionSingle', ['fetchData']))
 });
 
 /***/ }),
@@ -7893,7 +8046,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -7968,7 +8121,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8028,7 +8181,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8073,7 +8226,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8268,7 +8421,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -29846,76 +29999,218 @@ var render = function() {
       _vm._v(" "),
       _c("section", { staticClass: "content" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-xs-12" }, [
-            _c("div", { staticClass: "box" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "box-body" }, [_c("back-buttton")], 1),
-              _vm._v(" "),
-              _c("div", { staticClass: "box-body" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-6" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.submitForm($event)
+                  }
+                }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "box" },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
                     _c(
-                      "table",
-                      { staticClass: "table table-bordered table-striped" },
-                      [
-                        _c("tbody", [
-                          _c("tr", [
-                            _c("th", [_vm._v("#")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.id))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Company")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm.item.company !== null
-                                ? _c(
-                                    "span",
-                                    { staticClass: "label label-info" },
-                                    [
-                                      _vm._v(
-                                        "\n                                                " +
-                                          _vm._s(_vm.item.company.name) +
-                                          "\n                                            "
-                                      )
-                                    ]
-                                  )
-                                : _vm._e()
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("First name")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.first_name))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Last name")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.last_name))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Email")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.email))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Phone")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.phone))])
-                          ])
+                      "div",
+                      { staticClass: "box-body" },
+                      [_c("back-buttton")],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("bootstrap-alert"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "box-body" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "table",
+                            {
+                              staticClass: "table table-bordered table-striped"
+                            },
+                            [
+                              _c("tbody", [
+                                _c("tr", [
+                                  _c("th", [_vm._v("Currency Name")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(_vm.item.calc_type))])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(_vm.item.name))])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Current Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(_vm.item.code))])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Currency Name")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(_vm.item.buy_code))])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(_vm.item.sell_code))])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Current Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.buy_rate_from))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Currency Name")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.buy_rate_to))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.sell_rate_from))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Current Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.sell_rate_to))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Current Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.opening_balance))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Currency Name")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.current_balance))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.opening_avg_rate))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Current Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.last_avg_rate))
+                                  ])
+                                ])
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "table",
+                            {
+                              staticClass: "table table-bordered table-striped"
+                            },
+                            [
+                              _c("tbody", [
+                                _c("tr", [
+                                  _c("th", [_vm._v("Currency Name")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("img", {
+                                      staticStyle: {
+                                        width: "100%",
+                                        "margin-top": "10px"
+                                      },
+                                      attrs: {
+                                        src: _vm.getFlagImage(),
+                                        id: "flag-img-tag"
+                                      }
+                                    })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      "\n                                                " +
+                                        _vm._s(_vm.item.bs_amount_dec_limit) +
+                                        "\n                                            "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Current Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.avg_rate_dec_limit))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Currency Name")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.balance_dec_limit))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      "\n                                                " +
+                                        _vm._s(
+                                          _vm.item.last_avg_rate_dec_limit
+                                        ) +
+                                        "\n                                            "
+                                    )
+                                  ])
+                                ])
+                              ])
+                            ]
+                          )
                         ])
-                      ]
-                    )
-                  ])
-                ])
-              ])
-            ])
+                      ])
+                    ])
+                  ],
+                  1
+                )
+              ]
+            )
           ])
         ])
       ])
@@ -29928,7 +30223,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "content-header" }, [
-      _c("h1", [_vm._v("Employees")])
+      _c("h1", [_vm._v("Currency")])
     ])
   },
   function() {
@@ -29936,7 +30231,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("View")])
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Show")])
     ])
   }
 ]
@@ -30544,76 +30839,149 @@ var render = function() {
       _vm._v(" "),
       _c("section", { staticClass: "content" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-xs-12" }, [
-            _c("div", { staticClass: "box" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "box-body" }, [_c("back-buttton")], 1),
-              _vm._v(" "),
-              _c("div", { staticClass: "box-body" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-6" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.submitForm($event)
+                  }
+                }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "box" },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
                     _c(
-                      "table",
-                      { staticClass: "table table-bordered table-striped" },
-                      [
-                        _c("tbody", [
-                          _c("tr", [
-                            _c("th", [_vm._v("#")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.id))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Company")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm.item.company !== null
-                                ? _c(
-                                    "span",
-                                    { staticClass: "label label-info" },
-                                    [
-                                      _vm._v(
-                                        "\n                                                " +
-                                          _vm._s(_vm.item.company.name) +
-                                          "\n                                            "
-                                      )
-                                    ]
-                                  )
-                                : _vm._e()
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("First name")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.first_name))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Last name")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.last_name))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Email")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.email))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Phone")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.phone))])
-                          ])
+                      "div",
+                      { staticClass: "box-body" },
+                      [_c("back-buttton")],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("bootstrap-alert"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "box-body" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "table",
+                            {
+                              staticClass: "table table-bordered table-striped"
+                            },
+                            [
+                              _c("tbody", [
+                                _c("tr", [
+                                  _c("th", [_vm._v("Currency Name")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.customer_id))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Current Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(_vm.item.amount))])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Currency Name")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(_vm.item.rate))])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(_vm.item.total))])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Current Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.paid_by_client))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Currency Name")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.return_to_client))
+                                  ])
+                                ])
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "table",
+                            {
+                              staticClass: "table table-bordered table-striped"
+                            },
+                            [
+                              _c("tbody", [
+                                _c("tr", [
+                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.currency_code))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(_vm.item.name))])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Current Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.current_balance))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Current Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(_vm.item.last_avg_rate))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Currency Name")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(_vm.item.profit))])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(_vm.item.ttl_bs))])
+                                ])
+                              ])
+                            ]
+                          )
                         ])
-                      ]
-                    )
-                  ])
-                ])
-              ])
-            ])
+                      ])
+                    ])
+                  ],
+                  1
+                )
+              ]
+            )
           ])
         ])
       ])
@@ -30626,7 +30994,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "content-header" }, [
-      _c("h1", [_vm._v("Employees")])
+      _c("h1", [_vm._v("Transaction")])
     ])
   },
   function() {
@@ -30634,7 +31002,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("View")])
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Show")])
     ])
   }
 ]
@@ -31086,13 +31454,13 @@ var render = function() {
                       [
                         _c("tbody", [
                           _c("tr", [
-                            _c("th", [_vm._v("#")]),
+                            _c("th", [_vm._v("Currency Name")]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.id))])
+                            _c("td", [_vm._v(_vm._s(_vm.item.name))])
                           ]),
                           _vm._v(" "),
                           _c("tr", [
-                            _c("th", [_vm._v("Company")]),
+                            _c("th", [_vm._v("Opening Balance")]),
                             _vm._v(" "),
                             _c("td", [
                               _vm.item.company !== null
@@ -31102,7 +31470,7 @@ var render = function() {
                                     [
                                       _vm._v(
                                         "\n                                                " +
-                                          _vm._s(_vm.item.company.name) +
+                                          _vm._s(_vm.item.opening_balance) +
                                           "\n                                            "
                                       )
                                     ]
@@ -31112,27 +31480,9 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("tr", [
-                            _c("th", [_vm._v("First name")]),
+                            _c("th", [_vm._v("Current Balance")]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.first_name))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Last name")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.last_name))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Email")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.email))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Phone")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.phone))])
+                            _c("td", [_vm._v(_vm._s(_vm.item.current_balance))])
                           ])
                         ])
                       ]
@@ -31153,7 +31503,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "content-header" }, [
-      _c("h1", [_vm._v("Employees")])
+      _c("h1", [_vm._v("Cases")])
     ])
   },
   function() {
@@ -31310,79 +31660,217 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("section", { staticClass: "content" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-xs-12" }, [
-            _c("div", { staticClass: "box" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "box-body" }, [_c("back-buttton")], 1),
-              _vm._v(" "),
-              _c("div", { staticClass: "box-body" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-6" }, [
-                    _c(
-                      "table",
-                      { staticClass: "table table-bordered table-striped" },
-                      [
-                        _c("tbody", [
-                          _c("tr", [
-                            _c("th", [_vm._v("#")]),
+        _c(
+          "form",
+          {
+            attrs: { enctype: "multipart/form-data" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.submitForm($event)
+              }
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "box" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "box-body" }, [_c("back-buttton")], 1),
+                _vm._v(" "),
+                _c("bootstrap-alert"),
+                _vm._v(" "),
+                _c("div", { staticClass: "box-body" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-xs-6" }, [
+                      _c(
+                        "table",
+                        { staticClass: "table table-bordered table-striped" },
+                        [
+                          _c("tbody", [
+                            _c("tr", [
+                              _c("th", [_vm._v("Currency Name")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.first_name))])
+                            ]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.id))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Company")]),
+                            _c("tr", [
+                              _c("th", [_vm._v("Opening Balance")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.last_name))])
+                            ]),
                             _vm._v(" "),
-                            _c("td", [
-                              _vm.item.company !== null
-                                ? _c(
-                                    "span",
-                                    { staticClass: "label label-info" },
-                                    [
-                                      _vm._v(
-                                        "\n                                                " +
-                                          _vm._s(_vm.item.company.name) +
-                                          "\n                                            "
-                                      )
-                                    ]
-                                  )
-                                : _vm._e()
+                            _c("tr", [
+                              _c("th", [_vm._v("Current Balance")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.email))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Currency Name")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.phone))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Opening Balance")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.customer_code))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Current Balance")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.company_name))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Currency Name")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.mobile))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Opening Balance")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.fax))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Current Balance")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.birthday))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Current Balance")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.eco_ben))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Currency Name")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.address))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Opening Balance")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.city))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Current Balance")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.name_id))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Currency Name")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.id_type))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Opening Balance")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.place_issue))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Current Balance")]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(_vm.item.place_birthday))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Currency Name")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.national))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Opening Balance")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.expire_date))])
                             ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("First name")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.first_name))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Last name")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.last_name))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Email")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.email))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Phone")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.item.phone))])
                           ])
-                        ])
-                      ]
-                    )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xs-6" }, [
+                      _c(
+                        "table",
+                        { staticClass: "table table-bordered table-striped" },
+                        [
+                          _c("tbody", [
+                            _c("tr", [
+                              _c("th", [_vm._v("Current Balance")]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("img", {
+                                  staticStyle: {
+                                    width: "100%",
+                                    "margin-top": "10px"
+                                  },
+                                  attrs: {
+                                    src: _vm.getId_img(),
+                                    id: "id-img-tag"
+                                  }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Currency Name")]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("img", {
+                                  staticStyle: {
+                                    width: "100%",
+                                    "margin-top": "10px"
+                                  },
+                                  attrs: {
+                                    src: _vm.getCompany_img(),
+                                    id: "company-img-tag"
+                                  }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Opening Balance")]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("img", {
+                                  staticStyle: {
+                                    width: "100%",
+                                    "margin-top": "10px"
+                                  },
+                                  attrs: {
+                                    src: _vm.getMix_img(),
+                                    id: "mix-img-tag"
+                                  }
+                                })
+                              ])
+                            ])
+                          ])
+                        ]
+                      )
+                    ])
                   ])
                 ])
-              ])
-            ])
-          ])
-        ])
+              ],
+              1
+            )
+          ]
+        )
       ])
     ]
   )
@@ -31393,7 +31881,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "content-header" }, [
-      _c("h1", [_vm._v("Employees")])
+      _c("h1", [_vm._v("Show Customer")])
     ])
   },
   function() {
@@ -31401,7 +31889,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("View")])
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Show")])
     ])
   }
 ]
@@ -33872,45 +34360,63 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
                     _c("div", { staticClass: "col-md-4" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { name: "id_img", type: "file" },
-                        on: { change: _vm.updateId_img }
-                      }),
-                      _vm._v(" "),
-                      _c("img", {
-                        staticStyle: { width: "100%", "margin-top": "10px" },
-                        attrs: { src: _vm.getId_img(), id: "id-img-tag" }
-                      })
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Customer Photo")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { id: "id_img", type: "file" },
+                          on: { change: _vm.updateId_img }
+                        }),
+                        _vm._v(" "),
+                        _c("img", {
+                          staticStyle: { width: "100%", "margin-top": "10px" },
+                          attrs: { src: _vm.getId_img(), id: "id-img-tag" }
+                        })
+                      ])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { id: "company_img", type: "file" },
-                        on: { change: _vm.updateCompany_img }
-                      }),
-                      _vm._v(" "),
-                      _c("img", {
-                        staticStyle: { width: "100%", "margin-top": "10px" },
-                        attrs: {
-                          src: _vm.getCompany_img(),
-                          id: "company-img-tag"
-                        }
-                      })
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Company Image")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { id: "company_img", type: "file" },
+                          on: { change: _vm.updateCompany_img }
+                        }),
+                        _vm._v(" "),
+                        _c("img", {
+                          staticStyle: { width: "100%", "margin-top": "10px" },
+                          attrs: {
+                            src: _vm.getCompany_img(),
+                            id: "company-img-tag"
+                          }
+                        })
+                      ])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { id: "mix_img", type: "file" },
-                        on: { change: _vm.updateMix_img }
-                      }),
-                      _vm._v(" "),
-                      _c("img", {
-                        staticStyle: { width: "100%", "margin-top": "10px" },
-                        attrs: { src: _vm.getMix_img(), id: "mix-img-tag" }
-                      })
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Mix Image")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { id: "mix_img", type: "file" },
+                          on: { change: _vm.updateMix_img }
+                        }),
+                        _vm._v(" "),
+                        _c("img", {
+                          staticStyle: { width: "100%", "margin-top": "10px" },
+                          attrs: { src: _vm.getMix_img(), id: "mix-img-tag" }
+                        })
+                      ])
                     ])
                   ])
                 ]),

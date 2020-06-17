@@ -1,60 +1,118 @@
 <template>
     <section class="content-wrapper" style="min-height: 960px;">
         <section class="content-header">
-            <h1>Employees</h1>
+            <h1>Currency</h1>
         </section>
 
         <section class="content">
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">View</h3>
-                        </div>
+                <div class="col-md-12">
+                    <form @submit.prevent="submitForm">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Show</h3>
+                            </div>
 
-                        <div class="box-body">
-                            <back-buttton></back-buttton>
-                        </div>
+                            <div class="box-body">
+                                <back-buttton></back-buttton>
+                            </div>
 
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <table class="table table-bordered table-striped">
-                                        <tbody>
-                                        <tr>
-                                            <th>#</th>
-                                            <td>{{ item.id }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Company</th>
-                                            <td>
-                                                <span class="label label-info" v-if="item.company !== null">
-                                                    {{ item.company.name }}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>First name</th>
-                                            <td>{{ item.first_name }}</td>
+                            <bootstrap-alert />
+
+                            <div class="box-body">                    
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <table class="table table-bordered table-striped">
+                                            <tbody>
+                                            <tr>
+                                                <th>Currency Name</th>
+                                                <td>{{ item.calc_type }}</td>
                                             </tr>
-                                        <tr>
-                                            <th>Last name</th>
-                                            <td>{{ item.last_name }}</td>
+                                            <tr>
+                                                <th>Opening Balance</th>
+                                                <td>{{ item.name }}</td>
                                             </tr>
-                                        <tr>
-                                            <th>Email</th>
-                                            <td>{{ item.email }}</td>
+                                            <tr>
+                                                <th>Current Balance</th>
+                                                <td>{{ item.code }}</td>
+                                                </tr>
+                                            <tr>
+                                                <th>Currency Name</th>
+                                                <td>{{ item.buy_code }}</td>
                                             </tr>
-                                        <tr>
-                                            <th>Phone</th>
-                                            <td>{{ item.phone }}</td>
+                                            <tr>
+                                                <th>Opening Balance</th>
+                                                <td>{{ item.sell_code }}</td>
                                             </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            <tr>
+                                                <th>Current Balance</th>
+                                                <td>{{ item.buy_rate_from }}</td>
+                                                </tr>
+                                            <tr>
+                                                <th>Currency Name</th>
+                                                <td>{{ item.buy_rate_to }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Opening Balance</th>
+                                                <td>{{ item.sell_rate_from }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Current Balance</th>
+                                                <td>{{ item.sell_rate_to }}</td>
+                                                </tr>
+                                            <tr>
+                                                <th>Current Balance</th>
+                                                <td>{{ item.opening_balance }}</td>
+                                                </tr>
+                                            <tr>
+                                                <th>Currency Name</th>
+                                                <td>{{ item.current_balance }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Opening Balance</th>
+                                                <td>{{ item.opening_avg_rate }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Current Balance</th>
+                                                <td>{{ item.last_avg_rate }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-bordered table-striped">
+                                            <tbody>
+                                            <tr>
+                                                <th>Currency Name</th>
+                                                <td><img :src="getFlagImage()" id="flag-img-tag" style="width:100%; margin-top: 10px"/></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Opening Balance</th>
+                                                <td>
+                                                    {{ item.bs_amount_dec_limit }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Current Balance</th>
+                                                <td>{{ item.avg_rate_dec_limit }}</td>
+                                                </tr>
+                                            <tr>
+                                                <th>Currency Name</th>
+                                                <td>{{ item.balance_dec_limit }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Opening Balance</th>
+                                                <td>
+                                                    {{ item.last_avg_rate_dec_limit }}
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>                     
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -68,26 +126,26 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
     data() {
         return {
-            // Code...
-        }
+            flag_image_show: false,
+        };
+    },
+    computed: {
+        ...mapGetters('CurrencySingle', ['item', 'loading']),
     },
     created() {
         this.fetchData(this.$route.params.id)
     },
-    destroyed() {
-        this.resetState()
-    },
-    computed: {
-        ...mapGetters('EmployeesSingle', ['item'])
-    },
     watch: {
         "$route.params.id": function() {
-            this.resetState()
             this.fetchData(this.$route.params.id)
         }
     },
     methods: {
-        ...mapActions('EmployeesSingle', ['fetchData', 'resetState'])
+        ...mapActions('CurrencySingle', ['fetchData']),
+        getFlagImage() {
+            let photo = (this.flag_image_show.length > 100) ? this.flag_image_show : "/images/flag/"+ this.item.flag_img;
+                return photo;
+        }
     }
 }
 </script>
