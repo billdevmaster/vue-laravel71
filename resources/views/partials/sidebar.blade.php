@@ -71,19 +71,6 @@
                     <span class="title">@lang('quickadmin.companies.title')</span>
                 </router-link>
             </li>
-            <li>
-                <router-link :to="{ name: 'employees.index' }">
-                    <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.employees.title')</span>
-                </router-link>
-            </li>
-
-            <li>
-                <router-link :to="{ name: 'auth.change_password' }">
-                    <i class="fa fa-key"></i>
-                    <span class="title">@lang('quickadmin.qa_change_password')</span>
-                </router-link>
-            </li>
 
             <li>
                 <a href="#logout" onclick="$('#logout').submit();">
