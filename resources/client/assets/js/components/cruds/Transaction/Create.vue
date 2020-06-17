@@ -284,6 +284,7 @@ export default {
         },
         updateBSAmount(e) {
             let decimal = e.target.value.split('.')
+            this.amount_status = true
             if (decimal.length > 1 && decimal[1].length <= this.item.bs_amount_dec_limit)
             {
                 this.setBSAmount(e.target.value)
@@ -303,10 +304,12 @@ export default {
             else
             {
                 $('input[name="amount"]').css('border-color', 'red')
+                this.amount_status = false
             }
         },
         updateBSRate(e) {
             let decimal = e.target.value.split('.')
+            this.rate_status = true
             
             if (decimal.length > 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to && decimal[1].length <= this.item.avg_rate_dec_limit)
             {
@@ -327,6 +330,7 @@ export default {
             else
             {
                 $('input[name="rate"]').css('border-color', 'red')
+                this.rate_status = false
             }
         },
         updatePaidByClient(e) {
