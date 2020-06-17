@@ -61,6 +61,7 @@ export default {
         return {
             columns: [
                 { title: 'TransactionID', field: 'id', sortable: true },
+                { title: 'TransactionType', field: 'type', tdComp: DatatableSingle, sortable: true },
                 { title: 'Customer', field: 'customer_first_name', thComp: DatatableFilter, sortable: true },
                 { title: 'Type', field: 'calc_type', sortable: true },
                 { title: 'DateTime', field: 'created_at', sortable: true },
