@@ -41,7 +41,6 @@ const actions = {
 
         return new Promise((resolve, reject) => {
             let params = _.cloneDeep(state.item)
-            console.log(params)
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -54,6 +53,7 @@ const actions = {
             });
             axios.post('/api/v1/transaction', formData, config)
                 .then(response => {
+                    console.log(response.data)
                     commit('resetState')
                     resolve()
                 })

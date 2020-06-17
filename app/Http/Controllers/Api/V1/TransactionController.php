@@ -116,7 +116,6 @@ class TransactionController extends Controller
                 # code...
                 break;
         }
-
         $transaction_data = array(            
             'name'              => $request->name,
             'customer_code'     => $request->customer_code,

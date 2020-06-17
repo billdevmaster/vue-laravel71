@@ -104,7 +104,6 @@ export default {
         ...mapActions('TransactionIndex', ['fetchData', 'setQuery', 'resetState', 'setAll']),
         handleQueryChange () {       
             let rows = Array()
-            console.log(this.data_all)
             this.data_all.forEach(element => {
                 if( element.customer_first_name.toLowerCase().search(this.query['customer_first_name'].toLowerCase()) >= 0 )
                     rows.push(element)

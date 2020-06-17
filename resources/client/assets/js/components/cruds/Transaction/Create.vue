@@ -120,6 +120,7 @@
                                                     class="form-control"
                                                     name="total"
                                                     :value="item.total"
+                                                    readonly
                                                     >
                                         </div>
                                         <div class="form-group">
