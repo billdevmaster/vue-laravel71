@@ -29705,7 +29705,20 @@ var render = function() {
                         _c("div", { staticClass: "col-md-4" }, [
                           _c("div", { staticClass: "form-group" }, [
                             _c("label", { attrs: { for: "amount" } }, [
-                              _vm._v("Buy / Sell Amount")
+                              _vm._v("Buy / Sell Amount "),
+                              !_vm.amount_status
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-danger" },
+                                    [
+                                      _vm._v(
+                                        "Floating-point numbers of Amount must be less than ( " +
+                                          _vm._s(_vm.item.bs_amount_dec_limit) +
+                                          ")"
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
                             ]),
                             _vm._v(" "),
                             _c("input", {
@@ -29722,7 +29735,23 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group" }, [
                             _c("label", { attrs: { for: "rate" } }, [
-                              _vm._v("Buy / Sell Rate")
+                              _vm._v("Buy / Sell Rate "),
+                              !_vm.rate_status
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-danger" },
+                                    [
+                                      _vm._v(
+                                        "Floating-point numbers of Rate must be less than ( " +
+                                          _vm._s(_vm.item.bs_amount_dec_limit) +
+                                          ") Or Rate must be between " +
+                                          _vm._s(_vm.item.rate_from) +
+                                          " and " +
+                                          _vm._s(_vm.item.rate_to)
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
                             ]),
                             _vm._v(" "),
                             _c("input", {

@@ -92,7 +92,7 @@
                                     <div class="col-md-2"></div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="amount">Buy / Sell Amount</label>
+                                            <label for="amount">Buy / Sell Amount <span class="label label-danger" v-if="!amount_status">Floating-point numbers of Amount must be less than ( {{item.bs_amount_dec_limit}})</span></label>
                                             <input
                                                     type="text"
                                                     class="form-control"
@@ -103,7 +103,7 @@
                                                     >
                                         </div>
                                         <div class="form-group">
-                                            <label for="rate">Buy / Sell Rate</label>
+                                            <label for="rate">Buy / Sell Rate <span class="label label-danger" v-if="!rate_status">Floating-point numbers of Rate must be less than ( {{item.bs_amount_dec_limit}}) Or Rate must be between {{item.rate_from}} and {{item.rate_to}}</span></label>
                                             <input
                                                     type="text"
                                                     class="form-control"
