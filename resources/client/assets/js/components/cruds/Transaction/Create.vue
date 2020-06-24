@@ -330,7 +330,11 @@ export default {
                 $('input[name="rate"]').css('border-color', '')
             }
             else
-            {
+            { 
+                this.setBSRate(e.target.value)
+                if (this.item.amount > 0) {
+                    this.setTotal(this.item.amount * e.target.value)
+                }
                 $('input[name="rate"]').css('border-color', 'red')
                 this.rate_status = false
             }
