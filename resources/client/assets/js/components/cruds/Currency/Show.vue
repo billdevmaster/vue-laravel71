@@ -25,55 +25,55 @@
                                         <table class="table table-bordered table-striped">
                                             <tbody>
                                             <tr>
-                                                <th>Currency Name</th>
+                                                <th>Calculation Type</th>
                                                 <td>{{ item.calc_type }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Opening Balance</th>
+                                                <th>Currency Name</th>
                                                 <td>{{ item.name }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Current Balance</th>
+                                                <th>Currency Code</th>
                                                 <td>{{ item.code }}</td>
                                                 </tr>
                                             <tr>
-                                                <th>Currency Name</th>
+                                                <th>Buy Code</th>
                                                 <td>{{ item.buy_code }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Opening Balance</th>
+                                                <th>Sell Code</th>
                                                 <td>{{ item.sell_code }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Current Balance</th>
+                                                <th>Buy Rate From</th>
                                                 <td>{{ item.buy_rate_from }}</td>
                                                 </tr>
                                             <tr>
-                                                <th>Currency Name</th>
+                                                <th>Buy Rate to</th>
                                                 <td>{{ item.buy_rate_to }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Opening Balance</th>
+                                                <th>Sell Rate From</th>
                                                 <td>{{ item.sell_rate_from }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Current Balance</th>
+                                                <th>Sell Rate To</th>
                                                 <td>{{ item.sell_rate_to }}</td>
                                                 </tr>
                                             <tr>
-                                                <th>Current Balance</th>
+                                                <th>Opening Balance</th>
                                                 <td>{{ item.opening_balance }}</td>
                                                 </tr>
                                             <tr>
-                                                <th>Currency Name</th>
+                                                <th>Current Balance</th>
                                                 <td>{{ item.current_balance }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Opening Balance</th>
+                                                <th>Opening Average Rate</th>
                                                 <td>{{ item.opening_avg_rate }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Current Balance</th>
+                                                <th>Last Average Rate</th>
                                                 <td>{{ item.last_avg_rate }}</td>
                                                 </tr>
                                             </tbody>
@@ -83,25 +83,25 @@
                                         <table class="table table-bordered table-striped">
                                             <tbody>
                                             <tr>
-                                                <th>Currency Name</th>
+                                                <th>Currency Image</th>
                                                 <td><img :src="getFlagImage()" id="flag-img-tag" style="width:100%; margin-top: 10px"/></td>
                                             </tr>
                                             <tr>
-                                                <th>Opening Balance</th>
+                                                <th>BS Amount Decimal Limit</th>
                                                 <td>
                                                     {{ item.bs_amount_dec_limit }}
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th>Current Balance</th>
+                                                <th>Average Rate Decimal Limit</th>
                                                 <td>{{ item.avg_rate_dec_limit }}</td>
                                                 </tr>
                                             <tr>
-                                                <th>Currency Name</th>
+                                                <th>Balance Decimal Limit</th>
                                                 <td>{{ item.balance_dec_limit }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Opening Balance</th>
+                                                <th>Last Average Rate Decimal Limit</th>
                                                 <td>
                                                     {{ item.last_avg_rate_dec_limit }}
                                                 </td>

@@ -23,77 +23,41 @@
                 <table class="table table-bordered table-striped">
                     <tbody>
                     <tr>
-                        <th>Currency Name</th>
+                        <th>First Name</th>
                         <td>{{ item.first_name }}</td>
                     </tr>
                     <tr>
-                        <th>Opening Balance</th>
+                        <th>Last Name</th>
                         <td>{{ item.last_name }}</td>
                     </tr>
                     <tr>
-                        <th>Current Balance</th>
+                        <th>Email</th>
                         <td>{{ item.email }}</td>
                         </tr>
                     <tr>
-                        <th>Currency Name</th>
+                        <th>Phone</th>
                         <td>{{ item.phone }}</td>
                     </tr>
                     <tr>
-                        <th>Opening Balance</th>
+                        <th>Customer Code</th>
                         <td>{{ item.customer_code }}</td>
                     </tr>
                     <tr>
-                        <th>Current Balance</th>
+                        <th>Company Name</th>
                         <td>{{ item.company_name }}</td>
                         </tr>
                     <tr>
-                        <th>Currency Name</th>
+                        <th>Mobile</th>
                         <td>{{ item.mobile }}</td>
                     </tr>
                     <tr>
-                        <th>Opening Balance</th>
+                        <th>Fax</th>
                         <td>{{ item.fax }}</td>
                     </tr>
                     <tr>
-                        <th>Current Balance</th>
+                        <th>Birthday</th>
                         <td>{{ item.birthday }}</td>
                         </tr>
-                    <tr>
-                        <th>Current Balance</th>
-                        <td>{{ item.eco_ben }}</td>
-                        </tr>
-                    <tr>
-                        <th>Currency Name</th>
-                        <td>{{ item.address }}</td>
-                    </tr>
-                    <tr>
-                        <th>Opening Balance</th>
-                        <td>{{ item.city }}</td>
-                    </tr>
-                    <tr>
-                        <th>Current Balance</th>
-                        <td>{{ item.name_id }}</td>
-                        </tr>
-                    <tr>
-                        <th>Currency Name</th>
-                        <td>{{ item.id_type }}</td>
-                    </tr>
-                    <tr>
-                        <th>Opening Balance</th>
-                        <td>{{ item.place_issue }}</td>
-                    </tr>
-                    <tr>
-                        <th>Current Balance</th>
-                        <td>{{ item.place_birthday }}</td>
-                        </tr>
-                    <tr>
-                        <th>Currency Name</th>
-                        <td>{{ item.national }}</td>
-                    </tr>
-                    <tr>
-                        <th>Opening Balance</th>
-                        <td>{{ item.expire_date }}</td>
-                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -101,17 +65,57 @@
                 <table class="table table-bordered table-striped">
                     <tbody>
                     <tr>
-                        <th>Current Balance</th>
-                        <td><img :src="getId_img()" id="id-img-tag" style="width:100%;margin-top: 10px"/></td>
+                        <th>ECO Ben</th>
+                        <td>{{ item.eco_ben }}</td>
                         </tr>
                     <tr>
-                        <th>Currency Name</th>
-                        <td><img :src="getCompany_img()" id="company-img-tag" style="width:100%;margin-top: 10px"/></td>
+                        <th>Address</th>
+                        <td>{{ item.address }}</td>
                     </tr>
                     <tr>
-                        <th>Opening Balance</th>
-                        <td><img :src="getMix_img()" id="mix-img-tag" style="width:100%;margin-top: 10px"/></td>
+                        <th>City</th>
+                        <td>{{ item.city }}</td>
                     </tr>
+                    <tr>
+                        <th>Name ID</th>
+                        <td>{{ item.name_id }}</td>
+                        </tr>
+                    <tr>
+                        <th>ID Type</th>
+                        <td>{{ item.id_type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Place Issue</th>
+                        <td>{{ item.place_issue }}</td>
+                    </tr>
+                    <tr>
+                        <th>Place Birthday</th>
+                        <td>{{ item.place_birthday }}</td>
+                        </tr>
+                    <tr>
+                        <th>National</th>
+                        <td>{{ item.national }}</td>
+                    </tr>
+                    <tr>
+                        <th>Expire Date</th>
+                        <td>{{ item.expire_date }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-12">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <th width="40%">Customer Image</th>
+                            <th width="30%">Company Image</th>
+                            <th width="30%">MIX Image</th>
+                        </tr>
+                        <tr>
+                            <td valign="middle"><img :src="getId_img()" id="id-img-tag" style="width:100%;margin-top: 10px"/></td>
+                            <td><img :src="getCompany_img()" id="company-img-tag" style="width:100%;margin-top: 10px"/></td>
+                            <td><img :src="getMix_img()" id="mix-img-tag" style="width:100%;margin-top: 10px"/></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

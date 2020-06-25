@@ -19,6 +19,9 @@
                                 </router-link>
                                 <button type="button" class="btn btn-default btn-sm" @click="fetchData">
                                     <i class="fa fa-refresh" :class="{'fa-spin': loading}"></i> Refresh
+                                </button>                                
+                                <button type="button" class="btn btn-danger btn-sm" @click="removeAllData">
+                                    <i class="fa fa-times" :class="{'fa-spin': loading}"></i> Remove All Transactions
                                 </button>
                             </div>
                         </div>
@@ -102,7 +105,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions('TransactionIndex', ['fetchData', 'setQuery', 'resetState', 'setAll']),
+        ...mapActions('TransactionIndex', ['fetchData', 'setQuery', 'resetState', 'setAll', 'removeAllData']),
         handleQueryChange () {       
             let rows = Array()
             this.data_all.forEach(element => {

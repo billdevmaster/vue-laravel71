@@ -48,6 +48,23 @@ const actions = {
                 commit('setLoading', false)
             })
     },
+    removeAllData({ commit, state }) {
+        commit('setLoading', true)
+
+        axios.delete('/api/v1/transaction/all')
+            .then(response => {
+                console.log(response)
+                commit('resetState')
+            })
+            .catch(error => {
+                message = error.response.data.message || error.message
+                commit('setError', message)
+                console.log(message)
+            })
+            .finally(() => {
+                commit('setLoading', false)
+            })
+    },
     destroyData({ commit, state }, id) {
         axios.delete('/api/v1/transaction/' + id)
             .then(response => {

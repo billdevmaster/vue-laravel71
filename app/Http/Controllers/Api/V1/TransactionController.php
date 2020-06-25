@@ -305,6 +305,21 @@ class TransactionController extends Controller
 
     public function destroy($id)
     {
+        if ($id == 'all') {
+            Transaction::whereNotNull('id')->delete();
+            $currency_list = Currency::with([])->get();
+            foreach ($currency_list as $key => $item) {
+                
+                $currency_data = Array(
+                    'current_balance' => $item->opening_balance,
+                    'last_avg_rate' => $item->opening_avg_rate
+                );
+                
+                $currency = Currency::findOrFail($item->id);
+
+                $currency->update($currency_data);      
+            } 
+        }
         $transaction = Transaction::findOrFail($id);   
 
         $first_transaction = DB::table('transactions')->first();

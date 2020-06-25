@@ -145,6 +145,22 @@ const actions = {
             })
     },
     fetchCurrencyData({ commit }, value) {
+        
+        if (value == null) {
+            commit('setCurrencyName', '')
+            commit('setCurrentBalance', '')
+            commit('setLastAverageRate', '')
+            commit('setCurrencyID', '')
+            commit('setCurrencyCalculationType', '')
+            commit('setAmountDecLimit', '')
+            commit('setRateDecLimit', '')
+            commit('setType', '')
+            commit('setRateFrom', '')
+            commit('setRateTo', '')
+            commit('setPaidByClient', '')
+            commit('setReturnToClient', '')
+            return
+        }
         let data = value.split('-')
 
         axios.get('/api/v1/currency/' + data[0])

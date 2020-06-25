@@ -24,7 +24,7 @@
                                     <div class="col-md-2"></div>                                  
                                     <div class="col-md-4">     
                                         <div class="form-group">
-                                            <label for="customer">Customer</label>
+                                            <label for="customer">Customer <span class="label label-danger" v-if="item.customer_code == null || item.customer_code == ''"> * required</span></label>
                                             <v-select
                                                     name="customer"
                                                     label="customer"
@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="currency_code">Currency Code</label>
+                                            <label for="currency_code">Currency Code <span class="label label-danger" v-if="item.type != '0' && item.type != '1'"> * required</span></label>
                                             <v-select
                                                     name="currency_code"
                                                     label="currency_code"
@@ -92,7 +92,7 @@
                                     <div class="col-md-2"></div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="amount">Buy / Sell Amount <span class="label label-danger" v-if="!amount_status">Floating-point numbers of Amount must be less than ( {{item.bs_amount_dec_limit}})</span></label>
+                                            <label for="amount">Buy / Sell Amount <span class="label label-danger" v-if="!amount_status">Floating-point numbers of Amount must be less than ( {{item.bs_amount_dec_limit}})</span><span class="label label-danger" v-if="item.amount == null || item.amount == ''"> * required</span></label>
                                             <input
                                                     type="text"
                                                     class="form-control"
@@ -103,7 +103,7 @@
                                                     >
                                         </div>
                                         <div class="form-group">
-                                            <label for="rate">Buy / Sell Rate <span class="label label-danger" v-if="!rate_status">Floating-point numbers of Rate must be less than ( {{item.bs_amount_dec_limit}}) Or Rate must be between {{item.rate_from}} and {{item.rate_to}}</span></label>
+                                            <label for="rate">Buy / Sell Rate <span class="label label-danger" v-if="!rate_status">Floating-point numbers of Rate must be less than ( {{item.bs_amount_dec_limit}}) Or Rate must be between {{item.rate_from}} and {{item.rate_to}}</span><span class="label label-danger" v-if="item.rate == null || item.rate == ''"> * required</span></label>
                                             <input
                                                     type="text"
                                                     class="form-control"
@@ -238,6 +238,9 @@ export default {
     computed: {
         ...mapGetters('TransactionSingle', ['item', 'loading', 'currency_all', 'customer_all']),
     },
+    mounted() {
+        window.addEventListener("keypress", this.saveKeyAction)
+    },
     created() {
         this.fetchCurrencyAll()
         this.fetchCustomerAll()
@@ -277,11 +280,18 @@ export default {
                     $('input[name="return_to_client"]').removeAttr('disabled')
                 }
             }
+            else {
+                this.fetchCurrencyData(null)
+            }
         },
         updateCustomer(value) {
             if (value != null) {
                 let customer_data = value.split("-")
                 this.setCustomerCode(customer_data[0])
+            }
+            else
+            {
+                this.setCustomerCode('')
             }
         },
         updateBSAmount(e) {
@@ -304,7 +314,11 @@ export default {
                 $('input[name="amount"]').css('border-color', '')
             }
             else
-            {
+            {   
+                this.setBSAmount(e.target.value)
+                if (this.item.rate > 0) {
+                    this.setTotal(this.item.rate * e.target.value)
+                }
                 $('input[name="amount"]').css('border-color', 'red')
                 this.amount_status = false
             }
@@ -344,21 +358,41 @@ export default {
             this.setReturnToClient(e.target.value - this.item.total)
         },
         submitForm() {
-            let amount_validation = $('input[name="amount"]').css('border-color')
+            if ($('.label-danger'))
+                return
+
+            let amount_validation = $('.label-danger').css('border-color')
             let rate_validation = $('input[name="rate"]').css('border-color')
             if (amount_validation == 'rgb(255, 0, 0)' || rate_validation == 'rgb(255, 0, 0)') {
                 alert('Please check your amount or rate!!')
                 return false;
             }
             
-            this.storeData()
-                .then(() => {
-                    this.$router.push({ name: 'transaction.index' })
-                    this.$eventHub.$emit('create-success')
-                })
-                .catch((error) => {
-                    console.error(error)
-                })
+            this.$swal({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                confirmButtonColor: '#dd4b39',
+                focusCancel: true,
+                reverseButtons: true
+            }).then(result => {
+                if (result.value) {
+                    this.storeData()
+                        .then(() => {
+                            this.$router.push({ name: 'transaction.index' })
+                            this.$eventHub.$emit('create-success')
+                        })
+                        .catch((error) => {
+                            console.error(error)
+                        })
+                }
+            })
+        },
+        saveKeyAction(e) {
+            if (e.keyCode == 17)
+                this.submitForm()
         }
     }
 }

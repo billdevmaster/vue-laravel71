@@ -3344,6 +3344,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -4698,6 +4702,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading', 'currency_all', 'customer_all'])),
+    mounted: function mounted() {
+        window.addEventListener("keypress", this.saveKeyAction);
+    },
     created: function created() {
         this.fetchCurrencyAll();
         this.fetchCustomerAll();
@@ -4720,12 +4727,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     $('input[name="paid_by_client"]').removeAttr('disabled');
                     $('input[name="return_to_client"]').removeAttr('disabled');
                 }
+            } else {
+                this.fetchCurrencyData(null);
             }
         },
         updateCustomer: function updateCustomer(value) {
             if (value != null) {
                 var customer_data = value.split("-");
                 this.setCustomerCode(customer_data[0]);
+            } else {
+                this.setCustomerCode('');
             }
         },
         updateBSAmount: function updateBSAmount(e) {
@@ -4744,6 +4755,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 }
                 $('input[name="amount"]').css('border-color', '');
             } else {
+                this.setBSAmount(e.target.value);
+                if (this.item.rate > 0) {
+                    this.setTotal(this.item.rate * e.target.value);
+                }
                 $('input[name="amount"]').css('border-color', 'red');
                 this.amount_status = false;
             }
@@ -4780,19 +4795,37 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         submitForm: function submitForm() {
             var _this = this;
 
-            var amount_validation = $('input[name="amount"]').css('border-color');
+            if ($('.label-danger')) return;
+
+            var amount_validation = $('.label-danger').css('border-color');
             var rate_validation = $('input[name="rate"]').css('border-color');
             if (amount_validation == 'rgb(255, 0, 0)' || rate_validation == 'rgb(255, 0, 0)') {
                 alert('Please check your amount or rate!!');
                 return false;
             }
 
-            this.storeData().then(function () {
-                _this.$router.push({ name: 'transaction.index' });
-                _this.$eventHub.$emit('create-success');
-            }).catch(function (error) {
-                console.error(error);
+            this.$swal({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                confirmButtonColor: '#dd4b39',
+                focusCancel: true,
+                reverseButtons: true
+            }).then(function (result) {
+                if (result.value) {
+                    _this.storeData().then(function () {
+                        _this.$router.push({ name: 'transaction.index' });
+                        _this.$eventHub.$emit('create-success');
+                    }).catch(function (error) {
+                        console.error(error);
+                    });
+                }
             });
+        },
+        saveKeyAction: function saveKeyAction(e) {
+            if (e.keyCode == 17) this.submitForm();
         }
     })
 });
@@ -5033,6 +5066,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -5046,6 +5080,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading', 'currency_all', 'customer_all'])),
+    mounted: function mounted() {
+        window.addEventListener("keypress", this.saveKeyAction);
+    },
     created: function created() {
         this.fetchData(this.$route.params.id);
         this.fetchCurrencyAll();
@@ -5075,12 +5112,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     $('input[name="paid_by_client"]').removeAttr('disabled');
                     $('input[name="return_to_client"]').removeAttr('disabled');
                 }
+            } else {
+                this.fetchCurrencyData(null);
             }
         },
         updateCustomer: function updateCustomer(value) {
             if (value != null) {
                 var customer_data = value.split("-");
                 this.setCustomerCode(customer_data[0]);
+            } else {
+                this.setCustomerCode('');
             }
         },
         updateBSAmount: function updateBSAmount(e) {
@@ -5099,6 +5140,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 }
                 $('input[name="amount"]').css('border-color', '');
             } else {
+                this.setBSAmount(e.target.value);
+                if (this.item.rate > 0) {
+                    this.setTotal(this.item.rate * e.target.value);
+                }
                 $('input[name="amount"]').css('border-color', 'red');
                 this.amount_status = false;
             }
@@ -5135,19 +5180,37 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         submitForm: function submitForm() {
             var _this = this;
 
-            var amount_validation = $('input[name="amount"]').css('border-color');
+            if ($('.label-danger')) return;
+
+            var amount_validation = $('.label-danger').css('border-color');
             var rate_validation = $('input[name="rate"]').css('border-color');
             if (amount_validation == 'rgb(255, 0, 0)' || rate_validation == 'rgb(255, 0, 0)') {
                 alert('Please check your amount or rate!!');
                 return false;
             }
 
-            this.updateData().then(function () {
-                _this.$router.push({ name: 'transaction.index' });
-                _this.$eventHub.$emit('update-success');
-            }).catch(function (error) {
-                console.error(error);
+            this.$swal({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                confirmButtonColor: '#dd4b39',
+                focusCancel: true,
+                reverseButtons: true
+            }).then(function (result) {
+                if (result.value) {
+                    _this.updateData().then(function () {
+                        _this.$router.push({ name: 'transaction.index' });
+                        _this.$eventHub.$emit('update-success');
+                    }).catch(function (error) {
+                        console.error(error);
+                    });
+                }
             });
+        },
+        saveKeyAction: function saveKeyAction(e) {
+            if (e.keyCode == 17) this.submitForm();
         }
     })
 });
@@ -5173,6 +5236,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableFilter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__dtmodules_DatatableFilter__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
 //
 //
 //
@@ -5260,7 +5326,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             deep: true
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionIndex', ['fetchData', 'setQuery', 'resetState', 'setAll']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionIndex', ['fetchData', 'setQuery', 'resetState', 'setAll', 'removeAllData']), {
         handleQueryChange: function handleQueryChange() {
             var _this = this;
 
@@ -8091,7 +8157,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8181,7 +8247,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8421,7 +8487,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8526,7 +8592,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -28734,6 +28800,24 @@ var render = function() {
                         }),
                         _vm._v(" Refresh\n                            ")
                       ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger btn-sm",
+                        attrs: { type: "button" },
+                        on: { click: _vm.removeAllData }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fa fa-times",
+                          class: { "fa-spin": _vm.loading }
+                        }),
+                        _vm._v(
+                          " Remove All Transactions\n                            "
+                        )
+                      ]
                     )
                   ],
                   1
@@ -29615,7 +29699,15 @@ var render = function() {
                             { staticClass: "form-group" },
                             [
                               _c("label", { attrs: { for: "customer" } }, [
-                                _vm._v("Customer")
+                                _vm._v("Customer "),
+                                _vm.item.customer_code == null ||
+                                _vm.item.customer_code == ""
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "label label-danger" },
+                                      [_vm._v(" * required")]
+                                    )
+                                  : _vm._e()
                               ]),
                               _vm._v(" "),
                               _c("v-select", {
@@ -29646,7 +29738,14 @@ var render = function() {
                             { staticClass: "form-group" },
                             [
                               _c("label", { attrs: { for: "currency_code" } }, [
-                                _vm._v("Currency Code")
+                                _vm._v("Currency Code "),
+                                _vm.item.type != "0" && _vm.item.type != "1"
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "label label-danger" },
+                                      [_vm._v(" * required")]
+                                    )
+                                  : _vm._e()
                               ]),
                               _vm._v(" "),
                               _c("v-select", {
@@ -29728,6 +29827,13 @@ var render = function() {
                                       )
                                     ]
                                   )
+                                : _vm._e(),
+                              _vm.item.amount == null || _vm.item.amount == ""
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-danger" },
+                                    [_vm._v(" * required")]
+                                  )
                                 : _vm._e()
                             ]),
                             _vm._v(" "),
@@ -29760,6 +29866,13 @@ var render = function() {
                                           _vm._s(_vm.item.rate_to)
                                       )
                                     ]
+                                  )
+                                : _vm._e(),
+                              _vm.item.rate == null || _vm.item.rate == ""
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-danger" },
+                                    [_vm._v(" * required")]
                                   )
                                 : _vm._e()
                             ]),
@@ -30267,37 +30380,37 @@ var render = function() {
                             [
                               _c("tbody", [
                                 _c("tr", [
-                                  _c("th", [_vm._v("Currency Name")]),
+                                  _c("th", [_vm._v("Calculation Type")]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(_vm.item.calc_type))])
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _c("th", [_vm._v("Currency Name")]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(_vm.item.name))])
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Current Balance")]),
+                                  _c("th", [_vm._v("Currency Code")]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(_vm.item.code))])
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Currency Name")]),
+                                  _c("th", [_vm._v("Buy Code")]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(_vm.item.buy_code))])
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _c("th", [_vm._v("Sell Code")]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(_vm.item.sell_code))])
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Current Balance")]),
+                                  _c("th", [_vm._v("Buy Rate From")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.buy_rate_from))
@@ -30305,7 +30418,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Currency Name")]),
+                                  _c("th", [_vm._v("Buy Rate to")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.buy_rate_to))
@@ -30313,7 +30426,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _c("th", [_vm._v("Sell Rate From")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.sell_rate_from))
@@ -30321,7 +30434,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Current Balance")]),
+                                  _c("th", [_vm._v("Sell Rate To")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.sell_rate_to))
@@ -30329,7 +30442,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Current Balance")]),
+                                  _c("th", [_vm._v("Opening Balance")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.opening_balance))
@@ -30337,7 +30450,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Currency Name")]),
+                                  _c("th", [_vm._v("Current Balance")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.current_balance))
@@ -30345,7 +30458,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _c("th", [_vm._v("Opening Average Rate")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.opening_avg_rate))
@@ -30353,7 +30466,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Current Balance")]),
+                                  _c("th", [_vm._v("Last Average Rate")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.last_avg_rate))
@@ -30373,7 +30486,7 @@ var render = function() {
                             [
                               _c("tbody", [
                                 _c("tr", [
-                                  _c("th", [_vm._v("Currency Name")]),
+                                  _c("th", [_vm._v("Currency Image")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _c("img", {
@@ -30390,7 +30503,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _c("th", [_vm._v("BS Amount Decimal Limit")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(
@@ -30402,7 +30515,9 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Current Balance")]),
+                                  _c("th", [
+                                    _vm._v("Average Rate Decimal Limit")
+                                  ]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.avg_rate_dec_limit))
@@ -30410,7 +30525,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Currency Name")]),
+                                  _c("th", [_vm._v("Balance Decimal Limit")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.balance_dec_limit))
@@ -30418,7 +30533,9 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _c("th", [
+                                    _vm._v("Last Average Rate Decimal Limit")
+                                  ]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(
@@ -32123,113 +32240,57 @@ var render = function() {
                         [
                           _c("tbody", [
                             _c("tr", [
-                              _c("th", [_vm._v("Currency Name")]),
+                              _c("th", [_vm._v("First Name")]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(_vm.item.first_name))])
                             ]),
                             _vm._v(" "),
                             _c("tr", [
-                              _c("th", [_vm._v("Opening Balance")]),
+                              _c("th", [_vm._v("Last Name")]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(_vm.item.last_name))])
                             ]),
                             _vm._v(" "),
                             _c("tr", [
-                              _c("th", [_vm._v("Current Balance")]),
+                              _c("th", [_vm._v("Email")]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(_vm.item.email))])
                             ]),
                             _vm._v(" "),
                             _c("tr", [
-                              _c("th", [_vm._v("Currency Name")]),
+                              _c("th", [_vm._v("Phone")]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(_vm.item.phone))])
                             ]),
                             _vm._v(" "),
                             _c("tr", [
-                              _c("th", [_vm._v("Opening Balance")]),
+                              _c("th", [_vm._v("Customer Code")]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(_vm.item.customer_code))])
                             ]),
                             _vm._v(" "),
                             _c("tr", [
-                              _c("th", [_vm._v("Current Balance")]),
+                              _c("th", [_vm._v("Company Name")]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(_vm.item.company_name))])
                             ]),
                             _vm._v(" "),
                             _c("tr", [
-                              _c("th", [_vm._v("Currency Name")]),
+                              _c("th", [_vm._v("Mobile")]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(_vm.item.mobile))])
                             ]),
                             _vm._v(" "),
                             _c("tr", [
-                              _c("th", [_vm._v("Opening Balance")]),
+                              _c("th", [_vm._v("Fax")]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(_vm.item.fax))])
                             ]),
                             _vm._v(" "),
                             _c("tr", [
-                              _c("th", [_vm._v("Current Balance")]),
+                              _c("th", [_vm._v("Birthday")]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(_vm.item.birthday))])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("Current Balance")]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(_vm.item.eco_ben))])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("Currency Name")]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(_vm.item.address))])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("Opening Balance")]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(_vm.item.city))])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("Current Balance")]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(_vm.item.name_id))])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("Currency Name")]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(_vm.item.id_type))])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("Opening Balance")]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(_vm.item.place_issue))])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("Current Balance")]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(_vm._s(_vm.item.place_birthday))
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("Currency Name")]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(_vm.item.national))])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("Opening Balance")]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(_vm.item.expire_date))])
                             ])
                           ])
                         ]
@@ -32243,9 +32304,75 @@ var render = function() {
                         [
                           _c("tbody", [
                             _c("tr", [
-                              _c("th", [_vm._v("Current Balance")]),
+                              _c("th", [_vm._v("ECO Ben")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.eco_ben))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Address")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.address))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("City")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.city))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Name ID")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.name_id))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("ID Type")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.id_type))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Place Issue")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.place_issue))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Place Birthday")]),
                               _vm._v(" "),
                               _c("td", [
+                                _vm._v(_vm._s(_vm.item.place_birthday))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("National")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.national))])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("th", [_vm._v("Expire Date")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(_vm.item.expire_date))])
+                            ])
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xs-12" }, [
+                      _c(
+                        "table",
+                        { staticClass: "table table-bordered table-striped" },
+                        [
+                          _c("tbody", [
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("td", { attrs: { valign: "middle" } }, [
                                 _c("img", {
                                   staticStyle: {
                                     width: "100%",
@@ -32256,11 +32383,7 @@ var render = function() {
                                     id: "id-img-tag"
                                   }
                                 })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("Currency Name")]),
+                              ]),
                               _vm._v(" "),
                               _c("td", [
                                 _c("img", {
@@ -32273,11 +32396,7 @@ var render = function() {
                                     id: "company-img-tag"
                                   }
                                 })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("Opening Balance")]),
+                              ]),
                               _vm._v(" "),
                               _c("td", [
                                 _c("img", {
@@ -32322,6 +32441,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
       _c("h3", { staticClass: "box-title" }, [_vm._v("Show")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { attrs: { width: "40%" } }, [_vm._v("Customer Image")]),
+      _vm._v(" "),
+      _c("th", { attrs: { width: "30%" } }, [_vm._v("Company Image")]),
+      _vm._v(" "),
+      _c("th", { attrs: { width: "30%" } }, [_vm._v("MIX Image")])
     ])
   }
 ]
@@ -33146,7 +33277,15 @@ var render = function() {
                             { staticClass: "form-group" },
                             [
                               _c("label", { attrs: { for: "customer" } }, [
-                                _vm._v("Customer")
+                                _vm._v("Customer "),
+                                _vm.item.customer_code == null ||
+                                _vm.item.customer_code == ""
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "label label-danger" },
+                                      [_vm._v(" * required")]
+                                    )
+                                  : _vm._e()
                               ]),
                               _vm._v(" "),
                               _c("v-select", {
@@ -33177,7 +33316,14 @@ var render = function() {
                             { staticClass: "form-group" },
                             [
                               _c("label", { attrs: { for: "currency_code" } }, [
-                                _vm._v("Currency Code")
+                                _vm._v("Currency Code "),
+                                _vm.item.type != "0" && _vm.item.type != "1"
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "label label-danger" },
+                                      [_vm._v(" * required")]
+                                    )
+                                  : _vm._e()
                               ]),
                               _vm._v(" "),
                               _c("v-select", {
@@ -33259,6 +33405,13 @@ var render = function() {
                                       )
                                     ]
                                   )
+                                : _vm._e(),
+                              _vm.item.amount == null || _vm.item.amount == ""
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-danger" },
+                                    [_vm._v(" * required")]
+                                  )
                                 : _vm._e()
                             ]),
                             _vm._v(" "),
@@ -33292,6 +33445,13 @@ var render = function() {
                                       )
                                     ]
                                   )
+                                : _vm._e(),
+                              _vm.item.rate == null || _vm.item.rate == ""
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-danger" },
+                                    [_vm._v(" * required")]
+                                  )
                                 : _vm._e()
                             ]),
                             _vm._v(" "),
@@ -33314,7 +33474,11 @@ var render = function() {
                             _vm._v(" "),
                             _c("input", {
                               staticClass: "form-control",
-                              attrs: { type: "text", name: "total" },
+                              attrs: {
+                                type: "text",
+                                name: "total",
+                                readonly: ""
+                              },
                               domProps: { value: _vm.item.total }
                             })
                           ]),
@@ -41927,9 +42091,26 @@ var actions = {
             commit('setLoading', false);
         });
     },
-    destroyData: function destroyData(_ref2, id) {
+    removeAllData: function removeAllData(_ref2) {
         var commit = _ref2.commit,
             state = _ref2.state;
+
+        commit('setLoading', true);
+
+        axios.delete('/api/v1/transaction/all').then(function (response) {
+            console.log(response);
+            commit('resetState');
+        }).catch(function (error) {
+            message = error.response.data.message || error.message;
+            commit('setError', message);
+            console.log(message);
+        }).finally(function () {
+            commit('setLoading', false);
+        });
+    },
+    destroyData: function destroyData(_ref3, id) {
+        var commit = _ref3.commit,
+            state = _ref3.state;
 
         axios.delete('/api/v1/transaction/' + id).then(function (response) {
             if (response.data.hasCase == false) {
@@ -41946,18 +42127,18 @@ var actions = {
             console.log(message);
         });
     },
-    setQuery: function setQuery(_ref3, value) {
-        var commit = _ref3.commit;
+    setQuery: function setQuery(_ref4, value) {
+        var commit = _ref4.commit;
 
         commit('setQuery', purify(value));
     },
-    resetState: function resetState(_ref4) {
-        var commit = _ref4.commit;
+    resetState: function resetState(_ref5) {
+        var commit = _ref5.commit;
 
         commit('resetState');
     },
-    setAll: function setAll(_ref5, value) {
-        var commit = _ref5.commit;
+    setAll: function setAll(_ref6, value) {
+        var commit = _ref6.commit;
 
         commit('setAll', value);
     },
@@ -42155,6 +42336,22 @@ var actions = {
     fetchCurrencyData: function fetchCurrencyData(_ref6, value) {
         var commit = _ref6.commit;
 
+
+        if (value == null) {
+            commit('setCurrencyName', '');
+            commit('setCurrentBalance', '');
+            commit('setLastAverageRate', '');
+            commit('setCurrencyID', '');
+            commit('setCurrencyCalculationType', '');
+            commit('setAmountDecLimit', '');
+            commit('setRateDecLimit', '');
+            commit('setType', '');
+            commit('setRateFrom', '');
+            commit('setRateTo', '');
+            commit('setPaidByClient', '');
+            commit('setReturnToClient', '');
+            return;
+        }
         var data = value.split('-');
 
         axios.get('/api/v1/currency/' + data[0]).then(function (response) {
