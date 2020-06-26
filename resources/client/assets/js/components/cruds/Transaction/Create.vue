@@ -358,7 +358,8 @@ export default {
             this.setReturnToClient(e.target.value - this.item.total)
         },
         submitForm() {
-            if ($('.label-danger'))
+
+            if ($('.label-danger').length)
                 return
 
             let amount_validation = $('.label-danger').css('border-color')
@@ -370,11 +371,11 @@ export default {
             
             this.$swal({
                 title: 'Are you sure?',
-                text: 'You won\'t be able to revert this!',
-                type: 'warning',
+                text: 'Your current balance will be updated!',
+                type: 'info',
                 showCancelButton: true,
-                confirmButtonText: 'Delete',
-                confirmButtonColor: '#dd4b39',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#0084af',
                 focusCancel: true,
                 reverseButtons: true
             }).then(result => {

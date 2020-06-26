@@ -3,3 +3,15 @@
 #wrapper {
     position: relative;
 }
+
+th, td {
+    white-space: nowrap;
+}
+
+div[name=SimpleTable] {
+    overflow-x: scroll;
+}
+
+.btn-group {
+    display: flex;
+}
