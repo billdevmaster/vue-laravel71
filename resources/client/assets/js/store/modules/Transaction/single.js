@@ -54,7 +54,7 @@ const actions = {
             });
             axios.post('/api/v1/transaction', formData, config)
                 .then(response => {
-                    console.log(response.data)
+                    
                     commit('resetState')
                     resolve()
                 })
@@ -141,6 +141,10 @@ const actions = {
                 response.data.data.forEach(element => {
                     customer_all.push(element.customer_code + "-" + element.first_name + " " + element.last_name)
                 });
+
+                if(customer_all.length > 0)
+                    commit('setFirstCustomer', customer_all[0])
+                    
                 commit('setCustomerAll', customer_all)
             })
     },
@@ -246,6 +250,9 @@ const mutations = {
     },
     setCustomerAll(state, value) {
         state.customer_all = value
+    },
+    setFirstCustomer(state, value) {
+        state.item.customer_id = value
     },
     setCurrencyName(state, value) {
         state.item.name = value

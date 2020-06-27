@@ -26,12 +26,8 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
-            'email' => 'required|max:255',
-            'id_img' => 'required|image|max:2048',
-            'company_img' => 'required|image|max:2048',
-            'mix_img' => 'required|image|max:2048',
+            'first_name'        => 'required|max:255',
+            'last_name'         => 'required|max:255',
         ]);
 
         $id_image = $request->file('id_img');

@@ -42,7 +42,7 @@
                                             @input="updateOpening_balance"
                                             >
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="current_balance">Current Balance</label>
                                     <input
                                             type="text"
@@ -52,7 +52,7 @@
                                             :value="item.current_balance"
                                             @input="updateCurrent_balance"
                                             >
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="box-footer">
@@ -102,8 +102,6 @@ export default {
         },
         updateOpening_balance(e) {
             this.setOpening_balance(e.target.value)
-        },
-        updateCurrent_balance(e) {
             this.setCurrent_balance(e.target.value)
         },
         submitForm() {

@@ -12,18 +12,7 @@
 
 <script>
 export default {
-    props: ['row', 'xprops'],
-    data() {
-        return {
-            // Code...
-        }
-    },
-    created() {
-        // Code...
-    },
-    methods: {
-        // Code...
-    }
+    props: ['row']
 }
 </script>
 

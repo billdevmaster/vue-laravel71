@@ -39,6 +39,7 @@
                                     :total="total"
                                     :query="query"
                                     :xprops="xprops"
+                                    :support-backup="true"
                                     />
                         </div>
                     </div>
@@ -51,12 +52,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import DatatableActions from '../../dtmodules/DatatableActions'
-import DatatableSingle from '../../dtmodules/DatatableSingle'
-import DatatableList from '../../dtmodules/DatatableList'
-import DatatableCheckbox from '../../dtmodules/DatatableCheckbox'
+import components from '../../dtmodules/'
 
 export default {
+    components,
     data() {
         return {
             columns: [
@@ -70,7 +69,7 @@ export default {
                 { title: 'Sell Rate From', field: 'sell_rate_from', sortable: true },
                 { title: 'Sell Rate To', field: 'sell_rate_to', sortable: true },
                 { title: 'Calculation Type', field: 'calc_type', sortable: true },
-                { title: 'Actions', tdComp: DatatableActions, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
+                { title: 'Actions', tdComp: 'DatatableActions', visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
             ],
             query: { sort: 'id', order: 'desc' },
             xprops: {

@@ -76,6 +76,7 @@
                                     :total="total"
                                     :query="query"
                                     :xprops="xprops"
+                                    :support-backup="true"
                                     />
                         </div>
                     </div>
@@ -88,13 +89,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import DatatableActions from '../../dtmodules/DatatableActions'
-import DatatableSingle from '../../dtmodules/DatatableSingle'
-import DatatableList from '../../dtmodules/DatatableList'
-import DatatableCheckbox from '../../dtmodules/DatatableCheckbox'
-import DatatableFilter from '../../dtmodules/DatatableFilter'
+import components from '../../dtmodules/'
 
 export default {
+    components,
     data() {
         return {
             columns: [

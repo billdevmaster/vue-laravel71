@@ -32,6 +32,13 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <div class="callout callout-info text-left">
+                                        Total Profit : {{total_profit}}
+                                    </div>
+                                </div>
+                            </div>
                             <datatable
                                     v-if="!loading"
                                     :columns="columns"
@@ -39,6 +46,7 @@
                                     :total="total"
                                     :query="query"
                                     :xprops="xprops"
+                                    :support-backup="true"
                                     />
                         </div>
                     </div>
@@ -51,12 +59,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import DatatableActions from '../../dtmodules/DatatableActions'
-import DatatableSingle from '../../dtmodules/DatatableSingle'
-import DatatableList from '../../dtmodules/DatatableList'
-import DatatableCheckbox from '../../dtmodules/DatatableCheckbox'
+import components from '../../dtmodules/'
 
 export default {
+    components,
     data() {
         return {
             columns: [
@@ -66,7 +72,7 @@ export default {
                 { title: 'Creation Date', field: 'created_at', sortable: true },
                 { title: 'Current Balance', field: 'current_balance', sortable: true },
                 { title: 'Last Edit', field: 'updated_at', sortable: true },
-                { title: 'Actions', tdComp: DatatableActions, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
+                { title: 'Actions', tdComp: 'DatatableActions', visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
             ],
             query: { sort: 'id', order: 'desc' },
             xprops: {
@@ -77,12 +83,13 @@ export default {
     },
     created() {
         this.fetchData()
+        this.fetchProfit()
     },
     destroyed() {
         this.resetState()
     },
     computed: {
-        ...mapGetters('CasesIndex', ['data', 'total', 'loading', 'relationships']),
+        ...mapGetters('CasesIndex', ['data', 'total', 'loading', 'relationships', 'total_profit']),
     },
     watch: {
         query: {
@@ -93,7 +100,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions('CasesIndex', ['fetchData', 'setQuery', 'resetState']),
+        ...mapActions('CasesIndex', ['fetchData', 'fetchProfit', 'setQuery', 'resetState']),
     }
 }
 </script>

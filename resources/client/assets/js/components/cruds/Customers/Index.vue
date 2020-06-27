@@ -39,6 +39,7 @@
                                     :total="total"
                                     :query="query"
                                     :xprops="xprops"
+                                    :support-backup="true"
                                     />
                         </div>
                     </div>
@@ -51,24 +52,22 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import DatatableActions from '../../dtmodules/DatatableActions'
-import DatatableSingle from '../../dtmodules/DatatableSingle'
-import DatatableList from '../../dtmodules/DatatableList'
-import DatatableCheckbox from '../../dtmodules/DatatableCheckbox'
+import components from '../../dtmodules/'
 
 export default {
+    components,
     data() {
         return {
             columns: [
                 { title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' },
-                { title: 'First name', field: 'first_name', sortable: true },
-                { title: 'Last name', field: 'last_name', sortable: true },
+                { title: 'First name', field: 'first_name', thComp: 'DatatableFilter', sortable: true },
+                { title: 'Last name', field: 'last_name', thComp: 'DatatableFilter', sortable: true },
                 { title: 'Email', field: 'email', sortable: true },
                 { title: 'Customer Code', field: 'customer_code', sortable: true },
                 { title: 'Phone', field: 'phone', sortable: true },
-                { title: 'Actions', tdComp: DatatableActions, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
+                { title: 'Actions', tdComp: 'DatatableActions', visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
             ],
-            query: { sort: 'id', order: 'desc' },
+            query: { sort: 'id', order: 'desc', 'first_name': '', 'last_name': '' },
             xprops: {
                 module: 'CustomersIndex',
                 route: 'customers'
@@ -82,18 +81,27 @@ export default {
         this.resetState()
     },
     computed: {
-        ...mapGetters('CustomersIndex', ['data', 'total', 'loading', 'relationships']),
+        ...mapGetters('CustomersIndex', ['data', 'data_all', 'total', 'loading', 'relationships']),
     },
     watch: {
         query: {
             handler(query) {
                 this.setQuery(query)
+                this.handleQueryChange()
             },
             deep: true
         }
     },
     methods: {
-        ...mapActions('CustomersIndex', ['fetchData', 'setQuery', 'resetState']),
+        ...mapActions('CustomersIndex', ['fetchData', 'setQuery', 'resetState', 'setAll']),
+        handleQueryChange () {       
+            let rows = Array()
+            this.data_all.forEach(element => {
+                if( element.first_name.toLowerCase().search(this.query['first_name'].toLowerCase()) >= 0 &&  element.last_name.toLowerCase().search(this.query['last_name'].toLowerCase()) >= 0 )
+                    rows.push(element)
+            });
+            this.setAll(rows)
+        },
     }
 }
 </script>

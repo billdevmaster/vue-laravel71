@@ -39,6 +39,7 @@
                                     :total="total"
                                     :query="query"
                                     :xprops="xprops"
+                                    :support-backup="true"
                                     />
                         </div>
                     </div>
@@ -51,22 +52,20 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import DatatableActions from '../../dtmodules/DatatableActions'
-import DatatableSingle from '../../dtmodules/DatatableSingle'
-import DatatableList from '../../dtmodules/DatatableList'
-import DatatableCheckbox from '../../dtmodules/DatatableCheckbox'
+import components from '../../dtmodules/'
 
 export default {
+    components,
     data() {
         return {
             columns: [
                 { title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' },
-                { title: 'Company', field: 'company', tdComp: DatatableSingle },
+                { title: 'Company', field: 'company', tdComp: 'DatatableSingle' },
                 { title: 'First name', field: 'first_name', sortable: true },
                 { title: 'Last name', field: 'last_name', sortable: true },
                 { title: 'Email', field: 'email', sortable: true },
                 { title: 'Phone', field: 'phone', sortable: true },
-                { title: 'Actions', tdComp: DatatableActions, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
+                { title: 'Actions', tdComp: 'DatatableActions', visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
             ],
             query: { sort: 'id', order: 'desc' },
             xprops: {

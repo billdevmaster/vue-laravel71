@@ -3,46 +3,81 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Cases;
-use App\Currency;
+use App\Transaction;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Cases as CasesResource;
 use Illuminate\Http\Request;
+use DB;
 
 class CasesController extends Controller
 {
     public function index()
     {
-        $currencies = Currency::with([])->get();
-        $opening_total = 0;
-        $current_total = 0;
-        foreach ($currencies as $k => $c) {
-            switch ($c->calc_type) {
-                case 'Multiplication':
-                    $opening_total += $c->opening_balance * $c->opening_avg_rate;
-                    $current_total += $c->current_balance * $c->last_avg_rate;
-                    break;
-                case 'Division':
-                    $opening_total += $c->opening_balance / $c->opening_avg_rate;
-                    $current_total += $c->current_balance / $c->last_avg_rate;
-                    break;
-                case 'Special':
-                    $opening_total += $c->opening_balance / $c->opening_avg_rate;
-                    $current_total += $c->current_balance / $c->last_avg_rate;
-                    break;
-                
-                default:
-                    # code...
-                    break;
+        $case = Cases::with([])->first();
+
+        $transactions = DB::table('transactions')
+          ->join('currencies', 'transactions.currency_id', '=', 'currencies.id')
+          ->join('users', 'transactions.customer_code', '=', 'users.customer_code')
+          ->select(     'transactions.id as id', 
+                        'users.first_name as customer_first_name', 
+                        'users.last_name as customer_last_name', 
+                        'currencies.calc_type as calc_type', 
+                        'transactions.created_at as created_at', 
+                        'currencies.name as name', 
+                        'transactions.amount as amount', 
+                        'transactions.rate as rate', 
+                        'transactions.total as total', 
+                        'transactions.profit as profit', 
+                        'transactions.type as type', 
+                        'transactions.current_balance as current_balance', 
+                        'transactions.last_avg_rate as last_avg_rate', 
+                        'transactions.paid_by_client as paid_by_client', 
+                        'transactions.return_to_client as return_to_client' )
+          ->get();
+
+        $current_total = $case->opening_balance;
+        foreach ($transactions as $k => $c) {
+            if ($c->type) {
+                switch ($c->calc_type) {
+                    case 'Multiplication':
+                        $current_total -= $c->amount * $c->rate;
+                        break;
+                    case 'Division':
+                        $current_total -= $c->amount / $c->rate;
+                        break;
+                    case 'Special':
+                        $current_total -= $c->amount / $c->rate;
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
+            }
+            else {                
+                switch ($c->calc_type) {
+                    case 'Multiplication':
+                        $current_total += $c->amount * $c->rate;
+                        break;
+                    case 'Division':
+                        $current_total += $c->amount / $c->rate;
+                        break;
+                    case 'Special':
+                        $current_total += $c->amount / $c->rate;
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
             }
         }
-        $cases = Cases::with([])->first();
 
-        $case_data = array(            
-            'opening_balance'     => $opening_total,
+        $case_data = array(
             'current_balance'     => $current_total
         );
-        $cases->update($case_data);
-        $cases->touch();
+        $case->update($case_data);
+        $case->touch();
         return new CasesResource(Cases::with([])->get());
     }
 
@@ -60,8 +95,7 @@ class CasesController extends Controller
 
         request()->validate([
             'name' => 'required|min:3|max:5',
-            'opening_balance' => 'required|numeric',
-            'current_balance' => 'required|numeric'
+            'opening_balance' => 'required|numeric'
         ]);
 
         $cases = Cases::create($request->all());

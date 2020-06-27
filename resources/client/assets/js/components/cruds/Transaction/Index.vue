@@ -41,6 +41,7 @@
                                     :total="total"
                                     :query="query"
                                     :xprops="xprops"
+                                    :support-backup="true"
                                     />
                         </div>
                     </div>
@@ -53,19 +54,16 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import DatatableActions from '../../dtmodules/DatatableActions'
-import DatatableSingle from '../../dtmodules/DatatableSingle'
-import DatatableList from '../../dtmodules/DatatableList'
-import DatatableCheckbox from '../../dtmodules/DatatableCheckbox'
-import DatatableFilter from '../../dtmodules/DatatableFilter'
+import components from '../../dtmodules/'
 
 export default {
+    components,
     data() {
         return {
             columns: [
                 { title: 'TransactionID', field: 'id', sortable: true },
-                { title: 'TransactionType', field: 'type', tdComp: DatatableSingle, sortable: true },
-                { title: 'Customer', field: 'customer_first_name', thComp: DatatableFilter, sortable: true },
+                { title: 'TransactionType', field: 'type', tdComp: 'DatatableSingle', sortable: true },
+                { title: 'Customer', field: 'customer_first_name', thComp: 'DatatableFilter', sortable: true },
                 { title: 'Type', field: 'calc_type', sortable: true },
                 { title: 'DateTime', field: 'created_at', sortable: true },
                 { title: 'Currency', field: 'name', sortable: true },
@@ -77,7 +75,7 @@ export default {
                 { title: 'Last Average Rate', field: 'last_avg_rate', sortable: true },
                 { title: 'Paid By Client', field: 'paid_by_client', sortable: true },
                 { title: 'Return To Client', field: 'return_to_client', sortable: true },
-                { title: 'Actions', tdComp: DatatableActions, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
+                { title: 'Actions', tdComp: 'DatatableActions', visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
             ],
             query: { sort: 'id', order: 'desc', customer_first_name: '' },
             xprops: {

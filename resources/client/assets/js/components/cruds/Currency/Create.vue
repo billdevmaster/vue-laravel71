@@ -144,7 +144,7 @@
                                                     @input="updateOpeningBalance"
                                                     >
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="current_balance">Current Balance</label>
                                             <input
                                                     type="text"
@@ -154,7 +154,7 @@
                                                     :value="item.current_balance"
                                                     @input="updateCurrentBalance"
                                                     >
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <label for="opening_avg_rate">Opening Average Rate</label>
                                             <input
@@ -166,7 +166,7 @@
                                                     @input="updateOpeningAverageRate"
                                                     >
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="last_avg_rate">Last Average Rate</label>
                                             <input
                                                     type="text"
@@ -176,7 +176,7 @@
                                                     :value="item.last_avg_rate"
                                                     @input="updateLastAverageRate"
                                                     >
-                                        </div>
+                                        </div> -->
                                     </div>     
                                     <div class="col-md-4">         
                                         <div class="row">
@@ -330,12 +330,14 @@ export default {
         },
         updateOpeningBalance(e) {
             this.setOpeningBalance(e.target.value)
+            this.setCurrentBalance(e.target.value)
         },
         updateCurrentBalance(e) {
             this.setCurrentBalance(e.target.value)
         },
         updateOpeningAverageRate(e) {
             this.setOpeningAverageRate(e.target.value)
+            this.setLastAverageRate(e.target.value)
         },
         updateLastAverageRate(e) {
             this.setLastAverageRate(e.target.value)
