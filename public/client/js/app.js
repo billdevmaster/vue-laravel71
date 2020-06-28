@@ -4700,51 +4700,63 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }
         },
         updateBSAmount: function updateBSAmount(e) {
-            var decimal = e.target.value.split('.');
-            this.amount_status = true;
-            if (decimal.length > 1 && decimal[1].length <= this.item.bs_amount_dec_limit) {
-                this.setBSAmount(e.target.value);
-                if (this.item.rate > 0) {
-                    this.setTotal(this.item.rate * e.target.value);
+            this.setBSAmount(e.target.value);
+            if (this.item.rate > 0) {
+                switch (this.item.calc_type) {
+                    case 'Multiplication':
+                        this.setTotal(this.item.amount * e.target.value);
+                        break;
+                    case 'Division':
+                        this.setTotal(this.item.amount / e.target.value);
+                        break;
+                    case 'Special':
+                        this.setTotal(this.item.amount / e.target.value);
+                        break;
+
+                    default:
+                        break;
                 }
-                $('input[name="amount"]').css('border-color', '');
-            } else if (decimal.length == 1) {
-                this.setBSAmount(e.target.value);
-                if (this.item.rate > 0) {
-                    this.setTotal(this.item.rate * e.target.value);
-                }
-                $('input[name="amount"]').css('border-color', '');
-            } else {
-                this.setBSAmount(e.target.value);
-                if (this.item.rate > 0) {
-                    this.setTotal(this.item.rate * e.target.value);
-                }
-                $('input[name="amount"]').css('border-color', 'red');
-                this.amount_status = false;
             }
         },
         updateBSRate: function updateBSRate(e) {
-            var decimal = e.target.value.split('.');
             this.rate_status = true;
 
-            if (decimal.length > 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to && decimal[1].length <= this.item.avg_rate_dec_limit) {
+            if (e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to) {
                 this.setBSRate(e.target.value);
                 if (this.item.amount > 0) {
-                    this.setTotal(this.item.amount * e.target.value);
+                    switch (this.item.calc_type) {
+                        case 'Multiplication':
+                            this.setTotal(this.item.amount * e.target.value);
+                            break;
+                        case 'Division':
+                            this.setTotal(this.item.amount / e.target.value);
+                            break;
+                        case 'Special':
+                            this.setTotal(this.item.amount / e.target.value);
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
-                $('input[name="rate"]').css('border-color', '');
-            } else if (decimal.length == 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to) {
-                this.setBSRate(e.target.value);
-                if (this.item.amount > 0) {
-                    this.setTotal(this.item.amount * e.target.value);
-                }
-                $('input[name="rate"]').css('border-color', '');
             } else {
                 this.setBSRate(e.target.value);
                 if (this.item.amount > 0) {
-                    this.setTotal(this.item.amount * e.target.value);
+                    switch (this.item.calc_type) {
+                        case 'Multiplication':
+                            this.setTotal(this.item.amount * e.target.value);
+                            break;
+                        case 'Division':
+                            this.setTotal(this.item.amount / e.target.value);
+                            break;
+                        case 'Special':
+                            this.setTotal(this.item.amount / e.target.value);
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
-                $('input[name="rate"]').css('border-color', 'red');
                 this.rate_status = false;
             }
         },
@@ -5085,51 +5097,63 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }
         },
         updateBSAmount: function updateBSAmount(e) {
-            var decimal = e.target.value.split('.');
-            this.amount_status = true;
-            if (decimal.length > 1 && decimal[1].length <= this.item.bs_amount_dec_limit) {
-                this.setBSAmount(e.target.value);
-                if (this.item.rate > 0) {
-                    this.setTotal(this.item.rate * e.target.value);
+            this.setBSAmount(e.target.value);
+            if (this.item.rate > 0) {
+                switch (this.item.calc_type) {
+                    case 'Multiplication':
+                        this.setTotal(this.item.amount * e.target.value);
+                        break;
+                    case 'Division':
+                        this.setTotal(this.item.amount / e.target.value);
+                        break;
+                    case 'Special':
+                        this.setTotal(this.item.amount / e.target.value);
+                        break;
+
+                    default:
+                        break;
                 }
-                $('input[name="amount"]').css('border-color', '');
-            } else if (decimal.length == 1) {
-                this.setBSAmount(e.target.value);
-                if (this.item.rate > 0) {
-                    this.setTotal(this.item.rate * e.target.value);
-                }
-                $('input[name="amount"]').css('border-color', '');
-            } else {
-                this.setBSAmount(e.target.value);
-                if (this.item.rate > 0) {
-                    this.setTotal(this.item.rate * e.target.value);
-                }
-                $('input[name="amount"]').css('border-color', 'red');
-                this.amount_status = false;
             }
         },
         updateBSRate: function updateBSRate(e) {
-            var decimal = e.target.value.split('.');
             this.rate_status = true;
 
-            if (decimal.length > 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to && decimal[1].length <= this.item.avg_rate_dec_limit) {
+            if (e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to) {
                 this.setBSRate(e.target.value);
                 if (this.item.amount > 0) {
-                    this.setTotal(this.item.amount * e.target.value);
+                    switch (this.item.calc_type) {
+                        case 'Multiplication':
+                            this.setTotal(this.item.amount * e.target.value);
+                            break;
+                        case 'Division':
+                            this.setTotal(this.item.amount / e.target.value);
+                            break;
+                        case 'Special':
+                            this.setTotal(this.item.amount / e.target.value);
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
-                $('input[name="rate"]').css('border-color', '');
-            } else if (decimal.length == 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to) {
-                this.setBSRate(e.target.value);
-                if (this.item.amount > 0) {
-                    this.setTotal(this.item.amount * e.target.value);
-                }
-                $('input[name="rate"]').css('border-color', '');
             } else {
                 this.setBSRate(e.target.value);
                 if (this.item.amount > 0) {
-                    this.setTotal(this.item.amount * e.target.value);
+                    switch (this.item.calc_type) {
+                        case 'Multiplication':
+                            this.setTotal(this.item.amount * e.target.value);
+                            break;
+                        case 'Division':
+                            this.setTotal(this.item.amount / e.target.value);
+                            break;
+                        case 'Special':
+                            this.setTotal(this.item.amount / e.target.value);
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
-                $('input[name="rate"]').css('border-color', 'red');
                 this.rate_status = false;
             }
         },
@@ -8105,7 +8129,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8435,7 +8459,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -29645,19 +29669,6 @@ var render = function() {
                           _c("div", { staticClass: "form-group" }, [
                             _c("label", { attrs: { for: "amount" } }, [
                               _vm._v("Buy / Sell Amount "),
-                              !_vm.amount_status
-                                ? _c(
-                                    "span",
-                                    { staticClass: "label label-danger" },
-                                    [
-                                      _vm._v(
-                                        "Floating-point numbers of Amount must be less than ( " +
-                                          _vm._s(_vm.item.bs_amount_dec_limit) +
-                                          ")"
-                                      )
-                                    ]
-                                  )
-                                : _vm._e(),
                               _vm.item.amount == null || _vm.item.amount == ""
                                 ? _c(
                                     "span",
@@ -29688,9 +29699,7 @@ var render = function() {
                                     { staticClass: "label label-danger" },
                                     [
                                       _vm._v(
-                                        "Floating-point numbers of Rate must be less than ( " +
-                                          _vm._s(_vm.item.bs_amount_dec_limit) +
-                                          ") Or Rate must be between " +
+                                        " Rate must be between " +
                                           _vm._s(_vm.item.rate_from) +
                                           " and " +
                                           _vm._s(_vm.item.rate_to)
@@ -33195,19 +33204,6 @@ var render = function() {
                           _c("div", { staticClass: "form-group" }, [
                             _c("label", { attrs: { for: "amount" } }, [
                               _vm._v("Buy / Sell Amount "),
-                              !_vm.amount_status
-                                ? _c(
-                                    "span",
-                                    { staticClass: "label label-danger" },
-                                    [
-                                      _vm._v(
-                                        "Floating-point numbers of Amount must be less than ( " +
-                                          _vm._s(_vm.item.bs_amount_dec_limit) +
-                                          ")"
-                                      )
-                                    ]
-                                  )
-                                : _vm._e(),
                               _vm.item.amount == null || _vm.item.amount == ""
                                 ? _c(
                                     "span",
@@ -33238,9 +33234,7 @@ var render = function() {
                                     { staticClass: "label label-danger" },
                                     [
                                       _vm._v(
-                                        "Floating-point numbers of Rate must be less than ( " +
-                                          _vm._s(_vm.item.bs_amount_dec_limit) +
-                                          ") Or Rate must be between " +
+                                        " Rate must be between " +
                                           _vm._s(_vm.item.rate_from) +
                                           " and " +
                                           _vm._s(_vm.item.rate_to)
@@ -41737,6 +41731,13 @@ var actions = {
         commit('setLoading', true);
 
         axios.get('/api/v1/transaction').then(function (response) {
+
+            for (var i = 0; i < response.data.length; i++) {
+                response.data[i]['amount'] = parseInt(response.data[i]['amount']).toFixed(response.data[i]['bs_amount_dec_limit']);
+                response.data[i]['rate'] = parseInt(response.data[i]['rate']).toFixed(response.data[i]['avg_rate_dec_limit']);
+                response.data[i]['current_balance'] = parseInt(response.data[i]['current_balance']).toFixed(response.data[i]['balance_dec_limit']);
+                response.data[i]['last_avg_rate'] = parseInt(response.data[i]['last_avg_rate']).toFixed(response.data[i]['last_avg_rate_dec_limit']);
+            }
             commit('setAll', response.data);
             commit('setInitialData', response.data);
         }).catch(function (error) {

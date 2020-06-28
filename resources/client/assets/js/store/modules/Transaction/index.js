@@ -36,6 +36,14 @@ const actions = {
 
         axios.get('/api/v1/transaction')
             .then(response => {
+                
+                for (let i = 0; i < response.data.length; i++) {
+                    response.data[i]['amount']          = parseInt(response.data[i]['amount']).toFixed(response.data[i]['bs_amount_dec_limit']);
+                    response.data[i]['rate']            = parseInt(response.data[i]['rate']).toFixed(response.data[i]['avg_rate_dec_limit']);
+                    response.data[i]['current_balance'] = parseInt(response.data[i]['current_balance']).toFixed(response.data[i]['balance_dec_limit']);
+                    response.data[i]['last_avg_rate']   = parseInt(response.data[i]['last_avg_rate']).toFixed(response.data[i]['last_avg_rate_dec_limit']);
+                    
+                }
                 commit('setAll', response.data)
                 commit('setInitialData', response.data)
             })

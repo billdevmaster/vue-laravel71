@@ -92,7 +92,7 @@
                                     <div class="col-md-2"></div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="amount">Buy / Sell Amount <span class="label label-danger" v-if="!amount_status">Floating-point numbers of Amount must be less than ( {{item.bs_amount_dec_limit}})</span><span class="label label-danger" v-if="item.amount == null || item.amount == ''"> * required</span></label>
+                                            <label for="amount">Buy / Sell Amount <span class="label label-danger" v-if="item.amount == null || item.amount == ''"> * required</span></label>
                                             <input
                                                     type="text"
                                                     class="form-control"
@@ -103,7 +103,7 @@
                                                     >
                                         </div>
                                         <div class="form-group">
-                                            <label for="rate">Buy / Sell Rate <span class="label label-danger" v-if="!rate_status">Floating-point numbers of Rate must be less than ( {{item.bs_amount_dec_limit}}) Or Rate must be between {{item.rate_from}} and {{item.rate_to}}</span><span class="label label-danger" v-if="item.rate == null || item.rate == ''"> * required</span></label>
+                                            <label for="rate">Buy / Sell Rate <span class="label label-danger" v-if="!rate_status"> Rate must be between {{item.rate_from}} and {{item.rate_to}}</span><span class="label label-danger" v-if="item.rate == null || item.rate == ''"> * required</span></label>
                                             <input
                                                     type="text"
                                                     class="form-control"
@@ -302,61 +302,66 @@ export default {
             }
         },
         updateBSAmount(e) {
-            let decimal = e.target.value.split('.')
-            this.amount_status = true
-            if (decimal.length > 1 && decimal[1].length <= this.item.bs_amount_dec_limit)
-            {
-                this.setBSAmount(e.target.value)
-                if (this.item.rate > 0) {
-                    this.setTotal(this.item.rate * e.target.value)
+            this.setBSAmount(e.target.value)
+            if (this.item.rate > 0) {
+                switch (this.item.calc_type) {
+                    case 'Multiplication':
+                        this.setTotal(this.item.amount * e.target.value)
+                        break;
+                    case 'Division':
+                        this.setTotal(this.item.amount / e.target.value)
+                        break;
+                    case 'Special':
+                        this.setTotal(this.item.amount / e.target.value)
+                        break;
+                
+                    default:
+                        break;
                 }
-                $('input[name="amount"]').css('border-color', '')
-            }
-            else if (decimal.length == 1) 
-            {           
-                this.setBSAmount(e.target.value)
-                if (this.item.rate > 0) {
-                    this.setTotal(this.item.rate * e.target.value)
-                }
-                $('input[name="amount"]').css('border-color', '')
-            }
-            else
-            {
-                this.setBSAmount(e.target.value)
-                if (this.item.rate > 0) {
-                    this.setTotal(this.item.rate * e.target.value)
-                }
-                $('input[name="amount"]').css('border-color', 'red')
-                this.amount_status = false
             }
         },
         updateBSRate(e) {
-            let decimal = e.target.value.split('.')            
             this.rate_status = true
-
-            if (decimal.length > 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to && decimal[1].length <= this.item.avg_rate_dec_limit)
+            
+            if ( e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to )
             {
                 this.setBSRate(e.target.value)
                 if (this.item.amount > 0) {
-                    this.setTotal(this.item.amount * e.target.value)
+                    switch (this.item.calc_type) {
+                        case 'Multiplication':
+                            this.setTotal(this.item.amount * e.target.value)
+                            break;
+                        case 'Division':
+                            this.setTotal(this.item.amount / e.target.value)
+                            break;
+                        case 'Special':
+                            this.setTotal(this.item.amount / e.target.value)
+                            break;
+                    
+                        default:
+                            break;
+                    }
                 }
-                $('input[name="rate"]').css('border-color', '')
-            }
-            else if (decimal.length == 1 && e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to) 
-            {                
-                this.setBSRate(e.target.value)
-                if (this.item.amount > 0) {
-                    this.setTotal(this.item.amount * e.target.value)
-                }
-                $('input[name="rate"]').css('border-color', '')
             }
             else
             { 
                 this.setBSRate(e.target.value)
                 if (this.item.amount > 0) {
-                    this.setTotal(this.item.amount * e.target.value)
+                    switch (this.item.calc_type) {
+                        case 'Multiplication':
+                            this.setTotal(this.item.amount * e.target.value)
+                            break;
+                        case 'Division':
+                            this.setTotal(this.item.amount / e.target.value)
+                            break;
+                        case 'Special':
+                            this.setTotal(this.item.amount / e.target.value)
+                            break;
+                    
+                        default:
+                            break;
+                    }
                 }
-                $('input[name="rate"]').css('border-color', 'red')
                 this.rate_status = false
             }
         },
