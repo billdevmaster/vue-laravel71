@@ -25,27 +25,27 @@
                                         <table class="table table-bordered table-striped">
                                             <tbody>
                                             <tr>
-                                                <th>Currency Name</th>
+                                                <th>Customer</th>
                                                 <td>{{ item.customer_id }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Current Balance</th>
+                                                <th>BS Amount</th>
                                                 <td>{{ item.amount }}</td>
                                                 </tr>
                                             <tr>
-                                                <th>Currency Name</th>
+                                                <th>BS Rate</th>
                                                 <td>{{ item.rate }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Opening Balance</th>
+                                                <th>BS Total</th>
                                                 <td>{{ item.total }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Current Balance</th>
+                                                <th>Paid by Client</th>
                                                 <td>{{ item.paid_by_client }}</td>
                                                 </tr>
                                             <tr>
-                                                <th>Currency Name</th>
+                                                <th>Return to Client</th>
                                                 <td>{{ item.return_to_client }}</td>
                                             </tr>
                                             </tbody>
@@ -55,11 +55,11 @@
                                         <table class="table table-bordered table-striped">
                                             <tbody>                  
                                             <tr>
-                                                <th>Opening Balance</th>
+                                                <th>Currency Code</th>
                                                 <td>{{ item.currency_code }}</td>
                                             </tr>                          
                                             <tr>
-                                                <th>Opening Balance</th>
+                                                <th>Currency Name</th>
                                                 <td>{{ item.name }}</td>
                                             </tr>
                                             <tr>
@@ -67,16 +67,16 @@
                                                 <td>{{ item.current_balance }}</td>
                                                 </tr>
                                             <tr>
-                                                <th>Current Balance</th>
+                                                <th>Last Average Rate</th>
                                                 <td>{{ item.last_avg_rate }}</td>
                                                 </tr>
                                             <tr>
-                                                <th>Currency Name</th>
+                                                <th>Profit</th>
                                                 <td>{{ item.profit }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Opening Balance</th>
-                                                <td>{{ item.ttl_bs }}</td>
+                                                <th></th>
+                                                <td></td>
                                             </tr>
                                             </tbody>
                                         </table>

@@ -31063,7 +31063,7 @@ var render = function() {
                             [
                               _c("tbody", [
                                 _c("tr", [
-                                  _c("th", [_vm._v("Currency Name")]),
+                                  _c("th", [_vm._v("Customer")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.customer_id))
@@ -31071,25 +31071,25 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Current Balance")]),
+                                  _c("th", [_vm._v("BS Amount")]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(_vm.item.amount))])
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Currency Name")]),
+                                  _c("th", [_vm._v("BS Rate")]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(_vm.item.rate))])
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _c("th", [_vm._v("BS Total")]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(_vm.item.total))])
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Current Balance")]),
+                                  _c("th", [_vm._v("Paid by Client")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.paid_by_client))
@@ -31097,7 +31097,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Currency Name")]),
+                                  _c("th", [_vm._v("Return to Client")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.return_to_client))
@@ -31117,7 +31117,7 @@ var render = function() {
                             [
                               _c("tbody", [
                                 _c("tr", [
-                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _c("th", [_vm._v("Currency Code")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.currency_code))
@@ -31125,7 +31125,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Opening Balance")]),
+                                  _c("th", [_vm._v("Currency Name")]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(_vm.item.name))])
                                 ]),
@@ -31139,7 +31139,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Current Balance")]),
+                                  _c("th", [_vm._v("Last Average Rate")]),
                                   _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(_vm.item.last_avg_rate))
@@ -31147,16 +31147,12 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _c("th", [_vm._v("Currency Name")]),
+                                  _c("th", [_vm._v("Profit")]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(_vm.item.profit))])
                                 ]),
                                 _vm._v(" "),
-                                _c("tr", [
-                                  _c("th", [_vm._v("Opening Balance")]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(_vm.item.ttl_bs))])
-                                ])
+                                _vm._m(2)
                               ])
                             ]
                           )
@@ -31190,6 +31186,12 @@ var staticRenderFns = [
     return _c("div", { staticClass: "box-header with-border" }, [
       _c("h3", { staticClass: "box-title" }, [_vm._v("Show")])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [_c("th"), _vm._v(" "), _c("td")])
   }
 ]
 render._withStripped = true
@@ -41733,10 +41735,10 @@ var actions = {
         axios.get('/api/v1/transaction').then(function (response) {
 
             for (var i = 0; i < response.data.length; i++) {
-                response.data[i]['amount'] = parseInt(response.data[i]['amount']).toFixed(response.data[i]['bs_amount_dec_limit']);
-                response.data[i]['rate'] = parseInt(response.data[i]['rate']).toFixed(response.data[i]['avg_rate_dec_limit']);
-                response.data[i]['current_balance'] = parseInt(response.data[i]['current_balance']).toFixed(response.data[i]['balance_dec_limit']);
-                response.data[i]['last_avg_rate'] = parseInt(response.data[i]['last_avg_rate']).toFixed(response.data[i]['last_avg_rate_dec_limit']);
+                response.data[i]['amount'] = parseFloat(response.data[i]['amount']).toFixed(parseInt(response.data[i]['bs_amount_dec_limit']));
+                response.data[i]['rate'] = parseFloat(response.data[i]['rate']).toFixed(parseInt(response.data[i]['avg_rate_dec_limit']));
+                response.data[i]['current_balance'] = parseFloat(response.data[i]['current_balance']).toFixed(parseInt(response.data[i]['balance_dec_limit']));
+                response.data[i]['last_avg_rate'] = parseFloat(response.data[i]['last_avg_rate']).toFixed(parseInt(response.data[i]['last_avg_rate_dec_limit']));
             }
             commit('setAll', response.data);
             commit('setInitialData', response.data);
