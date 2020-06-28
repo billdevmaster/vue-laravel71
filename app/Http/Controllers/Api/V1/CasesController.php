@@ -37,7 +37,7 @@ class CasesController extends Controller
 
         $current_total = $case->opening_balance;
         foreach ($transactions as $k => $c) {
-            if ($c->type) {
+            if (!$c->type) {
                 switch ($c->calc_type) {
                     case 'Multiplication':
                         $current_total -= $c->amount * $c->rate;
