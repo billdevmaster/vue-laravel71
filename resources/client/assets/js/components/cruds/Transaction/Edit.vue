@@ -328,7 +328,7 @@ export default {
         updateBSRate(e) {
             this.rate_status = true
             
-            if ( e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to )
+            if ( parseFloat(e.target.value) >= parseFloat(this.item.rate_from) && parseFloat(e.target.value) <= parseFloat(this.item.rate_to) )
             {
                 this.setBSRate(e.target.value)
                 if (this.item.amount > 0) {
