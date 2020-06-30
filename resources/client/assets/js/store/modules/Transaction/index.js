@@ -38,10 +38,10 @@ const actions = {
             .then(response => {
                 
                 for (let i = 0; i < response.data.length; i++) {
-                    response.data[i]['amount']          = parseFloat(response.data[i]['amount']).toFixed(parseInt(response.data[i]['bs_amount_dec_limit']));
-                    response.data[i]['rate']            = parseFloat(response.data[i]['rate']).toFixed(parseInt(response.data[i]['avg_rate_dec_limit']));
-                    response.data[i]['current_balance'] = parseFloat(response.data[i]['current_balance']).toFixed(parseInt(response.data[i]['balance_dec_limit']));
-                    response.data[i]['last_avg_rate']   = parseFloat(response.data[i]['last_avg_rate']).toFixed(parseInt(response.data[i]['last_avg_rate_dec_limit']));
+                    response.data[i]['amount']          = parseFloat(response.data[i]['amount']).toFixed(parseInt(response.data[i]['bs_amount_dec_limit'])).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                    response.data[i]['rate']            = parseFloat(response.data[i]['rate']).toFixed(parseInt(response.data[i]['avg_rate_dec_limit'])).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                    response.data[i]['current_balance'] = parseFloat(response.data[i]['current_balance']).toFixed(parseInt(response.data[i]['balance_dec_limit'])).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                    response.data[i]['last_avg_rate']   = parseFloat(response.data[i]['last_avg_rate']).toFixed(parseInt(response.data[i]['last_avg_rate_dec_limit'])).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
                     
                 }
                 commit('setAll', response.data)

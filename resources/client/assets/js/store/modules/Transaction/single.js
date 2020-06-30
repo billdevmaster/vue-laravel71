@@ -23,6 +23,7 @@ function initialState() {
         },
         currency_all: [],
         customer_all: [],
+        case: [],
         loading: false,
     }
 }
@@ -32,6 +33,7 @@ const getters = {
     loading: state => state.loading,
     currency_all: state => state.currency_all,
     customer_all: state => state.customer_all,
+    case :state => state.case,
 }
 
 const actions = {
@@ -146,6 +148,12 @@ const actions = {
                     commit('setFirstCustomer', customer_all[0])
                     
                 commit('setCustomerAll', customer_all)
+            })
+    },
+    fetchCase({ commit }) {
+        axios.get('/api/v1/cases')
+            .then(response => {
+                commit('setCase', response.data.data[0]['current_balance'])
             })
     },
     fetchCurrencyData({ commit }, value) {
@@ -289,6 +297,9 @@ const mutations = {
     },
     setCurrencyCalculationType(state, value) {
         state.item.calc_type = value
+    },
+    setCase(state, value) {
+        state.case = value
     },
     resetState(state) {
         state = Object.assign(state, initialState())

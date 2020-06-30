@@ -4661,19 +4661,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading', 'currency_all', 'customer_all'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading', 'currency_all', 'customer_all', 'case'])),
     mounted: function mounted() {
         window.addEventListener("keypress", this.saveKeyAction);
     },
     created: function created() {
         this.fetchCurrencyAll();
         this.fetchCustomerAll();
+        this.fetchCase();
     },
     destroyed: function destroyed() {
         this.resetState();
     },
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionSingle', ['storeData', 'resetState', "setBSAmount", "setBSRate", "setPaidByClient", "setReturnToClient", "setType", "setTotal", "setCustomerCode", "fetchCurrencyAll", "fetchCurrencyData", "fetchCustomerAll"]), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionSingle', ['storeData', 'resetState', "setBSAmount", "setBSRate", "setPaidByClient", "setReturnToClient", "setType", "setTotal", "setCustomerCode", "fetchCurrencyAll", "fetchCurrencyData", "fetchCustomerAll", "fetchCase"]), {
         updateCurrencyCode: function updateCurrencyCode(value) {
             if (value != null) {
                 var currency_data = value.split("-");
@@ -4717,6 +4718,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                         break;
                 }
             }
+            if (!this.item.type && parseFloat(this.case) < parseFloat(this.item.total)) {
+                alert("please check your case's current balance - your current balance is not enough - " + this.item.case);
+            }
         },
         updateBSRate: function updateBSRate(e) {
             this.rate_status = true;
@@ -4756,6 +4760,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                         default:
                             break;
                     }
+                }
+
+                if (!this.item.type && parseFloat(this.case) < parseFloat(this.item.total)) {
+                    alert("please check your case's current balance - your current balance is not enough - " + this.item.case);
                 }
                 this.rate_status = false;
             }
@@ -5051,7 +5059,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading', 'currency_all', 'customer_all'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading', 'currency_all', 'customer_all', 'case'])),
     mounted: function mounted() {
         window.addEventListener("keypress", this.saveKeyAction);
     },
@@ -5059,6 +5067,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.fetchData(this.$route.params.id);
         this.fetchCurrencyAll();
         this.fetchCustomerAll();
+        this.fetchCase();
     },
     destroyed: function destroyed() {
         this.resetState();
@@ -5070,7 +5079,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.fetchData(this.$route.params.id);
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionSingle', ['fetchData', 'updateData', 'resetState', "setBSAmount", "setBSRate", "setPaidByClient", "setReturnToClient", "setType", "setTotal", "setCustomerCode", "fetchCurrencyAll", "fetchCurrencyData", "fetchCustomerAll"]), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionSingle', ['fetchData', 'updateData', 'resetState', "setBSAmount", "setBSRate", "setPaidByClient", "setReturnToClient", "setType", "setTotal", "setCustomerCode", "fetchCurrencyAll", "fetchCurrencyData", "fetchCustomerAll", "fetchCase"]), {
         updateCurrencyCode: function updateCurrencyCode(value) {
             if (value != null) {
                 var currency_data = value.split("-");
@@ -5114,6 +5123,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                         break;
                 }
             }
+            if (!this.item.type && parseFloat(this.case) < parseFloat(this.item.total)) {
+                alert("please check your case's current balance - your current balance is not enough - " + this.item.case);
+            }
         },
         updateBSRate: function updateBSRate(e) {
             this.rate_status = true;
@@ -5153,6 +5165,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                         default:
                             break;
                     }
+                }
+
+                if (!this.item.type && parseFloat(this.case) < parseFloat(this.item.total)) {
+                    alert("please check your case's current balance - your current balance is not enough - " + this.item.case);
                 }
                 this.rate_status = false;
             }
@@ -8129,7 +8145,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8459,7 +8475,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -41735,10 +41751,10 @@ var actions = {
         axios.get('/api/v1/transaction').then(function (response) {
 
             for (var i = 0; i < response.data.length; i++) {
-                response.data[i]['amount'] = parseFloat(response.data[i]['amount']).toFixed(parseInt(response.data[i]['bs_amount_dec_limit']));
-                response.data[i]['rate'] = parseFloat(response.data[i]['rate']).toFixed(parseInt(response.data[i]['avg_rate_dec_limit']));
-                response.data[i]['current_balance'] = parseFloat(response.data[i]['current_balance']).toFixed(parseInt(response.data[i]['balance_dec_limit']));
-                response.data[i]['last_avg_rate'] = parseFloat(response.data[i]['last_avg_rate']).toFixed(parseInt(response.data[i]['last_avg_rate_dec_limit']));
+                response.data[i]['amount'] = parseFloat(response.data[i]['amount']).toFixed(parseInt(response.data[i]['bs_amount_dec_limit'])).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                response.data[i]['rate'] = parseFloat(response.data[i]['rate']).toFixed(parseInt(response.data[i]['avg_rate_dec_limit'])).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                response.data[i]['current_balance'] = parseFloat(response.data[i]['current_balance']).toFixed(parseInt(response.data[i]['balance_dec_limit'])).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                response.data[i]['last_avg_rate'] = parseFloat(response.data[i]['last_avg_rate']).toFixed(parseInt(response.data[i]['last_avg_rate_dec_limit'])).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
             }
             commit('setAll', response.data);
             commit('setInitialData', response.data);
@@ -41863,6 +41879,7 @@ function initialState() {
         },
         currency_all: [],
         customer_all: [],
+        case: [],
         loading: false
     };
 }
@@ -41879,6 +41896,9 @@ var getters = {
     },
     customer_all: function customer_all(state) {
         return state.customer_all;
+    },
+    case: function _case(state) {
+        return state.case;
     }
 };
 
@@ -41995,8 +42015,15 @@ var actions = {
             commit('setCustomerAll', customer_all);
         });
     },
-    fetchCurrencyData: function fetchCurrencyData(_ref6, value) {
+    fetchCase: function fetchCase(_ref6) {
         var commit = _ref6.commit;
+
+        axios.get('/api/v1/cases').then(function (response) {
+            commit('setCase', response.data.data[0]['current_balance']);
+        });
+    },
+    fetchCurrencyData: function fetchCurrencyData(_ref7, value) {
+        var commit = _ref7.commit;
 
 
         if (value == null) {
@@ -42036,63 +42063,63 @@ var actions = {
             }
         });
     },
-    setBSAmount: function setBSAmount(_ref7, value) {
-        var commit = _ref7.commit;
+    setBSAmount: function setBSAmount(_ref8, value) {
+        var commit = _ref8.commit;
 
         commit('setBSAmount', value);
     },
-    setBSRate: function setBSRate(_ref8, value) {
-        var commit = _ref8.commit;
+    setBSRate: function setBSRate(_ref9, value) {
+        var commit = _ref9.commit;
 
         commit('setBSRate', value);
     },
-    setPaidByClient: function setPaidByClient(_ref9, value) {
-        var commit = _ref9.commit;
+    setPaidByClient: function setPaidByClient(_ref10, value) {
+        var commit = _ref10.commit;
 
         commit('setPaidByClient', value);
     },
-    setReturnToClient: function setReturnToClient(_ref10, value) {
-        var commit = _ref10.commit;
+    setReturnToClient: function setReturnToClient(_ref11, value) {
+        var commit = _ref11.commit;
 
         commit('setReturnToClient', value);
     },
-    setType: function setType(_ref11, value) {
-        var commit = _ref11.commit;
+    setType: function setType(_ref12, value) {
+        var commit = _ref12.commit;
 
         commit('setType', value);
     },
-    setTotal: function setTotal(_ref12, value) {
-        var commit = _ref12.commit;
+    setTotal: function setTotal(_ref13, value) {
+        var commit = _ref13.commit;
 
         commit('setTotal', value);
     },
-    setRateFrom: function setRateFrom(_ref13, value) {
-        var commit = _ref13.commit;
+    setRateFrom: function setRateFrom(_ref14, value) {
+        var commit = _ref14.commit;
 
         commit('setRateFrom', value);
     },
-    setRateTo: function setRateTo(_ref14, value) {
-        var commit = _ref14.commit;
+    setRateTo: function setRateTo(_ref15, value) {
+        var commit = _ref15.commit;
 
         commit('setRateTo', value);
     },
-    setAmountDecLimit: function setAmountDecLimit(_ref15, value) {
-        var commit = _ref15.commit;
+    setAmountDecLimit: function setAmountDecLimit(_ref16, value) {
+        var commit = _ref16.commit;
 
         commit('setAmountDecLimit', value);
     },
-    setRateDecLimit: function setRateDecLimit(_ref16, value) {
-        var commit = _ref16.commit;
+    setRateDecLimit: function setRateDecLimit(_ref17, value) {
+        var commit = _ref17.commit;
 
         commit('setRateDecLimit', value);
     },
-    setCustomerCode: function setCustomerCode(_ref17, value) {
-        var commit = _ref17.commit;
+    setCustomerCode: function setCustomerCode(_ref18, value) {
+        var commit = _ref18.commit;
 
         commit('setCustomerCode', value);
     },
-    resetState: function resetState(_ref18) {
-        var commit = _ref18.commit;
+    resetState: function resetState(_ref19) {
+        var commit = _ref19.commit;
 
         commit('resetState');
     }
@@ -42161,6 +42188,9 @@ var mutations = {
     },
     setCurrencyCalculationType: function setCurrencyCalculationType(state, value) {
         state.item.calc_type = value;
+    },
+    setCase: function setCase(state, value) {
+        state.case = value;
     },
     resetState: function resetState(state) {
         state = Object.assign(state, initialState());

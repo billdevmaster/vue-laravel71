@@ -236,7 +236,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters('TransactionSingle', ['item', 'loading', 'currency_all', 'customer_all']),
+        ...mapGetters('TransactionSingle', ['item', 'loading', 'currency_all', 'customer_all', 'case']),
     },
     mounted() {
         window.addEventListener("keypress", this.saveKeyAction)
@@ -244,6 +244,7 @@ export default {
     created() {
         this.fetchCurrencyAll()
         this.fetchCustomerAll()
+        this.fetchCase()
     },
     destroyed() {
         this.resetState()
@@ -261,7 +262,8 @@ export default {
         "setCustomerCode",
         "fetchCurrencyAll",
         "fetchCurrencyData",
-        "fetchCustomerAll"
+        "fetchCustomerAll",
+        "fetchCase"
         ]),
         updateCurrencyCode(value) {
             if (value != null) {
@@ -312,6 +314,9 @@ export default {
                         break;
                 }
             }
+            if (!this.item.type && parseFloat(this.case) < parseFloat(this.item.total)) {
+                alert("please check your case's current balance - your current balance is not enough - " + this.item.case);
+            }
         },
         updateBSRate(e) {
             this.rate_status = true
@@ -354,6 +359,10 @@ export default {
                         default:
                             break;
                     }
+                }
+                
+                if (!this.item.type && parseFloat(this.case) < parseFloat(this.item.total)) {
+                    alert("please check your case's current balance - your current balance is not enough - " + this.item.case);
                 }
                 this.rate_status = false
             }
