@@ -307,7 +307,7 @@ export default {
                         this.setTotal(this.item.amount / e.target.value)
                         break;
                     case 'Special':
-                        this.setTotal(this.item.amount / e.target.value)
+                        this.setTotal(this.item.amount * e.target.value)
                         break;
                 
                     default:
@@ -333,7 +333,7 @@ export default {
                             this.setTotal(this.item.amount / e.target.value)
                             break;
                         case 'Special':
-                            this.setTotal(this.item.amount / e.target.value)
+                            this.setTotal(this.item.amount * e.target.value)
                             break;
                     
                         default:
@@ -353,7 +353,7 @@ export default {
                             this.setTotal(this.item.amount / e.target.value)
                             break;
                         case 'Special':
-                            this.setTotal(this.item.amount / e.target.value)
+                            this.setTotal(this.item.amount * e.target.value)
                             break;
                     
                         default:
