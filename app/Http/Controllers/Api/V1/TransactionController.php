@@ -94,7 +94,7 @@ class TransactionController extends Controller
             if ($request->type == 0) 
                 $new_current_balance = $request->current_balance - ( $request->amount * $request->rate );
             else
-                $new_current_balance = $request->current_balance - ( $request->amount * $request->rate );
+                $new_current_balance = $request->current_balance + ( $request->amount * $request->rate );
         }
 
         switch ($request->calc_type) {

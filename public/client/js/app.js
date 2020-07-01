@@ -4711,7 +4711,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                         this.setTotal(this.item.amount / e.target.value);
                         break;
                     case 'Special':
-                        this.setTotal(this.item.amount / e.target.value);
+                        this.setTotal(this.item.amount * e.target.value);
                         break;
 
                     default:
@@ -4725,7 +4725,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         updateBSRate: function updateBSRate(e) {
             this.rate_status = true;
 
-            if (e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to) {
+            if (parseFloat(e.target.value) >= parseFloat(this.item.rate_from) && parseFloat(e.target.value) <= parseFloat(this.item.rate_to)) {
                 this.setBSRate(e.target.value);
                 if (this.item.amount > 0) {
                     switch (this.item.calc_type) {
@@ -4736,12 +4736,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                             this.setTotal(this.item.amount / e.target.value);
                             break;
                         case 'Special':
-                            this.setTotal(this.item.amount / e.target.value);
+                            this.setTotal(this.item.amount * e.target.value);
                             break;
 
                         default:
                             break;
                     }
+                }
+
+                if (!this.item.type && parseFloat(this.case) < parseFloat(this.item.total)) {
+                    alert("please check your case's current balance - your current balance is not enough - " + this.item.case);
                 }
             } else {
                 this.setBSRate(e.target.value);
@@ -4754,7 +4758,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                             this.setTotal(this.item.amount / e.target.value);
                             break;
                         case 'Special':
-                            this.setTotal(this.item.amount / e.target.value);
+                            this.setTotal(this.item.amount * e.target.value);
                             break;
 
                         default:
@@ -5116,7 +5120,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                         this.setTotal(this.item.amount / e.target.value);
                         break;
                     case 'Special':
-                        this.setTotal(this.item.amount / e.target.value);
+                        this.setTotal(this.item.amount * e.target.value);
                         break;
 
                     default:
@@ -5130,7 +5134,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         updateBSRate: function updateBSRate(e) {
             this.rate_status = true;
 
-            if (e.target.value >= this.item.rate_from && e.target.value <= this.item.rate_to) {
+            if (parseFloat(e.target.value) >= parseFloat(this.item.rate_from) && parseFloat(e.target.value) <= parseFloat(this.item.rate_to)) {
                 this.setBSRate(e.target.value);
                 if (this.item.amount > 0) {
                     switch (this.item.calc_type) {
@@ -5141,12 +5145,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                             this.setTotal(this.item.amount / e.target.value);
                             break;
                         case 'Special':
-                            this.setTotal(this.item.amount / e.target.value);
+                            this.setTotal(this.item.amount * e.target.value);
                             break;
 
                         default:
                             break;
                     }
+                }
+
+                if (!this.item.type && parseFloat(this.case) < parseFloat(this.item.total)) {
+                    alert("please check your case's current balance - your current balance is not enough - " + this.item.case);
                 }
             } else {
                 this.setBSRate(e.target.value);
@@ -5159,7 +5167,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                             this.setTotal(this.item.amount / e.target.value);
                             break;
                         case 'Special':
-                            this.setTotal(this.item.amount / e.target.value);
+                            this.setTotal(this.item.amount * e.target.value);
                             break;
 
                         default:
@@ -8145,7 +8153,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8475,7 +8483,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 

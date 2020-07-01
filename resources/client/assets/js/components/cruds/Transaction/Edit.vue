@@ -347,6 +347,10 @@ export default {
                             break;
                     }
                 }
+                
+                if (!this.item.type && parseFloat(this.case) < parseFloat(this.item.total)) {
+                    alert("please check your case's current balance - your current balance is not enough - " + this.item.case);
+                }
             }
             else
             { 
