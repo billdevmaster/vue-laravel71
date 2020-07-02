@@ -46,7 +46,7 @@ class CasesController extends Controller
                         $current_total -= $c->amount / $c->rate + $c->profit;
                         break;
                     case 'Special':
-                        $current_total -= $c->amount + $c->profit;
+                        $current_total += $c->amount + $c->profit;
                         break;
                     
                     default:
@@ -63,7 +63,7 @@ class CasesController extends Controller
                         $current_total += $c->amount / $c->rate + $c->profit;
                         break;
                     case 'Special':
-                        $current_total += $c->amount + $c->profit;
+                        $current_total -= $c->amount + $c->profit;
                         break;
                     
                     default:
