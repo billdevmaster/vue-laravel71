@@ -40,13 +40,13 @@ class CasesController extends Controller
             if (!$c->type) {
                 switch ($c->calc_type) {
                     case 'Multiplication':
-                        $current_total -= $c->amount * $c->rate;
+                        $current_total -= $c->amount * $c->rate + $c->profit;
                         break;
                     case 'Division':
-                        $current_total -= $c->amount / $c->rate;
+                        $current_total -= $c->amount / $c->rate + $c->profit;
                         break;
                     case 'Special':
-                        $current_total -= $c->amount / $c->rate;
+                        $current_total -= $c->amount + $c->profit;
                         break;
                     
                     default:
@@ -57,13 +57,13 @@ class CasesController extends Controller
             else {                
                 switch ($c->calc_type) {
                     case 'Multiplication':
-                        $current_total += $c->amount * $c->rate;
+                        $current_total += $c->amount * $c->rate + $c->profit;
                         break;
                     case 'Division':
-                        $current_total += $c->amount / $c->rate;
+                        $current_total += $c->amount / $c->rate + $c->profit;
                         break;
                     case 'Special':
-                        $current_total += $c->amount / $c->rate;
+                        $current_total += $c->amount + $c->profit;
                         break;
                     
                     default:
