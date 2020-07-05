@@ -3,7 +3,8 @@ function initialState() {
         all: [],
         query: {},
         loading: false,
-        data_all: []
+        data_all: [],
+        temp: ''
     }
 }
 
@@ -28,6 +29,7 @@ const getters = {
     },
     total:         state => state.all.length,
     loading:       state => state.loading,
+    temp:          state => state.temp
 }
 
 const actions = {
@@ -38,11 +40,13 @@ const actions = {
             .then(response => {
                 
                 for (let i = 0; i < response.data.length; i++) {
-                    response.data[i]['amount']          = parseFloat(response.data[i]['amount']).toFixed(parseInt(response.data[i]['bs_amount_dec_limit'])).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                    response.data[i]['rate']            = parseFloat(response.data[i]['rate']).toFixed(parseInt(response.data[i]['avg_rate_dec_limit'])).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                    response.data[i]['current_balance'] = parseFloat(response.data[i]['current_balance']).toFixed(parseInt(response.data[i]['balance_dec_limit'])).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                    response.data[i]['last_avg_rate']   = parseFloat(response.data[i]['last_avg_rate']).toFixed(parseInt(response.data[i]['last_avg_rate_dec_limit'])).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-                    
+                    commit('thousandsSeparators', parseFloat(response.data[i]['amount']).toFixed(parseInt(response.data[i]['bs_amount_dec_limit'])));
+                    response.data[i]['amount']          = state.temp
+                    commit('thousandsSeparators', parseFloat(response.data[i]['rate']).toFixed(parseInt(response.data[i]['avg_rate_dec_limit'])));
+                    response.data[i]['rate']            = state.temp
+                    commit('thousandsSeparators', parseFloat(response.data[i]['current_balance']).toFixed(parseInt(response.data[i]['balance_dec_limit']))); response.data[i]['current_balance'] = state.temp
+                    commit('thousandsSeparators', parseFloat(response.data[i]['last_avg_rate']).toFixed(parseInt(response.data[i]['last_avg_rate_dec_limit'])));
+                    response.data[i]['last_avg_rate']   = state.temp
                 }
                 commit('setAll', response.data)
                 commit('setInitialData', response.data)
@@ -102,7 +106,7 @@ const actions = {
     },
     setInitialData(state, items) {
         state.data_all = items
-    },
+    }
 }
 
 const mutations = {
@@ -120,6 +124,11 @@ const mutations = {
     },
     resetState(state) {
         state = Object.assign(state, initialState())
+    },
+    thousandsSeparators(state, num) {
+        var num_parts = num.toString().split(".");
+        num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        state.temp =  num_parts.join(".");
     }
 }
 
