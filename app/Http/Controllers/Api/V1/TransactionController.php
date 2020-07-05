@@ -142,9 +142,9 @@ class TransactionController extends Controller
             'paid_by_client'    => $request->paid_by_client,
             'return_to_client'  => $request->return_to_client,
             'description'       => $request->description,
-            'profit'            => $profit,
+            'profit'            => round($profit, 2),
             'type'              => $request->type,
-            'last_avg_rate'     => $new_currency_avg_rate,
+            'last_avg_rate'     => round($new_currency_avg_rate, 4),
             'current_balance'   => $new_current_balance
         );
         
@@ -154,7 +154,7 @@ class TransactionController extends Controller
         
         $currency_data = Array(
             'current_balance' => $new_current_balance,
-            'last_avg_rate' => $new_currency_avg_rate
+            'last_avg_rate' => round($new_currency_avg_rate, 4)
         );
         
         $currency->update($currency_data);
@@ -239,9 +239,9 @@ class TransactionController extends Controller
             'paid_by_client'    => $request->paid_by_client,
             'return_to_client'  => $request->return_to_client,
             'description'       => $request->description,
-            'profit'            => $profit,
+            'profit'            => round($profit, 2),
             'type'              => $request->type,
-            'last_avg_rate'     => $new_currency_avg_rate,
+            'last_avg_rate'     => round($new_currency_avg_rate, 4),
             'current_balance'   => $new_current_balance
         );
 
@@ -444,8 +444,8 @@ class TransactionController extends Controller
                 }
 
                 $transaction_data = array(            
-                    'profit'            => $transactions[$i]->profit,
-                    'last_avg_rate'     => $transactions[$i]->last_avg_rate,
+                    'profit'            => round($transactions[$i]->profit, 2),
+                    'last_avg_rate'     => round($transactions[$i]->last_avg_rate, 4),
                     'current_balance'   => $transactions[$i]->current_balance
                 );
 
@@ -455,7 +455,7 @@ class TransactionController extends Controller
                 
                 $currency_data = Array(
                     'current_balance' => $transactions[$i]->current_balance,
-                    'last_avg_rate' => $transactions[$i]->last_avg_rate
+                    'last_avg_rate' => round($transactions[$i]->last_avg_rate, 4)
                 );
                 
                 $currency->update($currency_data);       

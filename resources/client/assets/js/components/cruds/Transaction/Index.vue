@@ -77,6 +77,7 @@ export default {
                 { title: 'Return To Client', field: 'return_to_client', sortable: true },
                 { title: 'Actions', tdComp: 'DatatableActions', visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
             ],
+            //total: this.data.total,
             query: { sort: 'id', order: 'desc', customer_first_name: '' },
             xprops: {
                 module: 'TransactionIndex',

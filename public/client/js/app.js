@@ -5298,6 +5298,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     data: function data() {
         return {
             columns: [{ title: 'TransactionID', field: 'id', sortable: true }, { title: 'TransactionType', field: 'type', tdComp: 'DatatableSingle', sortable: true }, { title: 'Customer', field: 'customer_first_name', thComp: 'DatatableFilter', sortable: true }, { title: 'Type', field: 'calc_type', sortable: true }, { title: 'DateTime', field: 'created_at', sortable: true }, { title: 'Currency', field: 'name', sortable: true }, { title: 'Buy / Sell Amount', field: 'amount', sortable: true }, { title: 'TTL For Buy / Sell', field: 'total', sortable: true }, { title: 'B / S Rate', field: 'rate', sortable: true }, { title: 'Profit', field: 'profit', sortable: true }, { title: 'Current Balance', field: 'current_balance', sortable: true }, { title: 'Last Average Rate', field: 'last_avg_rate', sortable: true }, { title: 'Paid By Client', field: 'paid_by_client', sortable: true }, { title: 'Return To Client', field: 'return_to_client', sortable: true }, { title: 'Actions', tdComp: 'DatatableActions', visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
+            //total: this.data.total,
             query: { sort: 'id', order: 'desc', customer_first_name: '' },
             xprops: {
                 module: 'TransactionIndex',
@@ -8063,7 +8064,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
