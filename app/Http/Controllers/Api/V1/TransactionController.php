@@ -320,7 +320,9 @@ class TransactionController extends Controller
                             'transactions.last_avg_rate as last_avg_rate', 
                             'transactions.paid_by_client as paid_by_client', 
                             'transactions.return_to_client as return_to_client' )
-            ->get();  
+            ->orderBy('transactions.currency_id', 'ASC')
+            ->orderBy('transactions.id', 'ASC')
+            ->get();
 
             $this->update_transactions($transactions);
 
