@@ -77,7 +77,6 @@ export default {
                 { title: 'Return To Client', field: 'return_to_client', sortable: true },
                 { title: 'Actions', tdComp: 'DatatableActions', visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
             ],
-            //total: this.data.total,
             query: { sort: 'id', order: 'desc', customer_first_name: '' },
             xprops: {
                 module: 'TransactionIndex',
@@ -87,6 +86,8 @@ export default {
     },
     created() {
         this.fetchData()
+        const q = { limit: 10, offset: 0, sort: 'id', order: 'desc', ...this.query }
+        Object.keys(q).forEach(key => { this.$set(this.query, key, q[key]) })
     },
     destroyed() {
         this.resetState()
@@ -109,7 +110,9 @@ export default {
             let rows = Array()
             this.data_all.forEach(element => {
                 if( element.customer_first_name.toLowerCase().search(this.query['customer_first_name'].toLowerCase()) >= 0 )
+                {
                     rows.push(element)
+                }
             });
             this.setAll(rows)
         },

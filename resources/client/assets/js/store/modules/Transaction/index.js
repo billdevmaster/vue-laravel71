@@ -25,9 +25,9 @@ const getters = {
             rows = _.orderBy(state.data_all, state.query.sort, state.query.order)
         }
 
-        return rows.slice(state.query.offset, state.query.offset + state.query.limit)
+        return rows
     },
-    total:         state => state.all.length,
+    total:         state => state.data_all.length,
     loading:       state => state.loading,
     temp:          state => state.temp
 }

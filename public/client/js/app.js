@@ -5298,7 +5298,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     data: function data() {
         return {
             columns: [{ title: 'TransactionID', field: 'id', sortable: true }, { title: 'TransactionType', field: 'type', tdComp: 'DatatableSingle', sortable: true }, { title: 'Customer', field: 'customer_first_name', thComp: 'DatatableFilter', sortable: true }, { title: 'Type', field: 'calc_type', sortable: true }, { title: 'DateTime', field: 'created_at', sortable: true }, { title: 'Currency', field: 'name', sortable: true }, { title: 'Buy / Sell Amount', field: 'amount', sortable: true }, { title: 'TTL For Buy / Sell', field: 'total', sortable: true }, { title: 'B / S Rate', field: 'rate', sortable: true }, { title: 'Profit', field: 'profit', sortable: true }, { title: 'Current Balance', field: 'current_balance', sortable: true }, { title: 'Last Average Rate', field: 'last_avg_rate', sortable: true }, { title: 'Paid By Client', field: 'paid_by_client', sortable: true }, { title: 'Return To Client', field: 'return_to_client', sortable: true }, { title: 'Actions', tdComp: 'DatatableActions', visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
-            //total: this.data.total,
             query: { sort: 'id', order: 'desc', customer_first_name: '' },
             xprops: {
                 module: 'TransactionIndex',
@@ -5307,7 +5306,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
     created: function created() {
+        var _this = this;
+
         this.fetchData();
+        var q = _extends({ limit: 10, offset: 0, sort: 'id', order: 'desc' }, this.query);
+        Object.keys(q).forEach(function (key) {
+            _this.$set(_this.query, key, q[key]);
+        });
     },
     destroyed: function destroyed() {
         this.resetState();
@@ -5326,11 +5331,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionIndex', ['fetchData', 'setQuery', 'resetState', 'setAll', 'removeAllData']), {
         handleQueryChange: function handleQueryChange() {
-            var _this = this;
+            var _this2 = this;
 
             var rows = Array();
             this.data_all.forEach(function (element) {
-                if (element.customer_first_name.toLowerCase().search(_this.query['customer_first_name'].toLowerCase()) >= 0) rows.push(element);
+                if (element.customer_first_name.toLowerCase().search(_this2.query['customer_first_name'].toLowerCase()) >= 0) {
+                    rows.push(element);
+                }
             });
             this.setAll(rows);
         }
@@ -8064,7 +8071,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -41741,10 +41748,10 @@ var getters = {
             rows = _.orderBy(state.data_all, state.query.sort, state.query.order);
         }
 
-        return rows.slice(state.query.offset, state.query.offset + state.query.limit);
+        return rows;
     },
     total: function total(state) {
-        return state.all.length;
+        return state.data_all.length;
     },
     loading: function loading(state) {
         return state.loading;
