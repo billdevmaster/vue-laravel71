@@ -35,7 +35,7 @@
                             <div class="row">
                                 <div class="col-xs-4">
                                     <div class="callout callout-info text-left">
-                                        Total Profit : {{total_profit}}
+                                        Total Profit : <b style="font-size: 120%">{{total_profit}}</b>
                                     </div>
                                 </div>
                             </div>

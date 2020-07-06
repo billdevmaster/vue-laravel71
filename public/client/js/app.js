@@ -32937,10 +32937,11 @@ var render = function() {
                         { staticClass: "callout callout-info text-left" },
                         [
                           _vm._v(
-                            "\n                                    Total Profit : " +
-                              _vm._s(_vm.total_profit) +
-                              "\n                                "
-                          )
+                            "\n                                    Total Profit : "
+                          ),
+                          _c("b", { staticStyle: { "font-size": "120%" } }, [
+                            _vm._v(_vm._s(_vm.total_profit))
+                          ])
                         ]
                       )
                     ])
@@ -39675,7 +39676,8 @@ function initialState() {
         all: [],
         query: {},
         loading: false,
-        total_profit: null
+        total_profit: null,
+        temp: ''
     };
 }
 
@@ -39708,6 +39710,10 @@ var actions = {
         commit('setLoading', true);
 
         axios.get('/api/v1/cases').then(function (response) {
+            commit('thousandsSeparators', parseFloat(response.data.data[0]['opening_balance']).toFixed(2));
+            response.data.data[0]['opening_balance'] = state.temp;
+            commit('thousandsSeparators', parseFloat(response.data.data[0]['current_balance']).toFixed(2));
+            response.data.data[0]['current_balance'] = state.temp;
             commit('setAll', response.data.data);
         }).catch(function (error) {
             message = error.response.data.message || error.message;
@@ -39735,6 +39741,8 @@ var actions = {
             response.data.forEach(function (element) {
                 total_profit += parseFloat(element.currency_profit);
             });
+            commit('thousandsSeparators', total_profit.toFixed(2));
+            total_profit = state.temp;
             commit('setTotalProfit', total_profit);
         }).catch(function (error) {
             message = error.response.data.message || error.message;
@@ -39785,6 +39793,11 @@ var mutations = {
     },
     resetState: function resetState(state) {
         state = Object.assign(state, initialState());
+    },
+    thousandsSeparators: function thousandsSeparators(state, num) {
+        var num_parts = num.toString().split(".");
+        num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        state.temp = num_parts.join(".");
     }
 };
 
@@ -40226,7 +40239,8 @@ function initialState() {
     return {
         all: [],
         query: {},
-        loading: false
+        loading: false,
+        temp: ''
     };
 }
 
@@ -40256,6 +40270,12 @@ var actions = {
         commit('setLoading', true);
 
         axios.get('/api/v1/currency').then(function (response) {
+            for (var i = 0; i < response.data.data.length; i++) {
+                commit('thousandsSeparators', parseFloat(response.data.data[i]['current_balance']).toFixed(2));
+                response.data.data[i]['current_balance'] = state.temp;
+                commit('thousandsSeparators', parseFloat(response.data.data[i]['last_avg_rate']).toFixed(2));
+                response.data.data[i]['last_avg_rate'] = state.temp;
+            }
             commit('setAll', response.data.data);
         }).catch(function (error) {
             message = error.response.data.message || error.message;
@@ -40303,6 +40323,11 @@ var mutations = {
     },
     resetState: function resetState(state) {
         state = Object.assign(state, initialState());
+    },
+    thousandsSeparators: function thousandsSeparators(state, num) {
+        var num_parts = num.toString().split(".");
+        num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        state.temp = num_parts.join(".");
     }
 };
 
@@ -41775,9 +41800,12 @@ var actions = {
                 response.data[i]['amount'] = state.temp;
                 commit('thousandsSeparators', parseFloat(response.data[i]['rate']).toFixed(parseInt(response.data[i]['avg_rate_dec_limit'])));
                 response.data[i]['rate'] = state.temp;
-                commit('thousandsSeparators', parseFloat(response.data[i]['current_balance']).toFixed(parseInt(response.data[i]['balance_dec_limit'])));response.data[i]['current_balance'] = state.temp;
+                commit('thousandsSeparators', parseFloat(response.data[i]['current_balance']).toFixed(parseInt(response.data[i]['balance_dec_limit'])));
+                response.data[i]['current_balance'] = state.temp;
                 commit('thousandsSeparators', parseFloat(response.data[i]['last_avg_rate']).toFixed(parseInt(response.data[i]['last_avg_rate_dec_limit'])));
                 response.data[i]['last_avg_rate'] = state.temp;
+                commit('thousandsSeparators', parseFloat(response.data[i]['total']).toFixed(2));
+                response.data[i]['total'] = state.temp;
             }
             commit('setAll', response.data);
             commit('setInitialData', response.data);

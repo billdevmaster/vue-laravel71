@@ -44,9 +44,12 @@ const actions = {
                     response.data[i]['amount']          = state.temp
                     commit('thousandsSeparators', parseFloat(response.data[i]['rate']).toFixed(parseInt(response.data[i]['avg_rate_dec_limit'])));
                     response.data[i]['rate']            = state.temp
-                    commit('thousandsSeparators', parseFloat(response.data[i]['current_balance']).toFixed(parseInt(response.data[i]['balance_dec_limit']))); response.data[i]['current_balance'] = state.temp
+                    commit('thousandsSeparators', parseFloat(response.data[i]['current_balance']).toFixed(parseInt(response.data[i]['balance_dec_limit'])));
+                    response.data[i]['current_balance'] = state.temp
                     commit('thousandsSeparators', parseFloat(response.data[i]['last_avg_rate']).toFixed(parseInt(response.data[i]['last_avg_rate_dec_limit'])));
-                    response.data[i]['last_avg_rate']   = state.temp
+                    response.data[i]['last_avg_rate'] = state.temp
+                    commit('thousandsSeparators', parseFloat(response.data[i]['total']).toFixed(2));
+                    response.data[i]['total'] = state.temp
                 }
                 commit('setAll', response.data)
                 commit('setInitialData', response.data)

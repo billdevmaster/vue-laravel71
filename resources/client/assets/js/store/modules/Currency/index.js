@@ -2,7 +2,8 @@ function initialState() {
     return {
         all: [],
         query: {},
-        loading: false
+        loading: false,
+        temp: ''
     }
 }
 
@@ -26,6 +27,12 @@ const actions = {
 
         axios.get('/api/v1/currency')
             .then(response => {
+                for (let i = 0; i < response.data.data.length; i++) {
+                    commit('thousandsSeparators', parseFloat(response.data.data[i]['current_balance']).toFixed(2));
+                    response.data.data[i]['current_balance'] = state.temp
+                    commit('thousandsSeparators', parseFloat(response.data.data[i]['last_avg_rate']).toFixed(2));
+                    response.data.data[i]['last_avg_rate'] = state.temp
+                }
                 commit('setAll', response.data.data)
             })
             .catch(error => {
@@ -70,6 +77,11 @@ const mutations = {
     },
     resetState(state) {
         state = Object.assign(state, initialState())
+    },
+    thousandsSeparators(state, num) {
+        var num_parts = num.toString().split(".");
+        num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        state.temp = num_parts.join(".");
     }
 }
 

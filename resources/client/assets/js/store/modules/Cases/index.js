@@ -3,7 +3,8 @@ function initialState() {
         all: [],
         query: {},
         loading: false,
-        total_profit: null
+        total_profit: null,
+        temp: ''
     }
 }
 
@@ -28,6 +29,10 @@ const actions = {
 
         axios.get('/api/v1/cases')
             .then(response => {
+                commit('thousandsSeparators', parseFloat(response.data.data[0]['opening_balance']).toFixed(2));
+                response.data.data[0]['opening_balance'] = state.temp
+                commit('thousandsSeparators', parseFloat(response.data.data[0]['current_balance']).toFixed(2));
+                response.data.data[0]['current_balance'] = state.temp
                 commit('setAll', response.data.data)
             })
             .catch(error => {
@@ -39,10 +44,7 @@ const actions = {
                 commit('setLoading', false)
             })
     },
-    fetchProfit({
-        commit,
-        state
-    }) {
+    fetchProfit({ commit, state }) {
         commit('setLoading', true)
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -58,6 +60,8 @@ const actions = {
                 response.data.forEach(element => {
                     total_profit += parseFloat(element.currency_profit)
                 });
+                commit('thousandsSeparators', total_profit.toFixed(2));
+                total_profit = state.temp
                 commit('setTotalProfit', total_profit)
             })
             .catch(error => {
@@ -105,6 +109,11 @@ const mutations = {
     },
     resetState(state) {
         state = Object.assign(state, initialState())
+    },
+    thousandsSeparators(state, num) {
+        var num_parts = num.toString().split(".");
+        num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        state.temp = num_parts.join(".");
     }
 }
 
