@@ -1,7 +1,7 @@
 <template>
     <section class="content-wrapper" style="min-height: 960px;">
         <section class="content-header">
-            <h1>Customers</h1>
+            <h1>Login History</h1>
         </section>
 
         <section class="content">
@@ -14,9 +14,6 @@
 
                         <div class="box-body">
                             <div class="btn-group">
-                                <router-link :to="{ name: xprops.route + '.create' }" class="btn btn-success btn-sm">
-                                    <i class="fa fa-plus"></i> Add new
-                                </router-link>
                                 <button type="button" class="btn btn-default btn-sm" @click="fetchData">
                                     <i class="fa fa-refresh" :class="{'fa-spin': loading}"></i> Refresh
                                 </button>
@@ -60,49 +57,37 @@ export default {
         return {
             columns: [
                 { title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' },
-                { title: 'First name', field: 'first_name', thComp: 'DatatableFilter', sortable: true },
-                { title: 'Last name', field: 'last_name', thComp: 'DatatableFilter', sortable: true },
-                { title: 'Email', field: 'email', sortable: true },
-                { title: 'Customer Code', field: 'customer_code', sortable: true },
-                { title: 'Phone', field: 'phone', sortable: true },
-                { title: 'Actions', tdComp: 'DatatableActions', visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
+                { title: 'User Name', field: 'user_name', sortable: true },
+                { title: 'User IP', field: 'user_ip', sortable: true },
+                { title: 'Login Date Time', field: 'create_date', sortable: true },
             ],
-            query: { sort: 'id', order: 'desc', 'first_name': '', 'last_name': '' },
+            query: { sort: 'id', order: 'desc' },
             xprops: {
-                module: 'CustomersIndex',
-                route: 'customers'
+                module: 'LoginHistoryIndex',
+                route: 'loginhistory'
             }
         }
     },
     created() {
+        this.$root.relationships = this.relationships
         this.fetchData()
     },
     destroyed() {
         this.resetState()
     },
     computed: {
-        ...mapGetters('CustomersIndex', ['data', 'data_all', 'total', 'loading', 'relationships']),
+        ...mapGetters('LoginHistoryIndex', ['data', 'total', 'loading', 'relationships']),
     },
     watch: {
         query: {
             handler(query) {
                 this.setQuery(query)
-                this.handleQueryChange()
             },
             deep: true
         }
     },
     methods: {
-        ...mapActions('CustomersIndex', ['fetchData', 'setQuery', 'resetState', 'setAll']),
-        handleQueryChange () {       
-            let rows = Array()
-            this.data_all.forEach(element => {
-                if ( element.first_name != null )
-                    if( element.first_name.toLowerCase().search(this.query['first_name'].toLowerCase()) >= 0 &&  element.last_name.toLowerCase().search(this.query['last_name'].toLowerCase()) >= 0 )
-                    rows.push(element)
-            });
-            this.setAll(rows)
-        },
+        ...mapActions('LoginHistoryIndex', ['fetchData', 'setQuery', 'resetState']),
     }
 }
 </script>

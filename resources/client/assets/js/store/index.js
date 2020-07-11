@@ -20,6 +20,15 @@ import TransactionIndex from './modules/Transaction'
 import TransactionSingle from './modules/Transaction/single'
 import ProfitIndex from './modules/Profit'
 
+import AccountIndex from './modules/Account/account'
+import HistoryIndex from './modules/Account/history'
+import AccountChangeIndex from './modules/Account/accountchange'
+
+import LoginHistoryIndex from './modules/Account/loginhistory'
+
+import ProductIndex from './modules/Product'
+import ProductSingle from './modules/Product/single'
+
 import Alert from './modules/alert'
 import ChangePassword from './modules/change_password'
 
@@ -48,6 +57,12 @@ export default new Vuex.Store({
         TransactionIndex,
         TransactionSingle,
         ProfitIndex,
+        AccountIndex,
+        AccountChangeIndex,
+        HistoryIndex,
+        LoginHistoryIndex,
+        ProductIndex,
+        ProductSingle,
     },
     strict: debug,
 })

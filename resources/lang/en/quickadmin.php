@@ -44,6 +44,22 @@ return [
 			'phone' => 'Phone',
 		],
 	],
+	'account-management' => [
+		'title' => 'Account Management',
+		'subtitle' => [
+			'income' => 'Income',
+			'payment' => 'Payment',
+			'income-change' => 'Income Changes',
+			'payment-change' => 'Payment Changes',
+			'product' => 'Products',
+			'history' => 'History'
+		],
+	],
+	'transaction' => 'Transaction',
+	'customer' => 'Customers',
+	'case' => 'Case',
+	'currency' => 'Currency',
+	'profit' => 'Profit',
 	'qa_create' => 'Create',
 	'qa_save' => 'Save',
 	'qa_edit' => 'Edit',

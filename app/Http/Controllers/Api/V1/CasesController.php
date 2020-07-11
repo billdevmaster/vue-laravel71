@@ -73,6 +73,13 @@ class CasesController extends Controller
             }
         }
 
+        $user_balances = DB::table('users')
+          ->select(     'users.balance as balance' )
+          ->get();
+
+        foreach ($user_balances as $key => $balance) {
+            $current_total += $balance->balance;
+        }
         $case_data = array(
             'current_balance'     => $current_total
         );

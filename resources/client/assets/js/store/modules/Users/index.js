@@ -28,7 +28,7 @@ const actions = {
     fetchData({ commit, state }) {
         commit('setLoading', true)
 
-        axios.get('/api/v1/users')
+        axios.get('/api/v1/users/user')
             .then(response => {
                 commit('setAll', response.data.data)
             })

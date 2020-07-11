@@ -20,7 +20,10 @@ class UsersController extends Controller
 
     public function show($id)
     {
-        $user = User::with(['role'])->findOrFail($id);
+        if ($id == 'user')
+            $user = User::with(['role'])->whereRaw('name is not null')->get();
+        else
+            $user = User::with(['role'])->findOrFail($id);
 
         return new UserResource($user);
     }

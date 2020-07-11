@@ -44,6 +44,7 @@
                                             <label for="currency_code">Currency Code <span class="label label-danger" v-if="item.type != '0' && item.type != '1'"> * required</span></label>
                                             <v-select
                                                     name="currency_code"
+                                                    id="currency_code"
                                                     label="currency_code"
                                                     @input="updateCurrencyCode"
                                                     :value="item.currency_code"
@@ -97,6 +98,7 @@
                                                     type="text"
                                                     class="form-control"
                                                     name="amount"
+                                                    id="amount"
                                                     placeholder="Enter Buy / Sell Amount"
                                                     :value="item.amount"
                                                     @input="updateBSAmount"
@@ -108,6 +110,7 @@
                                                     type="text"
                                                     class="form-control"
                                                     name="rate"
+                                                    id="rate"
                                                     placeholder="Enter Buy / Sell Rate"
                                                     :value="item.rate"
                                                     @input="updateBSRate"
@@ -129,6 +132,7 @@
                                                     type="text"
                                                     class="form-control"
                                                     name="paid_by_client"
+                                                    id="paid_by_client"
                                                     placeholder="Enter Paid By Client"
                                                     :value="item.paid_by_client"
                                                     @input="updatePaidByClient"
@@ -140,6 +144,7 @@
                                                     type="text"
                                                     class="form-control"
                                                     name="return_to_client"
+                                                    id="return_to_client"
                                                     placeholder="Enter Return To Client"
                                                     :value="item.return_to_client"
                                                     readonly
@@ -155,6 +160,7 @@
                                                     name="name"
                                                     placeholder="Enter Currency Name"
                                                     :value="item.name"
+                                                    readonly
                                                     >
                                         </div>
                                         <div class="form-group">
@@ -208,9 +214,10 @@
 
                             <div class="box-footer">
                                 <vue-button-spinner
+                                        type="button"
                                         class="btn btn-primary btn-sm"
                                         :isLoading="loading"
-                                        :disabled="loading"
+                                        :disabled="loading"                                        
                                         >
                                     Save
                                 </vue-button-spinner>
@@ -245,6 +252,7 @@ export default {
         this.fetchCurrencyAll()
         this.fetchCustomerAll()
         this.fetchCase()
+        console.log($('#currency_code').focus())
     },
     destroyed() {
         this.resetState()
@@ -285,6 +293,7 @@ export default {
             else {
                 this.fetchCurrencyData(null)
             }
+            $('#amount').focus()
         },
         updateCustomer(value) {
             if (value != null) {
@@ -412,6 +421,28 @@ export default {
         saveKeyAction(e) {
             if (e.keyCode == 17)
                 this.submitForm()
+            else if(e.keyCode == 13)
+                this.changeFocus()
+        },
+        changeFocus(){
+            var $focused = $(':focus')
+            if($($focused).attr('id') == "amount")
+            {
+                $('#rate').focus()
+            }
+            if($($focused).attr('id') == "rate")
+            {
+                if($('#paid_by_client').attr('disabled') != 'disabled')
+                    $('#paid_by_cliente').focus()
+            }
+            if($($focused).attr('id') == "paid_by_client" || ( $($focused).attr('id') == "rate" && $('#paid_by_client').attr('disabled') == 'disabled' ))
+            {
+                this.submitForm()
+            }
+            
+
+            // if($('#paid_by_client').attr('disabled') != 'disabled')
+
         }
     }
 }

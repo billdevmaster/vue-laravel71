@@ -42,6 +42,17 @@ import TransactionEdit from '../components/cruds/Transaction/Edit.vue'
 
 import ProfitIndex from '../components/cruds/Profit/Index.vue'
 
+import AccountIndex from '../components/cruds/Account/Account.vue'
+import HistoryIndex from '../components/cruds/Account/History.vue'
+import AccountChangeIndex from '../components/cruds/Account/AccountChange.vue'
+
+import LoginHistoryIndex from '../components/cruds/Account/LoginHistory.vue'
+
+import ProductIndex from '../components/cruds/Product/Index.vue'
+import ProductCreate from '../components/cruds/Product/Create.vue'
+import ProductShow from '../components/cruds/Product/Show.vue'
+import ProductEdit from '../components/cruds/Product/Edit.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -77,7 +88,7 @@ const routes = [
     { path: '/currency', component: CurrencyIndex, name: 'currency.index' },
     { path: '/currency/create', component: CurrencyCreate, name: 'currency.create' },
     { path: '/currency/:id', component: CurrencyShow, name: 'currency.show' },
-    { path: '/currency/:id/edit', component: CurrencyEdit, name: 'currency.edit' },,
+    { path: '/currency/:id/edit', component: CurrencyEdit, name: 'currency.edit' },
 
     { path: '/transaction', component: TransactionIndex, name: 'transaction.index' },
     { path: '/transaction/create', component: TransactionCreate, name: 'transaction.create' },
@@ -85,6 +96,17 @@ const routes = [
     { path: '/transaction/:id/edit', component: TransactionEdit, name: 'transaction.edit' },
 
     { path: '/profit', component: ProfitIndex, name: 'profit.index' },
+
+    { path: '/account/:type', component: AccountIndex, name: 'account.index' },
+    { path: '/history', component: HistoryIndex, name: 'account.history' },
+    { path: '/accountchange/:type', component: AccountChangeIndex, name: 'accountchange.index' },
+
+    { path: '/loginhistory', component: LoginHistoryIndex, name: 'loginhistory.index' },
+
+    { path: '/product', component: ProductIndex, name: 'product.index' },
+    { path: '/product/create', component: ProductCreate, name: 'product.create' },
+    { path: '/product/:id', component: ProductShow, name: 'product.show' },
+    { path: '/product/:id/edit', component: ProductEdit, name: 'product.edit' }
 ]
 
 export default new VueRouter({

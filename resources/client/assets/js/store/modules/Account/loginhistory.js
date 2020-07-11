@@ -1,9 +1,11 @@
 function initialState() {
     return {
         all: [],
+        relationships: {
+            
+        },
         query: {},
-        loading: false,
-        temp: ''
+        loading: false
     }
 }
 
@@ -19,20 +21,16 @@ const getters = {
     },
     total:         state => state.all.length,
     loading:       state => state.loading,
+    relationships: state => state.relationships
 }
 
 const actions = {
     fetchData({ commit, state }) {
         commit('setLoading', true)
 
-        axios.get('/api/v1/currency')
+        axios.get('/api/v1/loginhistory')
             .then(response => {
-                for (let i = 0; i < response.data.data.length; i++) {
-                    commit('thousandsSeparators', parseFloat(response.data.data[i]['current_balance']).toFixed(2));
-                    response.data.data[i]['current_balance'] = state.temp
-                    commit('thousandsSeparators', parseFloat(response.data.data[i]['last_avg_rate']).toFixed(parseInt(response.data.data[i]['last_avg_rate_dec_limit'])));
-                    response.data.data[i]['last_avg_rate'] = state.temp
-                }
+                console.log(response.data)
                 commit('setAll', response.data.data)
             })
             .catch(error => {
@@ -45,7 +43,7 @@ const actions = {
             })
     },
     destroyData({ commit, state }, id) {
-        axios.delete('/api/v1/currency/' + id)
+        axios.delete('/api/v1/loginhistory/' + id)
             .then(response => {
                 commit('setAll', state.all.filter((item) => {
                     return item.id != id
@@ -77,11 +75,6 @@ const mutations = {
     },
     resetState(state) {
         state = Object.assign(state, initialState())
-    },
-    thousandsSeparators(state, num) {
-        var num_parts = num.toString().split(".");
-        num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        state.temp = num_parts.join(".");
     }
 }
 

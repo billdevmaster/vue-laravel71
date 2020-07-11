@@ -13,7 +13,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        return new CustomerResource(Customer::where('role_id', '>', 1)->get());
+        return new CustomerResource(Customer::where('role_id', '>', 1)->whereRaw('first_name is not null')->get());
     }
 
     public function show($id)

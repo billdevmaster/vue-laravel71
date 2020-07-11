@@ -2,6 +2,11 @@
 export default {
     
   DatatableActions: require('./DatatableActions'),
+  DatatableActionsForAccount: require('./DatatableActionsForAccount'),
   DatatableFilter: require('./DatatableFilter'),
   DatatableSingle: require('./DatatableSingle'),
+  DatatableSingleForProduct: require('./DatatableSingleForProduct'),
+  DatatableSingleForAccountChange: require('./DatatableSingleForAccountChange'),
+  DatatableSingleForHistory: require('./DatatableSingleForHistory'),
+  DatatableSingleForUser: require('./DatatableSingleForUser'),
 }

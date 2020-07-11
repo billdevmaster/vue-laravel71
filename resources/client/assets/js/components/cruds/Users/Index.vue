@@ -62,7 +62,8 @@ export default {
                 { title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' },
                 { title: 'Name', field: 'name', sortable: true },
                 { title: 'Email', field: 'email', sortable: true },
-                { title: 'Role', field: 'role', tdComp: 'DatatableSingle' },
+                { title: 'Role', field: 'role', tdComp: 'DatatableSingleForUser' },
+                { title: 'Balance', field: 'balance', sortable: true },
                 { title: 'Actions', tdComp: 'DatatableActions', visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
             ],
             query: { sort: 'id', order: 'desc' },
