@@ -6006,7 +6006,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 $('#rate').focus();
             }
             if ($($focused).attr('id') == "rate") {
-                if ($('#paid_by_client').attr('disabled') != 'disabled' || !$('#paid_by_client').hasAttr('disabled')) $('#paid_by_client').focus();
+                if ($('#paid_by_client').attr('disabled') != 'disabled') $('#paid_by_client').focus();
             }
             if ($($focused).attr('id') == "paid_by_client" || $($focused).attr('id') == "rate" && $('#paid_by_client').attr('disabled') == 'disabled') {
                 this.submitForm();
