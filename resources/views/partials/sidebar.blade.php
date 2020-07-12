@@ -4,7 +4,9 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <ul class="sidebar-menu">
-
+            @php
+            if(Auth()->user()->role->id == 1):
+            @endphp
             <li>
                 <router-link :to="{ name: 'home.index' }">
                 {{-- <a href="{{ url('/') }}"> --}}
@@ -151,6 +153,27 @@
                     <span class="title">@lang('cams.logout')</span>
                 </a>
             </li>
+            @php
+            else:
+            @endphp
+            <li>
+                <router-link :to="{ name: 'account.history' }">
+                    <i class="fa fa-line-chart"></i>
+                    <span class="title">
+                        @lang('cams.account-management.subtitle.history')
+                    </span>
+                </router-link>
+            </li>
+
+            <li>
+                <a href="#logout" onclick="$('#logout').submit();">
+                    <i class="fa fa-arrow-left"></i>
+                    <span class="title">@lang('cams.logout')</span>
+                </a>
+            </li>
+            @php
+            endif;
+            @endphp
         </ul>
     </section>
 </aside>

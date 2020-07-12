@@ -5836,6 +5836,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -5851,12 +5852,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionSingle', ['item', 'loading', 'currency_all', 'customer_all', 'case'])),
     mounted: function mounted() {
         window.addEventListener("keypress", this.saveKeyAction);
+        $('#currency_code input').focus();
     },
     created: function created() {
         this.fetchCurrencyAll();
         this.fetchCustomerAll();
         this.fetchCase();
-        console.log($('#currency_code').focus());
     },
     destroyed: function destroyed() {
         this.resetState();
@@ -5984,7 +5985,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 showCancelButton: true,
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#0084af',
-                focusCancel: true,
                 reverseButtons: true
             }).then(function (result) {
                 if (result.value) {
@@ -6006,7 +6006,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 $('#rate').focus();
             }
             if ($($focused).attr('id') == "rate") {
-                if ($('#paid_by_client').attr('disabled') != 'disabled') $('#paid_by_cliente').focus();
+                if ($('#paid_by_client').attr('disabled') != 'disabled' || !$('#paid_by_client').hasAttr('disabled')) $('#paid_by_client').focus();
             }
             if ($($focused).attr('id') == "paid_by_client" || $($focused).attr('id') == "rate" && $('#paid_by_client').attr('disabled') == 'disabled') {
                 this.submitForm();
@@ -31204,7 +31204,8 @@ var render = function() {
                                   id: "currency_code",
                                   label: "currency_code",
                                   value: _vm.item.currency_code,
-                                  options: _vm.currency_all
+                                  options: _vm.currency_all,
+                                  autofocus: ""
                                 },
                                 on: { input: _vm.updateCurrencyCode }
                               }),

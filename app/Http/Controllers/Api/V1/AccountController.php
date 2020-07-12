@@ -54,36 +54,72 @@ class AccountController extends Controller
             ->get();
         elseif ($id == "history")
         {            
-            
-            $payment = DB::table('payment')
-            ->join('users', 'payment.user_id', '=', 'users.id')
-            ->join('product', 'payment.product_id', '=', 'product.id')
-            ->select(       'payment.id as id', 
-                            'payment.serial_number as serial_number', 
-                            'payment.amount as amount', 
-                            'payment.note as note', 
-                            'payment.create_date as create_date', 
-                            'users.id as user_id', 
-                            'users.name as user_name', 
-                            'product.id as product_id', 
-                            'product.name as product_name' )
-            ->selectRaw(    '"payment" as type');
+            $user = auth()->user();
+            if ($user->role->id == 1)
+            {
+                $payment = DB::table('payment')
+                ->join('users', 'payment.user_id', '=', 'users.id')
+                ->join('product', 'payment.product_id', '=', 'product.id')
+                ->select(       'payment.id as id', 
+                                'payment.serial_number as serial_number', 
+                                'payment.amount as amount', 
+                                'payment.note as note', 
+                                'payment.create_date as create_date', 
+                                'users.id as user_id', 
+                                'users.name as user_name', 
+                                'product.id as product_id', 
+                                'product.name as product_name' )
+                ->selectRaw(    '"payment" as type');
 
-            $income = DB::table('income')
-            ->join('users', 'income.user_id', '=', 'users.id')
-            ->join('product', 'income.product_id', '=', 'product.id')
-            ->select(       'income.id as id', 
-                            'income.serial_number as serial_number', 
-                            'income.amount as amount', 
-                            'income.note as note', 
-                            'income.create_date as create_date', 
-                            'users.id as user_id', 
-                            'users.name as user_name', 
-                            'product.id as product_id', 
-                            'product.name as product_name' )
-            ->selectRaw(    '"income" as type')
-            ->union($payment)
-            ->get();
+                $income = DB::table('income')
+                ->join('users', 'income.user_id', '=', 'users.id')
+                ->join('product', 'income.product_id', '=', 'product.id')
+                ->select(       'income.id as id', 
+                                'income.serial_number as serial_number', 
+                                'income.amount as amount', 
+                                'income.note as note', 
+                                'income.create_date as create_date', 
+                                'users.id as user_id', 
+                                'users.name as user_name', 
+                                'product.id as product_id', 
+                                'product.name as product_name' )
+                ->selectRaw(    '"income" as type')
+                ->union($payment)
+                ->get();
+            }
+            else {
+                $payment = DB::table('payment')
+                ->join('users', 'payment.user_id', '=', 'users.id')
+                ->join('product', 'payment.product_id', '=', 'product.id')
+                ->select(       'payment.id as id', 
+                                'payment.serial_number as serial_number', 
+                                'payment.amount as amount', 
+                                'payment.note as note', 
+                                'payment.create_date as create_date', 
+                                'users.id as user_id', 
+                                'users.name as user_name', 
+                                'product.id as product_id', 
+                                'product.name as product_name' )
+                ->selectRaw(    '"payment" as type')
+                ->where('users.id', '=', $user->id);
+
+                $income = DB::table('income')
+                ->join('users', 'income.user_id', '=', 'users.id')
+                ->join('product', 'income.product_id', '=', 'product.id')
+                ->select(       'income.id as id', 
+                                'income.serial_number as serial_number', 
+                                'income.amount as amount', 
+                                'income.note as note', 
+                                'income.create_date as create_date', 
+                                'users.id as user_id', 
+                                'users.name as user_name', 
+                                'product.id as product_id', 
+                                'product.name as product_name' )
+                ->selectRaw(    '"income" as type')
+                ->where('users.id', '=', $user->id)
+                ->union($payment)
+                ->get();
+            }
 
         }
         else

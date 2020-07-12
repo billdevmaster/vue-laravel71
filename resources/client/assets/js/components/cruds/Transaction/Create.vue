@@ -49,6 +49,7 @@
                                                     @input="updateCurrencyCode"
                                                     :value="item.currency_code"
                                                     :options="currency_all"
+                                                    autofocus
                                                     />
                                             <input 
                                                     type="hidden"
@@ -247,12 +248,12 @@ export default {
     },
     mounted() {
         window.addEventListener("keypress", this.saveKeyAction)
+        $('#currency_code input').focus()
     },
     created() {
         this.fetchCurrencyAll()
         this.fetchCustomerAll()
-        this.fetchCase()
-        console.log($('#currency_code').focus())
+        this.fetchCase()        
     },
     destroyed() {
         this.resetState()
@@ -403,7 +404,6 @@ export default {
                 showCancelButton: true,
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#0084af',
-                focusCancel: true,
                 reverseButtons: true
             }).then(result => {
                 if (result.value) {
@@ -432,8 +432,8 @@ export default {
             }
             if($($focused).attr('id') == "rate")
             {
-                if($('#paid_by_client').attr('disabled') != 'disabled')
-                    $('#paid_by_cliente').focus()
+                if($('#paid_by_client').attr('disabled') != 'disabled' || !$('#paid_by_client').hasAttr('disabled'))
+                    $('#paid_by_client').focus()
             }
             if($($focused).attr('id') == "paid_by_client" || ( $($focused).attr('id') == "rate" && $('#paid_by_client').attr('disabled') == 'disabled' ))
             {
