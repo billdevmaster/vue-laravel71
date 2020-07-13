@@ -103,6 +103,10 @@ export default {
                 this.handleQueryChange()
             },
             deep: true
+        },
+        "$route": function() {
+            this.resetState()
+            window.addEventListener("keypress", this.saveKeyAction)
         }
     },
     methods: {
