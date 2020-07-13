@@ -430,12 +430,11 @@ export default {
             {
                 $('#rate').focus()
             }
-            if($($focused).attr('id') == "rate")
+            else if($($focused).attr('id') == "rate" && $('#paid_by_client').attr('disabled') != 'disabled')
             {
-                if($('#paid_by_client').attr('disabled') != 'disabled')
-                    $('#paid_by_client').focus()
+                $('#paid_by_client').focus()
             }
-            if($($focused).attr('id') == "paid_by_client" || ( $($focused).attr('id') == "rate" && $('#paid_by_client').attr('disabled') == 'disabled' ))
+            else if($($focused).attr('id') == "paid_by_client" || ( $($focused).attr('id') == "rate" && $('#paid_by_client').attr('disabled') == 'disabled' ))
             {
                 this.submitForm()
             }
