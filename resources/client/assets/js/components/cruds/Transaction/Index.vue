@@ -21,7 +21,7 @@
                                     <i class="fa fa-refresh" :class="{'fa-spin': loading}"></i> Refresh
                                 </button>                                
                                 <button type="button" class="btn btn-danger btn-sm" @click="removeAllData">
-                                    <i class="fa fa-times" :class="{'fa-spin': loading}"></i> Remove All Transactions
+                                    <i class="fa fa-times" :class="{'fa-spin': loading}"></i> Remove All Changes
                                 </button>
                             </div>
                         </div>

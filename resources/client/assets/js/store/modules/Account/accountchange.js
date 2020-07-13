@@ -109,7 +109,23 @@ const actions = {
             .finally(() => {
                 commit('setLoading', false)
             })
-    },    
+    },
+    removeAllData({ commit, state }) {
+        commit('setLoading', true)
+
+        axios.delete('/api/v1/accountchange/' + state.type)
+            .then(response => {
+                commit('resetState')
+            })
+            .catch(error => {
+                message = error.response.data.message || error.message
+                commit('setError', message)
+                console.log(message)
+            })
+            .finally(() => {
+                commit('setLoading', false)
+            })
+    },
     setAll({ commit }, items) {
         commit('setAll', items)
     },

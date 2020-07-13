@@ -739,6 +739,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 
 
@@ -782,7 +785,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }
 
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('AccountChangeIndex', ['fetchDataList', 'fetchUsers', 'fetchProducts', 'setAll', 'setQuery', 'resetState', 'setType', 'setCreateDate', 'setSerialNumber', 'setUser', 'setProduct', 'setOperationType', 'emptyItem']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('AccountChangeIndex', ['fetchDataList', 'fetchUsers', 'fetchProducts', 'setAll', 'setQuery', 'resetState', 'setType', 'setCreateDate', 'setSerialNumber', 'setUser', 'setProduct', 'setOperationType', 'emptyItem', 'removeAllData']), {
         updateCreateDate: function updateCreateDate(value) {
             this.setCreateDate(value);
             this.filterData();
@@ -10160,7 +10163,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -30263,7 +30266,7 @@ var render = function() {
                           class: { "fa-spin": _vm.loading }
                         }),
                         _vm._v(
-                          " Remove All Transactions\n                            "
+                          " Remove All Changes\n                            "
                         )
                       ]
                     )
@@ -38078,6 +38081,24 @@ var render = function() {
                       }),
                       _vm._v(" Refresh\n                            ")
                     ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm",
+                      attrs: { type: "button" },
+                      on: { click: _vm.removeAllData }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-times",
+                        class: { "fa-spin": _vm.loading }
+                      }),
+                      _vm._v(
+                        " Remove All Transactions\n                            "
+                      )
+                    ]
                   )
                 ])
               ]),
@@ -44337,53 +44358,69 @@ var actions = {
             commit('setLoading', false);
         });
     },
-    setAll: function setAll(_ref4, items) {
-        var commit = _ref4.commit;
+    removeAllData: function removeAllData(_ref4) {
+        var commit = _ref4.commit,
+            state = _ref4.state;
+
+        commit('setLoading', true);
+
+        axios.delete('/api/v1/accountchange/' + state.type).then(function (response) {
+            commit('resetState');
+        }).catch(function (error) {
+            message = error.response.data.message || error.message;
+            commit('setError', message);
+            console.log(message);
+        }).finally(function () {
+            commit('setLoading', false);
+        });
+    },
+    setAll: function setAll(_ref5, items) {
+        var commit = _ref5.commit;
 
         commit('setAll', items);
     },
-    setQuery: function setQuery(_ref5, value) {
-        var commit = _ref5.commit;
+    setQuery: function setQuery(_ref6, value) {
+        var commit = _ref6.commit;
 
         commit('setQuery', purify(value));
     },
-    setType: function setType(_ref6, value) {
-        var commit = _ref6.commit;
+    setType: function setType(_ref7, value) {
+        var commit = _ref7.commit;
 
         commit('setType', value);
     },
-    setCreateDate: function setCreateDate(_ref7, value) {
-        var commit = _ref7.commit;
+    setCreateDate: function setCreateDate(_ref8, value) {
+        var commit = _ref8.commit;
 
         commit('setCreateDate', value);
     },
-    setSerialNumber: function setSerialNumber(_ref8, value) {
-        var commit = _ref8.commit;
+    setSerialNumber: function setSerialNumber(_ref9, value) {
+        var commit = _ref9.commit;
 
         commit('setSerialNumber', value);
     },
-    setUser: function setUser(_ref9, value) {
-        var commit = _ref9.commit;
+    setUser: function setUser(_ref10, value) {
+        var commit = _ref10.commit;
 
         commit('setUser', value);
     },
-    setProduct: function setProduct(_ref10, value) {
-        var commit = _ref10.commit;
+    setProduct: function setProduct(_ref11, value) {
+        var commit = _ref11.commit;
 
         commit('setProduct', value);
     },
-    setOperationType: function setOperationType(_ref11, value) {
-        var commit = _ref11.commit;
+    setOperationType: function setOperationType(_ref12, value) {
+        var commit = _ref12.commit;
 
         commit('setOperationType', value);
     },
-    resetState: function resetState(_ref12) {
-        var commit = _ref12.commit;
+    resetState: function resetState(_ref13) {
+        var commit = _ref13.commit;
 
         commit('resetState');
     },
-    emptyItem: function emptyItem(_ref13) {
-        var commit = _ref13.commit;
+    emptyItem: function emptyItem(_ref14) {
+        var commit = _ref14.commit;
 
         commit('emptyItem');
     }

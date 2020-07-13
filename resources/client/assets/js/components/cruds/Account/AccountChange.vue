@@ -17,6 +17,9 @@
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-sm" @click="fetchDataList">
                                     <i class="fa fa-refresh" :class="{'fa-spin': loading}"></i> Refresh
+                                </button>                           
+                                <button type="button" class="btn btn-danger btn-sm" @click="removeAllData">
+                                    <i class="fa fa-times" :class="{'fa-spin': loading}"></i> Remove All Transactions
                                 </button>
                             </div>
                         </div>
@@ -175,7 +178,7 @@ export default {
         
     },
     methods: {
-        ...mapActions('AccountChangeIndex', ['fetchDataList', 'fetchUsers', 'fetchProducts', 'setAll', 'setQuery', 'resetState', 'setType', 'setCreateDate', 'setSerialNumber', 'setUser', 'setProduct', 'setOperationType', 'emptyItem']),
+        ...mapActions('AccountChangeIndex', ['fetchDataList', 'fetchUsers', 'fetchProducts', 'setAll', 'setQuery', 'resetState', 'setType', 'setCreateDate', 'setSerialNumber', 'setUser', 'setProduct', 'setOperationType', 'emptyItem', 'removeAllData']),
         updateCreateDate(value)
         {
             this.setCreateDate(value)

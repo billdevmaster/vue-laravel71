@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\IncomeChange;
+use App\PaymentChange;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
@@ -67,7 +69,16 @@ class AccountChangeController extends Controller
     }
 
     public function destroy($id)
-    {
-        
+    {        
+        if ($id == 'income') {
+            IncomeChange::whereNotNull('id')->delete();
+            
+            return response(null, 204);
+        }
+        else {
+            PaymentChange::whereNotNull('id')->delete();
+            
+            return response(null, 204);
+        }
     }
 }
