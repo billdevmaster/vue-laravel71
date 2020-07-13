@@ -22,7 +22,8 @@ function initialState() {
         products: [],
         query: {},
         loading: false,
-        type: null
+        type: null,
+        total_balance: null
     }
 }
 
@@ -42,7 +43,8 @@ const getters = {
     products:      state => state.products,
     total:         state => state.all.length,
     loading:       state => state.loading,
-    type:          state => state.type
+    type:          state => state.type,
+    total_balance: state => state.total_balance
 }
 
 const actions = {
@@ -53,6 +55,10 @@ const actions = {
             .then(response => {
                 commit('setAll', response.data)
                 commit('setDataAll', response.data)
+                
+                if (response.data[0]['total_balance']) {
+                    commit('setTotalBalance', response.data[0]['total_balance'])
+                }
             })
             .catch(error => {
                 message = error.response.data.message || error.message
@@ -144,6 +150,9 @@ const mutations = {
     },
     setDataAll(state, items) {
         state.data_all = items
+    },
+    setTotalBalance(state, balance) {
+        state.total_balance = balance
     },
     setLoading(state, loading) {
         state.loading = loading

@@ -1,8 +1,7 @@
 <template>
     <section class="content-wrapper" style="min-height: 960px;">
         <section class="content-header">            
-            <h1 v-if="type == 'income'">Income Changes</h1>
-            <h1 v-if="type == 'payment'">Payment Changes</h1>
+            <h1>Transaction History</h1>
         </section>
 
         <section class="content">
@@ -19,38 +18,44 @@
                                     <i class="fa fa-refresh" :class="{'fa-spin': loading}"></i> Refresh
                                 </button>                           
                                 <button type="button" class="btn btn-danger btn-sm" @click="removeAllData">
-                                    <i class="fa fa-times" :class="{'fa-spin': loading}"></i> Remove All Data
+                                    <i class="fa fa-times" :class="{'fa-spin': loading}"></i> Remove All History
                                 </button>
                             </div>
                         </div>
 
                         <div class="box-body row">
                             <form @submit.prevent="submitForm" enctype="multipart/form-data">
-                            <div class="col-md-2">                           
-                                <div class="callout callout-info text-left" style="padding: 7px 5px;">
-                                    Search Options
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <v-select
+                                            name="transaction_type"
+                                            :options="[{'id':0, 'name': 'Buy'}, {'id':1, 'name': 'Sell'}]"
+                                            :reduce="transaction_type => transaction_type.id"
+                                            label="name"
+                                            @input="updateTransactionType"
+                                            :value="item.transaction_type"
+                                            placeholder="Transaction Type"
+                                            />                                   
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <div class="form-group">                                                
-                                    <input 
-                                            type="text"  
-                                            id="serial_number" 
-                                            name="serial_number"
-                                            class="form-control"
-                                            :value="item.serial_number"
-                                            @input="updateSerialNumber" 
-                                            placeholder="Serial Number"
-                                            > 
+                                <div class="form-group">
+                                    <v-select
+                                            name="calculation_type"
+                                            :options="['Multiplication', 'Division', 'Special']"
+                                            @input="updateCalculationType"
+                                            :value="item.calculation_type"
+                                            placeholder="Calculation Type"
+                                            />                                   
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">                                
                                     <v-date-picker
-                                            name="create_date"
-                                            label="create_date"
-                                            @input="updateCreateDate"
-                                            :value="item.create_date"
+                                            name="modified_date"
+                                            label="modified_date"
+                                            @input="updateModifiedDate"
+                                            :value="item.modified_date"
                                             :config="{format: 'YYYY-MM-DD'}"
                                             />
                                 </div>
@@ -58,26 +63,26 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <v-select
-                                            name="user"
-                                            :options="users"
-                                            :reduce="user => user.id"
+                                            name="currency"
+                                            :options="currencies"
+                                            :reduce="currency => currency.id"
                                             label="name"
-                                            @input="updateUser"
-                                            :value="item.user"
-                                            placeholder="User"
+                                            @input="updateCurrency"
+                                            :value="item.currency"
+                                            placeholder="Currency"
                                             />                      
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <v-select
-                                            name="product"
-                                            :options="products"
-                                            :reduce="product => product.id"
+                                            name="customer"
+                                            :options="customers"
+                                            :reduce="customer => customer.customer_code"
                                             label="name"
-                                            @input="updateProduct"
-                                            :value="item.product"
-                                            placeholder="Product"
+                                            @input="updateCustomer"
+                                            :value="item.customer"
+                                            placeholder="Customer"
                                             />                                    
                                 </div>
                             </div>
@@ -132,36 +137,40 @@ export default {
         return {
             columns: [
                 { title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' },
-                { title: 'Serial Number', field: 'serial_number', sortable: true },
-                { title: 'User Name', field: 'user_name', sortable: true },
-                { title: 'Product', field: 'product_name', sortable: true },
-                { title: 'Amount', field: 'amount', sortable: true },
-                { title: 'Note', field: 'note', sortable: true },
-                { title: 'Create Date', field: 'invoice_date', sortable: true },
-                { title: 'Modify Date', field: 'modify_date', sortable: true },
+                { title: 'Transaction Type', field: 'type', tdComp: 'DatatableSingle', sortable: true },
                 { title: 'Operation Type', field: 'operation_type', tdComp: 'DatatableSingleForAccountChange', sortable: true },
-                { title: 'Modify By', field: 'modify_by', sortable: true },
+                { title: 'Calculation Type', field: 'calc_type', sortable: true },
+                { title: 'Customer Name', field: 'customer_first_name', sortable: true },
+                { title: 'DateTime', field: 'created_at', sortable: true },
+                { title: 'Currency', field: 'name', sortable: true },
+                { title: 'Buy / Sell Amount', field: 'amount', sortable: true },
+                { title: 'TTL For Buy / Sell', field: 'total', sortable: true },
+                { title: 'B / S Rate', field: 'rate', sortable: true },
+                { title: 'Profit', field: 'profit', sortable: true },
+                { title: 'Current Balance', field: 'current_balance', sortable: true },
+                { title: 'Last Average Rate', field: 'last_avg_rate', sortable: true },
+                { title: 'Paid By Client', field: 'paid_by_client', sortable: true },
+                { title: 'Return To Client', field: 'return_to_client', sortable: true },
             ],
             query: { sort: 'id', order: 'desc' },
             xprops: {
-                module: 'AccountChangeIndex',
-                route: 'accountchange'
+                module: 'TransactionHistory',
+                route: 'transactionhistory'
             }
         }
     },
     created() {        
     },
     mounted() {
-        this.setType( this.$route.params.type )
         this.fetchDataList()
-        this.fetchUsers()
-        this.fetchProducts()
+        this.fetchCustomers()
+        this.fetchCurrency()
     },
     destroyed() {
         this.resetState()
     },
     computed: {
-        ...mapGetters('AccountChangeIndex', ['data', 'data_all', 'item', 'total', 'loading', 'type', 'users', 'products']),
+        ...mapGetters('TransactionHistory', ['data', 'data_all', 'item', 'total', 'loading', 'customers', 'currencies']),
     },
     watch: {
         query: {
@@ -170,33 +179,36 @@ export default {
             },
             deep: true
         },
-        "$route.params.type": function() {
-            this.setType( this.$route.params.type )
+        "$route": function() {
             this.emptyItem()
-            this.fetchDataList()
         }
         
     },
     methods: {
-        ...mapActions('AccountChangeIndex', ['fetchDataList', 'fetchUsers', 'fetchProducts', 'setAll', 'setQuery', 'resetState', 'setType', 'setCreateDate', 'setSerialNumber', 'setUser', 'setProduct', 'setOperationType', 'emptyItem', 'removeAllData']),
-        updateCreateDate(value)
+        ...mapActions('TransactionHistory', ['fetchDataList', 'fetchCustomers', 'fetchCurrency', 'setAll', 'setQuery', 'resetState', 'setModifiedDate', 'setTransactionType', 'setCalculationType', 'setCustomer', 'setCurrency', 'setOperationType', 'emptyItem', 'removeAllData']),
+        updateModifiedDate(value)
         {
-            this.setCreateDate(value)
+            this.setModifiedDate(value)
             this.filterData()
         },
-        updateSerialNumber(e)
+        updateTransactionType(value)
         {
-            this.setSerialNumber(e.target.value)
+            this.setTransactionType(value)
             this.filterData()
         },
-        updateUser(value)
+        updateCalculationType(value)
         {
-            this.setUser(value)
+            this.setCalculationType(value)
             this.filterData()
         },
-        updateProduct(value)
+        updateCustomer(value)
         {
-            this.setProduct(value)
+            this.setCustomer(value)
+            this.filterData()
+        },
+        updateCurrency(value)
+        {
+            this.setCurrency(value)
             this.filterData()
         },
         updateOperationType(value)
@@ -207,24 +219,36 @@ export default {
         filterData()
         {
             let data = this.data_all
+            console.log(data)
             data = data.filter((item) => {
-                return item.invoice_date == this.item.create_date
+                return item.modified_date.includes( this.item.modified_date )
             })
-            data = data.filter((item) => {
-                return item.serial_number.includes( this.item.serial_number )
-            })
-            if (this.item.user != null)                  
+            console.log(data)
+            if (this.item.transaction_type != null)                  
                 data = data.filter((item) => {
-                    return item.user_id == this.item.user.id
+                    return item.type == this.item.transaction_type.id
+                })  
+            console.log(data)
+            if (this.item.calculation_type != null)
+                data = data.filter((item) => {
+                    return item.calc_type == this.item.calculation_type
+                })  
+            console.log(data)
+            if (this.item.customer != null)                  
+                data = data.filter((item) => {
+                    return item.customer_code == this.item.customer.customer_code
+                }) 
+            console.log(data)
+            if (this.item.currency != null)                  
+                data = data.filter((item) => {
+                    return item.currency_id == this.item.currency.id
                 })       
-            if (this.item.product != null)
-                data = data.filter((item) => {
-                    return item.product_id == this.item.product.id
-                })                   
+            console.log(data)                
             if (this.item.operation_type != null) 
                 data = data.filter((item) => { 
                     return item.operation_type == this.item.operation_type
                 })
+            console.log(data)
             this.setAll(data)            
         }
     }

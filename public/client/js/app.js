@@ -952,6 +952,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 
 
@@ -978,7 +981,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.resetState();
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('HistoryIndex', ['data', 'data_all', 'item', 'total', 'loading', 'type', 'users', 'products'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('HistoryIndex', ['data', 'data_all', 'item', 'total', 'loading', 'type', 'users', 'products', 'total_balance'])),
     watch: {
         query: {
             handler: function handler(query) {
@@ -2791,7 +2794,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     components: __WEBPACK_IMPORTED_MODULE_1__dtmodules___["a" /* default */],
     data: function data() {
         return {
-            columns: [{ title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' }, { title: 'Name', field: 'name', sortable: true }, { title: 'Code', field: 'code', sortable: true }, { title: 'Current Balance', field: 'current_balance', sortable: true }, { title: 'Last Avg Rate', field: 'last_avg_rate', sortable: true }, { title: 'Buy Rate From', field: 'buy_rate_from', sortable: true }, { title: 'Buy Rate To', field: 'buy_rate_to', sortable: true }, { title: 'Sell Rate From', field: 'sell_rate_from', sortable: true }, { title: 'Sell Rate To', field: 'sell_rate_to', sortable: true }, { title: 'Calculation Type', field: 'calc_type', sortable: true }, { title: 'Actions', tdComp: 'DatatableActions', visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
+            columns: [{ title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' }, { title: 'Name', field: 'name', sortable: true }, { title: 'Code', field: 'code', sortable: true }, { title: 'Current Balance', field: 'current_balance', sortable: true }, { title: 'Last Avg Rate', field: 'last_avg_rate', sortable: true }, { title: 'Total Balance', field: 'total_balance', sortable: true }, { title: 'Buy Rate From', field: 'buy_rate_from', sortable: true }, { title: 'Buy Rate To', field: 'buy_rate_to', sortable: true }, { title: 'Sell Rate From', field: 'sell_rate_from', sortable: true }, { title: 'Sell Rate To', field: 'sell_rate_to', sortable: true }, { title: 'Calculation Type', field: 'calc_type', sortable: true }, { title: 'Actions', tdComp: 'DatatableActions', visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
             query: { sort: 'id', order: 'desc' },
             xprops: {
                 module: 'CurrencyIndex',
@@ -5866,6 +5869,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.resetState();
     },
 
+    watch: {
+        "$route": function $route() {
+            window.addEventListener("keypress", this.saveKeyAction);
+        }
+    },
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionSingle', ['storeData', 'resetState', "setBSAmount", "setBSRate", "setPaidByClient", "setReturnToClient", "setType", "setTotal", "setCustomerCode", "fetchCurrencyAll", "fetchCurrencyData", "fetchCustomerAll", "fetchCase"]), {
         updateCurrencyCode: function updateCurrencyCode(value) {
             if (value != null) {
@@ -6004,12 +6012,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             if (e.keyCode == 17) this.submitForm();else if (e.keyCode == 13) this.changeFocus();
         },
         changeFocus: function changeFocus() {
-            var $focused = $(':focus');
-            if ($($focused).attr('id') == "amount") {
+            if ($("#amount").is(":focus")) {
                 $('#rate').focus();
-            } else if ($($focused).attr('id') == "rate" && $('#paid_by_client').attr('disabled') != 'disabled') {
+            } else if ($("#rate").is(":focus") && !$('#paid_by_client').is('[disabled=disabled]')) {
                 $('#paid_by_client').focus();
-            } else if ($($focused).attr('id') == "paid_by_client" || $($focused).attr('id') == "rate" && $('#paid_by_client').attr('disabled') == 'disabled') {
+            } else if ($("#paid_by_client").is(":focus") || $("#rate").is(":focus") && $('#paid_by_client').is('[disabled=disabled]')) {
                 this.submitForm();
             }
 
@@ -6681,6 +6688,245 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }
     },
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionSingle', ['fetchData']))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Transaction/TransactionHistory.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dtmodules___ = __webpack_require__("./resources/client/assets/js/components/dtmodules/index.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: __WEBPACK_IMPORTED_MODULE_1__dtmodules___["a" /* default */],
+    data: function data() {
+        return {
+            columns: [{ title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' }, { title: 'Transaction Type', field: 'type', tdComp: 'DatatableSingle', sortable: true }, { title: 'Operation Type', field: 'operation_type', tdComp: 'DatatableSingleForAccountChange', sortable: true }, { title: 'Calculation Type', field: 'calc_type', sortable: true }, { title: 'Customer Name', field: 'customer_first_name', sortable: true }, { title: 'DateTime', field: 'created_at', sortable: true }, { title: 'Currency', field: 'name', sortable: true }, { title: 'Buy / Sell Amount', field: 'amount', sortable: true }, { title: 'TTL For Buy / Sell', field: 'total', sortable: true }, { title: 'B / S Rate', field: 'rate', sortable: true }, { title: 'Profit', field: 'profit', sortable: true }, { title: 'Current Balance', field: 'current_balance', sortable: true }, { title: 'Last Average Rate', field: 'last_avg_rate', sortable: true }, { title: 'Paid By Client', field: 'paid_by_client', sortable: true }, { title: 'Return To Client', field: 'return_to_client', sortable: true }],
+            query: { sort: 'id', order: 'desc' },
+            xprops: {
+                module: 'TransactionHistory',
+                route: 'transactionhistory'
+            }
+        };
+    },
+    created: function created() {},
+    mounted: function mounted() {
+        this.fetchDataList();
+        this.fetchCustomers();
+        this.fetchCurrency();
+    },
+    destroyed: function destroyed() {
+        this.resetState();
+    },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])('TransactionHistory', ['data', 'data_all', 'item', 'total', 'loading', 'customers', 'currencies'])),
+    watch: {
+        query: {
+            handler: function handler(query) {
+                this.setQuery(query);
+            },
+
+            deep: true
+        },
+        "$route": function $route() {
+            this.emptyItem();
+        }
+
+    },
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('TransactionHistory', ['fetchDataList', 'fetchCustomers', 'fetchCurrency', 'setAll', 'setQuery', 'resetState', 'setModifiedDate', 'setTransactionType', 'setCalculationType', 'setCustomer', 'setCurrency', 'setOperationType', 'emptyItem', 'removeAllData']), {
+        updateModifiedDate: function updateModifiedDate(value) {
+            this.setModifiedDate(value);
+            this.filterData();
+        },
+        updateTransactionType: function updateTransactionType(value) {
+            this.setTransactionType(value);
+            this.filterData();
+        },
+        updateCalculationType: function updateCalculationType(value) {
+            this.setCalculationType(value);
+            this.filterData();
+        },
+        updateCustomer: function updateCustomer(value) {
+            this.setCustomer(value);
+            this.filterData();
+        },
+        updateCurrency: function updateCurrency(value) {
+            this.setCurrency(value);
+            this.filterData();
+        },
+        updateOperationType: function updateOperationType(value) {
+            this.setOperationType(value);
+            this.filterData();
+        },
+        filterData: function filterData() {
+            var _this = this;
+
+            var data = this.data_all;
+            console.log(data);
+            data = data.filter(function (item) {
+                return item.modified_date.includes(_this.item.modified_date);
+            });
+            console.log(data);
+            if (this.item.transaction_type != null) data = data.filter(function (item) {
+                return item.type == _this.item.transaction_type.id;
+            });
+            console.log(data);
+            if (this.item.calculation_type != null) data = data.filter(function (item) {
+                return item.calc_type == _this.item.calculation_type;
+            });
+            console.log(data);
+            if (this.item.customer != null) data = data.filter(function (item) {
+                return item.customer_code == _this.item.customer.customer_code;
+            });
+            console.log(data);
+            if (this.item.currency != null) data = data.filter(function (item) {
+                return item.currency_id == _this.item.currency.id;
+            });
+            console.log(data);
+            if (this.item.operation_type != null) data = data.filter(function (item) {
+                return item.operation_type == _this.item.operation_type;
+            });
+            console.log(data);
+            this.setAll(data);
+        }
+    })
 });
 
 /***/ }),
@@ -9520,7 +9766,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -9535,7 +9781,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -9662,6 +9908,21 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-222b6e54\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/TransactionHistory.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-237736d2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Product/Edit.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9760,7 +10021,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -32745,6 +33006,282 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-222b6e54\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Transaction/TransactionHistory.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    { staticClass: "content-wrapper", staticStyle: { "min-height": "960px" } },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-xs-12" }, [
+            _c("div", { staticClass: "box" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c("div", { staticClass: "btn-group" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-default btn-sm",
+                      attrs: { type: "button" },
+                      on: { click: _vm.fetchDataList }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-refresh",
+                        class: { "fa-spin": _vm.loading }
+                      }),
+                      _vm._v(" Refresh\n                            ")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm",
+                      attrs: { type: "button" },
+                      on: { click: _vm.removeAllData }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-times",
+                        class: { "fa-spin": _vm.loading }
+                      }),
+                      _vm._v(
+                        " Remove All History\n                            "
+                      )
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body row" }, [
+                _c(
+                  "form",
+                  {
+                    attrs: { enctype: "multipart/form-data" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.submitForm($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "col-md-2" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("v-select", {
+                            attrs: {
+                              name: "transaction_type",
+                              options: [
+                                { id: 0, name: "Buy" },
+                                { id: 1, name: "Sell" }
+                              ],
+                              reduce: function(transaction_type) {
+                                return transaction_type.id
+                              },
+                              label: "name",
+                              value: _vm.item.transaction_type,
+                              placeholder: "Transaction Type"
+                            },
+                            on: { input: _vm.updateTransactionType }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-2" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("v-select", {
+                            attrs: {
+                              name: "calculation_type",
+                              options: [
+                                "Multiplication",
+                                "Division",
+                                "Special"
+                              ],
+                              value: _vm.item.calculation_type,
+                              placeholder: "Calculation Type"
+                            },
+                            on: { input: _vm.updateCalculationType }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-2" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("v-date-picker", {
+                            attrs: {
+                              name: "modified_date",
+                              label: "modified_date",
+                              value: _vm.item.modified_date,
+                              config: { format: "YYYY-MM-DD" }
+                            },
+                            on: { input: _vm.updateModifiedDate }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-2" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("v-select", {
+                            attrs: {
+                              name: "currency",
+                              options: _vm.currencies,
+                              reduce: function(currency) {
+                                return currency.id
+                              },
+                              label: "name",
+                              value: _vm.item.currency,
+                              placeholder: "Currency"
+                            },
+                            on: { input: _vm.updateCurrency }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-2" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("v-select", {
+                            attrs: {
+                              name: "customer",
+                              options: _vm.customers,
+                              reduce: function(customer) {
+                                return customer.customer_code
+                              },
+                              label: "name",
+                              value: _vm.item.customer,
+                              placeholder: "Customer"
+                            },
+                            on: { input: _vm.updateCustomer }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-2" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("v-select", {
+                            attrs: {
+                              name: "operation_type",
+                              options: ["Create", "Edit", "Delete"],
+                              value: _vm.item.operation_type,
+                              placeholder: "Operation Type"
+                            },
+                            on: { input: _vm.updateOperationType }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "box-body" },
+                [
+                  _vm.loading
+                    ? _c("div", { staticClass: "row" }, [_vm._m(2)])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.loading
+                    ? _c("datatable", {
+                        attrs: {
+                          columns: _vm.columns,
+                          data: _vm.data,
+                          total: _vm.total,
+                          query: _vm.query,
+                          xprops: _vm.xprops,
+                          "support-backup": true
+                        }
+                      })
+                    : _vm._e()
+                ],
+                1
+              )
+            ])
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "content-header" }, [
+      _c("h1", [_vm._v("Transaction History")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("List")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-xs-4 col-xs-offset-4" }, [
+      _c("div", { staticClass: "alert text-center" }, [
+        _c("i", { staticClass: "fa fa-spin fa-refresh" }),
+        _vm._v(" Loading\n                                ")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-222b6e54", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-237736d2\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Product/Edit.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33731,7 +34268,32 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-2" })
+                    _c("div", { staticClass: "col-md-2" }, [
+                      _vm.total_balance
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "callout callout-info text-left",
+                              staticStyle: { padding: "7px 5px" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Total Balance: "
+                              ),
+                              _c(
+                                "span",
+                                {
+                                  staticStyle: {
+                                    "font-size": "24px",
+                                    "font-weight": "600"
+                                  }
+                                },
+                                [_vm._v(_vm._s(_vm.total_balance))]
+                              )
+                            ]
+                          )
+                        : _vm._e()
+                    ])
                   ]
                 )
               ]),
@@ -38097,9 +38659,7 @@ var render = function() {
                         staticClass: "fa fa-times",
                         class: { "fa-spin": _vm.loading }
                       }),
-                      _vm._v(
-                        " Remove All Transactions\n                            "
-                      )
+                      _vm._v(" Remove All Data\n                            ")
                     ]
                   )
                 ])
@@ -39527,6 +40087,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-20369cfe\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Edit.vue", function() {
      var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-20369cfe\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Edit.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-222b6e54\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/TransactionHistory.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-222b6e54\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/TransactionHistory.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("34cfdf77", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-222b6e54\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TransactionHistory.vue", function() {
+     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-222b6e54\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./TransactionHistory.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -42975,6 +43562,58 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/client/assets/js/components/cruds/Transaction/TransactionHistory.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-222b6e54\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/client/assets/js/components/cruds/Transaction/TransactionHistory.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/client/assets/js/components/cruds/Transaction/TransactionHistory.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-222b6e54\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/client/assets/js/components/cruds/Transaction/TransactionHistory.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-222b6e54"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/client/assets/js/components/cruds/Transaction/TransactionHistory.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-222b6e54", Component.options)
+  } else {
+    hotAPI.reload("data-v-222b6e54", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/client/assets/js/components/cruds/Users/Create.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -43693,24 +44332,27 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_cruds_Transaction_Show_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_34__components_cruds_Transaction_Show_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_cruds_Transaction_Edit_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Transaction/Edit.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_cruds_Transaction_Edit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_35__components_cruds_Transaction_Edit_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_cruds_Profit_Index_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Profit/Index.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_cruds_Profit_Index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_36__components_cruds_Profit_Index_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_cruds_Account_Account_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Account/Account.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_cruds_Account_Account_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_37__components_cruds_Account_Account_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_cruds_Account_History_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Account/History.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_cruds_Account_History_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_38__components_cruds_Account_History_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__components_cruds_Account_AccountChange_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Account/AccountChange.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__components_cruds_Account_AccountChange_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_39__components_cruds_Account_AccountChange_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__components_cruds_Account_LoginHistory_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Account/LoginHistory.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__components_cruds_Account_LoginHistory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_40__components_cruds_Account_LoginHistory_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__components_cruds_Product_Index_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Product/Index.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__components_cruds_Product_Index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_41__components_cruds_Product_Index_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__components_cruds_Product_Create_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Product/Create.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__components_cruds_Product_Create_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_42__components_cruds_Product_Create_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__components_cruds_Product_Show_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Product/Show.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__components_cruds_Product_Show_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_43__components_cruds_Product_Show_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__components_cruds_Product_Edit_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Product/Edit.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__components_cruds_Product_Edit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_44__components_cruds_Product_Edit_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_cruds_Transaction_TransactionHistory_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Transaction/TransactionHistory.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_cruds_Transaction_TransactionHistory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_36__components_cruds_Transaction_TransactionHistory_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_cruds_Profit_Index_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Profit/Index.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_cruds_Profit_Index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_37__components_cruds_Profit_Index_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_cruds_Account_Account_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Account/Account.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_cruds_Account_Account_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_38__components_cruds_Account_Account_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__components_cruds_Account_History_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Account/History.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__components_cruds_Account_History_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_39__components_cruds_Account_History_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__components_cruds_Account_AccountChange_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Account/AccountChange.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__components_cruds_Account_AccountChange_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_40__components_cruds_Account_AccountChange_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__components_cruds_Account_LoginHistory_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Account/LoginHistory.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__components_cruds_Account_LoginHistory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_41__components_cruds_Account_LoginHistory_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__components_cruds_Product_Index_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Product/Index.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__components_cruds_Product_Index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_42__components_cruds_Product_Index_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__components_cruds_Product_Create_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Product/Create.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__components_cruds_Product_Create_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_43__components_cruds_Product_Create_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__components_cruds_Product_Show_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Product/Show.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__components_cruds_Product_Show_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_44__components_cruds_Product_Show_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__components_cruds_Product_Edit_vue__ = __webpack_require__("./resources/client/assets/js/components/cruds/Product/Edit.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__components_cruds_Product_Edit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_45__components_cruds_Product_Edit_vue__);
+
 
 
 
@@ -43768,7 +44410,7 @@ module.exports = Component.exports
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]);
 
-var routes = [{ path: '/home', component: __WEBPACK_IMPORTED_MODULE_2__components_Home_vue___default.a, name: 'home.index' }, { path: '/change-password', component: __WEBPACK_IMPORTED_MODULE_3__components_ChangePassword_vue___default.a, name: 'auth.change_password' }, { path: '/roles', component: __WEBPACK_IMPORTED_MODULE_4__components_cruds_Roles_Index_vue___default.a, name: 'roles.index' }, { path: '/roles/create', component: __WEBPACK_IMPORTED_MODULE_5__components_cruds_Roles_Create_vue___default.a, name: 'roles.create' }, { path: '/roles/:id', component: __WEBPACK_IMPORTED_MODULE_6__components_cruds_Roles_Show_vue___default.a, name: 'roles.show' }, { path: '/roles/:id/edit', component: __WEBPACK_IMPORTED_MODULE_7__components_cruds_Roles_Edit_vue___default.a, name: 'roles.edit' }, { path: '/users', component: __WEBPACK_IMPORTED_MODULE_8__components_cruds_Users_Index_vue___default.a, name: 'users.index' }, { path: '/users/create', component: __WEBPACK_IMPORTED_MODULE_9__components_cruds_Users_Create_vue___default.a, name: 'users.create' }, { path: '/users/:id', component: __WEBPACK_IMPORTED_MODULE_10__components_cruds_Users_Show_vue___default.a, name: 'users.show' }, { path: '/users/:id/edit', component: __WEBPACK_IMPORTED_MODULE_11__components_cruds_Users_Edit_vue___default.a, name: 'users.edit' }, { path: '/companies', component: __WEBPACK_IMPORTED_MODULE_12__components_cruds_Companies_Index_vue___default.a, name: 'companies.index' }, { path: '/companies/create', component: __WEBPACK_IMPORTED_MODULE_13__components_cruds_Companies_Create_vue___default.a, name: 'companies.create' }, { path: '/companies/:id', component: __WEBPACK_IMPORTED_MODULE_14__components_cruds_Companies_Show_vue___default.a, name: 'companies.show' }, { path: '/companies/:id/edit', component: __WEBPACK_IMPORTED_MODULE_15__components_cruds_Companies_Edit_vue___default.a, name: 'companies.edit' }, { path: '/employees', component: __WEBPACK_IMPORTED_MODULE_16__components_cruds_Employees_Index_vue___default.a, name: 'employees.index' }, { path: '/employees/create', component: __WEBPACK_IMPORTED_MODULE_17__components_cruds_Employees_Create_vue___default.a, name: 'employees.create' }, { path: '/employees/:id', component: __WEBPACK_IMPORTED_MODULE_18__components_cruds_Employees_Show_vue___default.a, name: 'employees.show' }, { path: '/employees/:id/edit', component: __WEBPACK_IMPORTED_MODULE_19__components_cruds_Employees_Edit_vue___default.a, name: 'employees.edit' }, { path: '/customers', component: __WEBPACK_IMPORTED_MODULE_20__components_cruds_Customers_Index_vue___default.a, name: 'customers.index' }, { path: '/customers/create', component: __WEBPACK_IMPORTED_MODULE_21__components_cruds_Customers_Create_vue___default.a, name: 'customers.create' }, { path: '/customers/:id', component: __WEBPACK_IMPORTED_MODULE_22__components_cruds_Customers_Show_vue___default.a, name: 'customers.show' }, { path: '/customers/:id/edit', component: __WEBPACK_IMPORTED_MODULE_23__components_cruds_Customers_Edit_vue___default.a, name: 'customers.edit' }, { path: '/cases', component: __WEBPACK_IMPORTED_MODULE_24__components_cruds_Cases_Index_vue___default.a, name: 'cases.index' }, { path: '/cases/create', component: __WEBPACK_IMPORTED_MODULE_25__components_cruds_Cases_Create_vue___default.a, name: 'cases.create' }, { path: '/cases/:id', component: __WEBPACK_IMPORTED_MODULE_26__components_cruds_Cases_Show_vue___default.a, name: 'cases.show' }, { path: '/cases/:id/edit', component: __WEBPACK_IMPORTED_MODULE_27__components_cruds_Cases_Edit_vue___default.a, name: 'cases.edit' }, { path: '/currency', component: __WEBPACK_IMPORTED_MODULE_28__components_cruds_Currency_Index_vue___default.a, name: 'currency.index' }, { path: '/currency/create', component: __WEBPACK_IMPORTED_MODULE_29__components_cruds_Currency_Create_vue___default.a, name: 'currency.create' }, { path: '/currency/:id', component: __WEBPACK_IMPORTED_MODULE_30__components_cruds_Currency_Show_vue___default.a, name: 'currency.show' }, { path: '/currency/:id/edit', component: __WEBPACK_IMPORTED_MODULE_31__components_cruds_Currency_Edit_vue___default.a, name: 'currency.edit' }, { path: '/transaction', component: __WEBPACK_IMPORTED_MODULE_32__components_cruds_Transaction_Index_vue___default.a, name: 'transaction.index' }, { path: '/transaction/create', component: __WEBPACK_IMPORTED_MODULE_33__components_cruds_Transaction_Create_vue___default.a, name: 'transaction.create' }, { path: '/transaction/:id', component: __WEBPACK_IMPORTED_MODULE_34__components_cruds_Transaction_Show_vue___default.a, name: 'transaction.show' }, { path: '/transaction/:id/edit', component: __WEBPACK_IMPORTED_MODULE_35__components_cruds_Transaction_Edit_vue___default.a, name: 'transaction.edit' }, { path: '/profit', component: __WEBPACK_IMPORTED_MODULE_36__components_cruds_Profit_Index_vue___default.a, name: 'profit.index' }, { path: '/account/:type', component: __WEBPACK_IMPORTED_MODULE_37__components_cruds_Account_Account_vue___default.a, name: 'account.index' }, { path: '/history', component: __WEBPACK_IMPORTED_MODULE_38__components_cruds_Account_History_vue___default.a, name: 'account.history' }, { path: '/accountchange/:type', component: __WEBPACK_IMPORTED_MODULE_39__components_cruds_Account_AccountChange_vue___default.a, name: 'accountchange.index' }, { path: '/loginhistory', component: __WEBPACK_IMPORTED_MODULE_40__components_cruds_Account_LoginHistory_vue___default.a, name: 'loginhistory.index' }, { path: '/product', component: __WEBPACK_IMPORTED_MODULE_41__components_cruds_Product_Index_vue___default.a, name: 'product.index' }, { path: '/product/create', component: __WEBPACK_IMPORTED_MODULE_42__components_cruds_Product_Create_vue___default.a, name: 'product.create' }, { path: '/product/:id', component: __WEBPACK_IMPORTED_MODULE_43__components_cruds_Product_Show_vue___default.a, name: 'product.show' }, { path: '/product/:id/edit', component: __WEBPACK_IMPORTED_MODULE_44__components_cruds_Product_Edit_vue___default.a, name: 'product.edit' }];
+var routes = [{ path: '/home', component: __WEBPACK_IMPORTED_MODULE_2__components_Home_vue___default.a, name: 'home.index' }, { path: '/change-password', component: __WEBPACK_IMPORTED_MODULE_3__components_ChangePassword_vue___default.a, name: 'auth.change_password' }, { path: '/roles', component: __WEBPACK_IMPORTED_MODULE_4__components_cruds_Roles_Index_vue___default.a, name: 'roles.index' }, { path: '/roles/create', component: __WEBPACK_IMPORTED_MODULE_5__components_cruds_Roles_Create_vue___default.a, name: 'roles.create' }, { path: '/roles/:id', component: __WEBPACK_IMPORTED_MODULE_6__components_cruds_Roles_Show_vue___default.a, name: 'roles.show' }, { path: '/roles/:id/edit', component: __WEBPACK_IMPORTED_MODULE_7__components_cruds_Roles_Edit_vue___default.a, name: 'roles.edit' }, { path: '/users', component: __WEBPACK_IMPORTED_MODULE_8__components_cruds_Users_Index_vue___default.a, name: 'users.index' }, { path: '/users/create', component: __WEBPACK_IMPORTED_MODULE_9__components_cruds_Users_Create_vue___default.a, name: 'users.create' }, { path: '/users/:id', component: __WEBPACK_IMPORTED_MODULE_10__components_cruds_Users_Show_vue___default.a, name: 'users.show' }, { path: '/users/:id/edit', component: __WEBPACK_IMPORTED_MODULE_11__components_cruds_Users_Edit_vue___default.a, name: 'users.edit' }, { path: '/companies', component: __WEBPACK_IMPORTED_MODULE_12__components_cruds_Companies_Index_vue___default.a, name: 'companies.index' }, { path: '/companies/create', component: __WEBPACK_IMPORTED_MODULE_13__components_cruds_Companies_Create_vue___default.a, name: 'companies.create' }, { path: '/companies/:id', component: __WEBPACK_IMPORTED_MODULE_14__components_cruds_Companies_Show_vue___default.a, name: 'companies.show' }, { path: '/companies/:id/edit', component: __WEBPACK_IMPORTED_MODULE_15__components_cruds_Companies_Edit_vue___default.a, name: 'companies.edit' }, { path: '/employees', component: __WEBPACK_IMPORTED_MODULE_16__components_cruds_Employees_Index_vue___default.a, name: 'employees.index' }, { path: '/employees/create', component: __WEBPACK_IMPORTED_MODULE_17__components_cruds_Employees_Create_vue___default.a, name: 'employees.create' }, { path: '/employees/:id', component: __WEBPACK_IMPORTED_MODULE_18__components_cruds_Employees_Show_vue___default.a, name: 'employees.show' }, { path: '/employees/:id/edit', component: __WEBPACK_IMPORTED_MODULE_19__components_cruds_Employees_Edit_vue___default.a, name: 'employees.edit' }, { path: '/customers', component: __WEBPACK_IMPORTED_MODULE_20__components_cruds_Customers_Index_vue___default.a, name: 'customers.index' }, { path: '/customers/create', component: __WEBPACK_IMPORTED_MODULE_21__components_cruds_Customers_Create_vue___default.a, name: 'customers.create' }, { path: '/customers/:id', component: __WEBPACK_IMPORTED_MODULE_22__components_cruds_Customers_Show_vue___default.a, name: 'customers.show' }, { path: '/customers/:id/edit', component: __WEBPACK_IMPORTED_MODULE_23__components_cruds_Customers_Edit_vue___default.a, name: 'customers.edit' }, { path: '/cases', component: __WEBPACK_IMPORTED_MODULE_24__components_cruds_Cases_Index_vue___default.a, name: 'cases.index' }, { path: '/cases/create', component: __WEBPACK_IMPORTED_MODULE_25__components_cruds_Cases_Create_vue___default.a, name: 'cases.create' }, { path: '/cases/:id', component: __WEBPACK_IMPORTED_MODULE_26__components_cruds_Cases_Show_vue___default.a, name: 'cases.show' }, { path: '/cases/:id/edit', component: __WEBPACK_IMPORTED_MODULE_27__components_cruds_Cases_Edit_vue___default.a, name: 'cases.edit' }, { path: '/currency', component: __WEBPACK_IMPORTED_MODULE_28__components_cruds_Currency_Index_vue___default.a, name: 'currency.index' }, { path: '/currency/create', component: __WEBPACK_IMPORTED_MODULE_29__components_cruds_Currency_Create_vue___default.a, name: 'currency.create' }, { path: '/currency/:id', component: __WEBPACK_IMPORTED_MODULE_30__components_cruds_Currency_Show_vue___default.a, name: 'currency.show' }, { path: '/currency/:id/edit', component: __WEBPACK_IMPORTED_MODULE_31__components_cruds_Currency_Edit_vue___default.a, name: 'currency.edit' }, { path: '/transaction', component: __WEBPACK_IMPORTED_MODULE_32__components_cruds_Transaction_Index_vue___default.a, name: 'transaction.index' }, { path: '/transaction/create', component: __WEBPACK_IMPORTED_MODULE_33__components_cruds_Transaction_Create_vue___default.a, name: 'transaction.create' }, { path: '/transaction/:id', component: __WEBPACK_IMPORTED_MODULE_34__components_cruds_Transaction_Show_vue___default.a, name: 'transaction.show' }, { path: '/transaction/:id/edit', component: __WEBPACK_IMPORTED_MODULE_35__components_cruds_Transaction_Edit_vue___default.a, name: 'transaction.edit' }, { path: '/transactionhistory', component: __WEBPACK_IMPORTED_MODULE_36__components_cruds_Transaction_TransactionHistory_vue___default.a, name: 'transactionhistory' }, { path: '/profit', component: __WEBPACK_IMPORTED_MODULE_37__components_cruds_Profit_Index_vue___default.a, name: 'profit.index' }, { path: '/account/:type', component: __WEBPACK_IMPORTED_MODULE_38__components_cruds_Account_Account_vue___default.a, name: 'account.index' }, { path: '/history', component: __WEBPACK_IMPORTED_MODULE_39__components_cruds_Account_History_vue___default.a, name: 'account.history' }, { path: '/accountchange/:type', component: __WEBPACK_IMPORTED_MODULE_40__components_cruds_Account_AccountChange_vue___default.a, name: 'accountchange.index' }, { path: '/loginhistory', component: __WEBPACK_IMPORTED_MODULE_41__components_cruds_Account_LoginHistory_vue___default.a, name: 'loginhistory.index' }, { path: '/product', component: __WEBPACK_IMPORTED_MODULE_42__components_cruds_Product_Index_vue___default.a, name: 'product.index' }, { path: '/product/create', component: __WEBPACK_IMPORTED_MODULE_43__components_cruds_Product_Create_vue___default.a, name: 'product.create' }, { path: '/product/:id', component: __WEBPACK_IMPORTED_MODULE_44__components_cruds_Product_Show_vue___default.a, name: 'product.show' }, { path: '/product/:id/edit', component: __WEBPACK_IMPORTED_MODULE_45__components_cruds_Product_Edit_vue___default.a, name: 'product.edit' }];
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]({
     mode: 'history',
@@ -43801,15 +44443,18 @@ var routes = [{ path: '/home', component: __WEBPACK_IMPORTED_MODULE_2__component
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_Currency_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Currency/single.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_Transaction__ = __webpack_require__("./resources/client/assets/js/store/modules/Transaction/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_Transaction_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Transaction/single.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_Profit__ = __webpack_require__("./resources/client/assets/js/store/modules/Profit/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__modules_Account_account__ = __webpack_require__("./resources/client/assets/js/store/modules/Account/account.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__modules_Account_history__ = __webpack_require__("./resources/client/assets/js/store/modules/Account/history.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__modules_Account_accountchange__ = __webpack_require__("./resources/client/assets/js/store/modules/Account/accountchange.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__modules_Account_loginhistory__ = __webpack_require__("./resources/client/assets/js/store/modules/Account/loginhistory.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__modules_Product__ = __webpack_require__("./resources/client/assets/js/store/modules/Product/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__modules_Product_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Product/single.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__modules_alert__ = __webpack_require__("./resources/client/assets/js/store/modules/alert.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__modules_change_password__ = __webpack_require__("./resources/client/assets/js/store/modules/change_password.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_Transaction_transactionhistory__ = __webpack_require__("./resources/client/assets/js/store/modules/Transaction/transactionhistory.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__modules_Profit__ = __webpack_require__("./resources/client/assets/js/store/modules/Profit/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__modules_Account_account__ = __webpack_require__("./resources/client/assets/js/store/modules/Account/account.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__modules_Account_history__ = __webpack_require__("./resources/client/assets/js/store/modules/Account/history.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__modules_Account_accountchange__ = __webpack_require__("./resources/client/assets/js/store/modules/Account/accountchange.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__modules_Account_loginhistory__ = __webpack_require__("./resources/client/assets/js/store/modules/Account/loginhistory.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__modules_Product__ = __webpack_require__("./resources/client/assets/js/store/modules/Product/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__modules_Product_single__ = __webpack_require__("./resources/client/assets/js/store/modules/Product/single.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__modules_alert__ = __webpack_require__("./resources/client/assets/js/store/modules/alert.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__modules_change_password__ = __webpack_require__("./resources/client/assets/js/store/modules/change_password.js");
+
+
 
 
 
@@ -43850,8 +44495,8 @@ var debug = "development" !== 'production';
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["default"].Store({
     modules: {
-        Alert: __WEBPACK_IMPORTED_MODULE_25__modules_alert__["a" /* default */],
-        ChangePassword: __WEBPACK_IMPORTED_MODULE_26__modules_change_password__["a" /* default */],
+        Alert: __WEBPACK_IMPORTED_MODULE_26__modules_alert__["a" /* default */],
+        ChangePassword: __WEBPACK_IMPORTED_MODULE_27__modules_change_password__["a" /* default */],
         RolesIndex: __WEBPACK_IMPORTED_MODULE_2__modules_Roles__["a" /* default */],
         RolesSingle: __WEBPACK_IMPORTED_MODULE_3__modules_Roles_single__["a" /* default */],
         UsersIndex: __WEBPACK_IMPORTED_MODULE_4__modules_Users__["a" /* default */],
@@ -43868,13 +44513,14 @@ var debug = "development" !== 'production';
         CurrencySingle: __WEBPACK_IMPORTED_MODULE_15__modules_Currency_single__["a" /* default */],
         TransactionIndex: __WEBPACK_IMPORTED_MODULE_16__modules_Transaction__["a" /* default */],
         TransactionSingle: __WEBPACK_IMPORTED_MODULE_17__modules_Transaction_single__["a" /* default */],
-        ProfitIndex: __WEBPACK_IMPORTED_MODULE_18__modules_Profit__["a" /* default */],
-        AccountIndex: __WEBPACK_IMPORTED_MODULE_19__modules_Account_account__["a" /* default */],
-        AccountChangeIndex: __WEBPACK_IMPORTED_MODULE_21__modules_Account_accountchange__["a" /* default */],
-        HistoryIndex: __WEBPACK_IMPORTED_MODULE_20__modules_Account_history__["a" /* default */],
-        LoginHistoryIndex: __WEBPACK_IMPORTED_MODULE_22__modules_Account_loginhistory__["a" /* default */],
-        ProductIndex: __WEBPACK_IMPORTED_MODULE_23__modules_Product__["a" /* default */],
-        ProductSingle: __WEBPACK_IMPORTED_MODULE_24__modules_Product_single__["a" /* default */]
+        TransactionHistory: __WEBPACK_IMPORTED_MODULE_18__modules_Transaction_transactionhistory__["a" /* default */],
+        ProfitIndex: __WEBPACK_IMPORTED_MODULE_19__modules_Profit__["a" /* default */],
+        AccountIndex: __WEBPACK_IMPORTED_MODULE_20__modules_Account_account__["a" /* default */],
+        AccountChangeIndex: __WEBPACK_IMPORTED_MODULE_22__modules_Account_accountchange__["a" /* default */],
+        HistoryIndex: __WEBPACK_IMPORTED_MODULE_21__modules_Account_history__["a" /* default */],
+        LoginHistoryIndex: __WEBPACK_IMPORTED_MODULE_23__modules_Account_loginhistory__["a" /* default */],
+        ProductIndex: __WEBPACK_IMPORTED_MODULE_24__modules_Product__["a" /* default */],
+        ProductSingle: __WEBPACK_IMPORTED_MODULE_25__modules_Product_single__["a" /* default */]
     },
     strict: debug
 }));
@@ -44529,7 +45175,8 @@ function initialState() {
         products: [],
         query: {},
         loading: false,
-        type: null
+        type: null,
+        total_balance: null
     };
 }
 
@@ -44563,6 +45210,9 @@ var getters = {
     },
     type: function type(state) {
         return state.type;
+    },
+    total_balance: function total_balance(state) {
+        return state.total_balance;
     }
 };
 
@@ -44576,6 +45226,10 @@ var actions = {
         axios.get('/api/v1/account/history').then(function (response) {
             commit('setAll', response.data);
             commit('setDataAll', response.data);
+
+            if (response.data[0]['total_balance']) {
+                commit('setTotalBalance', response.data[0]['total_balance']);
+            }
         }).catch(function (error) {
             message = error.response.data.message || error.message;
             commit('setError', message);
@@ -44683,6 +45337,9 @@ var mutations = {
     },
     setDataAll: function setDataAll(state, items) {
         state.data_all = items;
+    },
+    setTotalBalance: function setTotalBalance(state, balance) {
+        state.total_balance = balance;
     },
     setLoading: function setLoading(state, loading) {
         state.loading = loading;
@@ -45450,6 +46107,14 @@ var actions = {
 
         axios.get('/api/v1/currency').then(function (response) {
             for (var i = 0; i < response.data.data.length; i++) {
+                if (response.data.data[i]['calc_type'] == "Multiplication") {
+                    commit('thousandsSeparators', parseFloat(parseFloat(response.data.data[i]['current_balance']) * parseFloat(response.data.data[i]['last_avg_rate'])).toFixed(2));
+                    response.data.data[i]['total_balance'] = state.temp;
+                } else {
+                    commit('thousandsSeparators', parseFloat(parseFloat(response.data.data[i]['current_balance']) / parseFloat(response.data.data[i]['last_avg_rate'])).toFixed(2));
+                    response.data.data[i]['total_balance'] = state.temp;
+                }
+
                 commit('thousandsSeparators', parseFloat(response.data.data[i]['current_balance']).toFixed(2));
                 response.data.data[i]['current_balance'] = state.temp;
                 commit('thousandsSeparators', parseFloat(response.data.data[i]['last_avg_rate']).toFixed(parseInt(response.data.data[i]['last_avg_rate_dec_limit'])));
@@ -47682,6 +48347,289 @@ var mutations = {
     },
     resetState: function resetState(state) {
         state = Object.assign(state, initialState());
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: initialState,
+    getters: getters,
+    actions: actions,
+    mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/client/assets/js/store/modules/Transaction/transactionhistory.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_js2excel__ = __webpack_require__("./node_modules/js2excel/dist/js2excel.min.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_js2excel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_js2excel__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__("./node_modules/lodash/lodash.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+
+
+
+function initialState() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    return {
+        all: [],
+        data_all: [],
+        item: {
+            transaction_type: null,
+            calculation_type: null,
+            modified_date: today,
+            customer: null,
+            currency: null,
+            operation_type: null
+        },
+        customers: [],
+        currencies: [],
+        query: {},
+        loading: false,
+        temp: ''
+    };
+}
+
+var getters = {
+    data: function data(state) {
+        var rows = state.all;
+
+        if (state.query.sort) {
+            rows = _.orderBy(state.all, state.query.sort, state.query.order);
+        }
+
+        return rows.slice(state.query.offset, state.query.offset + state.query.limit);
+    },
+    data_all: function data_all(state) {
+        return state.data_all;
+    },
+    item: function item(state) {
+        return state.item;
+    },
+    customers: function customers(state) {
+        return state.customers;
+    },
+    currencies: function currencies(state) {
+        return state.currencies;
+    },
+    total: function total(state) {
+        return state.all.length;
+    },
+    loading: function loading(state) {
+        return state.loading;
+    }
+};
+
+var actions = {
+    fetchDataList: function fetchDataList(_ref) {
+        var commit = _ref.commit,
+            state = _ref.state;
+
+        commit('setLoading', true);
+
+        axios.get('/api/v1/transactionhistory').then(function (response) {
+            for (var i = 0; i < response.data.length; i++) {
+                commit('thousandsSeparators', parseFloat(response.data[i]['amount']).toFixed(parseInt(response.data[i]['bs_amount_dec_limit'])));
+                response.data[i]['amount'] = state.temp;
+                commit('thousandsSeparators', parseFloat(response.data[i]['rate']).toFixed(parseInt(response.data[i]['avg_rate_dec_limit'])));
+                response.data[i]['rate'] = state.temp;
+                commit('thousandsSeparators', parseFloat(response.data[i]['current_balance']).toFixed(parseInt(response.data[i]['balance_dec_limit'])));
+                response.data[i]['current_balance'] = state.temp;
+                commit('thousandsSeparators', parseFloat(response.data[i]['last_avg_rate']).toFixed(parseInt(response.data[i]['last_avg_rate_dec_limit'])));
+                response.data[i]['last_avg_rate'] = state.temp;
+                commit('thousandsSeparators', parseFloat(response.data[i]['total']).toFixed(2));
+                response.data[i]['total'] = state.temp;
+            }
+
+            commit('setAll', response.data);
+            commit('setDataAll', response.data);
+        }).catch(function (error) {
+            message = error.response.data.message || error.message;
+            commit('setError', message);
+            console.log(message);
+        }).finally(function () {
+            commit('setLoading', false);
+        });
+    },
+    fetchCustomers: function fetchCustomers(_ref2) {
+        var commit = _ref2.commit,
+            state = _ref2.state;
+
+        commit('setLoading', true);
+
+        axios.get('/api/v1/users/customer').then(function (response) {
+            var users = Array();
+            response.data.data.forEach(function (element) {
+                var user = { 'name': element.first_name, 'customer_code': element.customer_code };
+                users.push(user);
+            });
+            commit('setCustomers', users);
+        }).catch(function (error) {
+            message = error.response.data.message || error.message;
+            commit('setError', message);
+            console.log(message);
+        }).finally(function () {
+            commit('setLoading', false);
+        });
+    },
+    fetchCurrency: function fetchCurrency(_ref3) {
+        var commit = _ref3.commit,
+            state = _ref3.state;
+
+        commit('setLoading', true);
+
+        axios.get('/api/v1/currency').then(function (response) {
+
+            var currencies = Array();
+            response.data.data.forEach(function (element) {
+                var currency = { 'id': element.id, 'name': element.name };
+                currencies.push(currency);
+            });
+
+            commit('setCurrencies', currencies);
+        }).catch(function (error) {
+            message = error.response.data.message || error.message;
+            commit('setError', message);
+            console.log(message);
+        }).finally(function () {
+            commit('setLoading', false);
+        });
+    },
+    removeAllData: function removeAllData(_ref4) {
+        var commit = _ref4.commit,
+            state = _ref4.state;
+
+        commit('setLoading', true);
+
+        axios.delete('/api/v1/transactionhistory/all').then(function (response) {
+            commit('resetState');
+        }).catch(function (error) {
+            message = error.response.data.message || error.message;
+            commit('setError', message);
+            console.log(message);
+        }).finally(function () {
+            commit('setLoading', false);
+        });
+    },
+    setAll: function setAll(_ref5, items) {
+        var commit = _ref5.commit;
+
+        commit('setAll', items);
+    },
+    setQuery: function setQuery(_ref6, value) {
+        var commit = _ref6.commit;
+
+        commit('setQuery', purify(value));
+    },
+    setModifiedDate: function setModifiedDate(_ref7, value) {
+        var commit = _ref7.commit;
+
+        commit('setModifiedDate', value);
+    },
+    setTransactionType: function setTransactionType(_ref8, value) {
+        var commit = _ref8.commit;
+
+        commit('setTransactionType', value);
+    },
+    setCalculationType: function setCalculationType(_ref9, value) {
+        var commit = _ref9.commit;
+
+        commit('setCalculationType', value);
+    },
+    setCustomer: function setCustomer(_ref10, value) {
+        var commit = _ref10.commit;
+
+        commit('setCustomer', value);
+    },
+    setCurrency: function setCurrency(_ref11, value) {
+        var commit = _ref11.commit;
+
+        commit('setCurrency', value);
+    },
+    setOperationType: function setOperationType(_ref12, value) {
+        var commit = _ref12.commit;
+
+        commit('setOperationType', value);
+    },
+    resetState: function resetState(_ref13) {
+        var commit = _ref13.commit;
+
+        commit('resetState');
+    },
+    emptyItem: function emptyItem(_ref14) {
+        var commit = _ref14.commit;
+
+        commit('emptyItem');
+    }
+};
+
+var mutations = {
+    setAll: function setAll(state, items) {
+        state.all = items;
+    },
+    setDataAll: function setDataAll(state, items) {
+        state.data_all = items;
+    },
+    setLoading: function setLoading(state, loading) {
+        state.loading = loading;
+    },
+    setQuery: function setQuery(state, query) {
+        state.query = query;
+    },
+    setModifiedDate: function setModifiedDate(state, modified_date) {
+        state.item.modified_date = modified_date;
+    },
+    setTransactionType: function setTransactionType(state, transaction_type) {
+        state.item.transaction_type = transaction_type;
+    },
+    setCalculationType: function setCalculationType(state, calculation_type) {
+        state.item.calculation_type = calculation_type;
+    },
+    setOperationType: function setOperationType(state, operation_type) {
+        state.item.operation_type = operation_type;
+    },
+    setCustomer: function setCustomer(state, customer) {
+        state.item.customer = customer;
+    },
+    setCurrency: function setCurrency(state, currency) {
+        state.item.currency = currency;
+    },
+    setCustomers: function setCustomers(state, customers) {
+        state.customers = customers;
+    },
+    setCurrencies: function setCurrencies(state, currencies) {
+        state.currencies = currencies;
+    },
+    resetState: function resetState(state) {
+        state = Object.assign(state, initialState());
+    },
+    emptyItem: function emptyItem(state) {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        state.item = {
+            transaction_type: null,
+            calculation_type: null,
+            modified_date: today,
+            customer: null,
+            currency: null,
+            operation_type: null
+        };
+    },
+    thousandsSeparators: function thousandsSeparators(state, num) {
+        var num_parts = num.toString().split(".");
+        num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        state.temp = num_parts.join(".");
     }
 };
 

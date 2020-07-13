@@ -258,6 +258,11 @@ export default {
     destroyed() {
         this.resetState()
     },
+    watch: {
+        "$route": function() {
+            window.addEventListener("keypress", this.saveKeyAction)
+        }
+    },
     methods: {
         ...mapActions('TransactionSingle', [ 
         'storeData', 
@@ -425,16 +430,15 @@ export default {
                 this.changeFocus()
         },
         changeFocus(){
-            var $focused = $(':focus')
-            if($($focused).attr('id') == "amount")
+            if($("#amount").is(":focus"))
             {
                 $('#rate').focus()
             }
-            else if($($focused).attr('id') == "rate" && $('#paid_by_client').attr('disabled') != 'disabled')
+            else if($("#rate").is(":focus") && !$('#paid_by_client').is('[disabled=disabled]'))
             {
                 $('#paid_by_client').focus()
             }
-            else if($($focused).attr('id') == "paid_by_client" || ( $($focused).attr('id') == "rate" && $('#paid_by_client').attr('disabled') == 'disabled' ))
+            else if($("#paid_by_client").is(":focus") || ( $("#rate").is(":focus") && $('#paid_by_client').is('[disabled=disabled]') ))
             {
                 this.submitForm()
             }

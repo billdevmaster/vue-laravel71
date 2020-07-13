@@ -18,6 +18,8 @@ import CurrencyIndex from './modules/Currency'
 import CurrencySingle from './modules/Currency/single'
 import TransactionIndex from './modules/Transaction'
 import TransactionSingle from './modules/Transaction/single'
+import TransactionHistory from './modules/Transaction/transactionhistory'
+
 import ProfitIndex from './modules/Profit'
 
 import AccountIndex from './modules/Account/account'
@@ -56,6 +58,7 @@ export default new Vuex.Store({
         CurrencySingle,
         TransactionIndex,
         TransactionSingle,
+        TransactionHistory,
         ProfitIndex,
         AccountIndex,
         AccountChangeIndex,

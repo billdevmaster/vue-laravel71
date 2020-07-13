@@ -77,7 +77,10 @@
                                             />                                    
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2">                           
+                                <div class="callout callout-info text-left" style="padding: 7px 5px;" v-if="total_balance">
+                                    Total Balance: <span style="font-size: 24px; font-weight: 600;">{{ total_balance }}</span>
+                                </div>
                             </div>
                             </form>
                         </div>
@@ -145,7 +148,7 @@ export default {
         this.resetState()
     },
     computed: {
-        ...mapGetters('HistoryIndex', ['data', 'data_all', 'item', 'total', 'loading', 'type', 'users', 'products']),
+        ...mapGetters('HistoryIndex', ['data', 'data_all', 'item', 'total', 'loading', 'type', 'users', 'products', 'total_balance']),
     },
     watch: {
         query: {

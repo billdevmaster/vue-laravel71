@@ -64,6 +64,7 @@ export default {
                 { title: 'Code', field: 'code', sortable: true },
                 { title: 'Current Balance', field: 'current_balance', sortable: true },
                 { title: 'Last Avg Rate', field: 'last_avg_rate', sortable: true },
+                { title: 'Total Balance', field: 'total_balance', sortable: true },
                 { title: 'Buy Rate From', field: 'buy_rate_from', sortable: true },
                 { title: 'Buy Rate To', field: 'buy_rate_to', sortable: true },
                 { title: 'Sell Rate From', field: 'sell_rate_from', sortable: true },

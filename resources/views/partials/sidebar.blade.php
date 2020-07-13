@@ -22,6 +22,12 @@
                 </router-link>
             </li>
             <li>
+                <router-link :to="{ name: 'transactionhistory' }">
+                    <i class="fa fa-paw"></i>
+                    <span class="title">@lang('cams.transaction_history')</span>
+                </router-link>
+            </li>
+            <li>
                 <router-link :to="{ name: 'cases.index' }">
                     <i class="fa fa-briefcase"></i>
                     <span class="title">@lang('cams.case')</span>

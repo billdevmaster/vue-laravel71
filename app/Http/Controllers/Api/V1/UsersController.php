@@ -22,6 +22,8 @@ class UsersController extends Controller
     {
         if ($id == 'user')
             $user = User::with(['role'])->whereRaw('name is not null')->get();
+        else if($id == 'customer')
+            $user = User::with(['role'])->whereRaw('customer_code is not null')->get();
         else
             $user = User::with(['role'])->findOrFail($id);
 

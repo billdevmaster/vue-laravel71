@@ -98,6 +98,7 @@ class AccountController extends Controller
                                 'payment.create_date as create_date', 
                                 'users.id as user_id', 
                                 'users.name as user_name', 
+                                'users.balance as total_balance', 
                                 'product.id as product_id', 
                                 'product.name as product_name' )
                 ->selectRaw(    '"payment" as type')
@@ -113,6 +114,7 @@ class AccountController extends Controller
                                 'income.create_date as create_date', 
                                 'users.id as user_id', 
                                 'users.name as user_name', 
+                                'users.balance as total_balance', 
                                 'product.id as product_id', 
                                 'product.name as product_name' )
                 ->selectRaw(    '"income" as type')

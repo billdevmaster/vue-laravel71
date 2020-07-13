@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Transaction;
 use App\Currency;
+use App\TransactionHistory;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Transaction as TransactionResource;
 use Illuminate\Http\Request;
@@ -159,6 +160,28 @@ class TransactionController extends Controller
         
         $currency->update($currency_data);
 
+        $user = auth()->user();
+        TransactionHistory::create(
+                        array(
+                            'name'              => $request->name,
+                            'customer_code'     => $request->customer_code,
+                            'currency_id'       => $request->currency_id,
+                            'amount'            => $request->amount,
+                            'rate'              => $request->rate,
+                            'total'             => $request->total,
+                            'paid_by_client'    => $request->paid_by_client,
+                            'return_to_client'  => $request->return_to_client,
+                            'description'       => $request->description,
+                            'profit'            => round($profit, 2),
+                            'type'              => $request->type,
+                            'last_avg_rate'     => round($new_currency_avg_rate, 4),
+                            'current_balance'   => $new_current_balance,
+                            'modified_date'     => Date('Y-m-d'),
+                            'operation_type'    => 'Create',
+                            'modified_user'     => $user->id,
+                        )
+                    );
+
         return (new TransactionResource($transactions))
             ->response()
             ->setStatusCode(201);
@@ -245,6 +268,29 @@ class TransactionController extends Controller
             'current_balance'   => $new_current_balance
         );
 
+
+        $user = auth()->user();
+        TransactionHistory::create(
+                        array(
+                            'name'              => $request->name,
+                            'customer_code'     => $request->customer_code,
+                            'currency_id'       => $request->currency_id,
+                            'amount'            => $request->amount,
+                            'rate'              => $request->rate,
+                            'total'             => $request->total,
+                            'paid_by_client'    => $request->paid_by_client,
+                            'return_to_client'  => $request->return_to_client,
+                            'description'       => $request->description,
+                            'profit'            => round($profit, 2),
+                            'type'              => $request->type,
+                            'last_avg_rate'     => round($new_currency_avg_rate, 4),
+                            'current_balance'   => $new_current_balance,
+                            'modified_date'     => Date('Y-m-d'),
+                            'operation_type'    => 'Edit',
+                            'modified_user'     => $user->id,
+                        )
+                    );
+                    
         $transaction->update($transaction_data);
         $transaction->touch();        
 
@@ -300,6 +346,29 @@ class TransactionController extends Controller
 
         if($id != $first_transaction->id)
         {
+
+            $user = auth()->user();
+            TransactionHistory::create(
+                            array(
+                                'name'              => $transaction->name,
+                                'customer_code'     => $transaction->customer_code,
+                                'currency_id'       => $transaction->currency_id,
+                                'amount'            => $transaction->amount,
+                                'rate'              => $transaction->rate,
+                                'total'             => $transaction->total,
+                                'paid_by_client'    => $transaction->paid_by_client,
+                                'return_to_client'  => $transaction->return_to_client,
+                                'description'       => $transaction->description,
+                                'profit'            => $transaction->profit,
+                                'type'              => $transaction->type,
+                                'last_avg_rate'     => $transaction->last_avg_rate,
+                                'current_balance'   => $transaction->current_balance,
+                                'modified_date'     => Date('Y-m-d'),
+                                'operation_type'    => 'Delete',
+                                'modified_user'     => $user->id,
+                            )
+                        );
+
             $transaction->delete();
 
             $transactions = DB::table('transactions')

@@ -5,6 +5,7 @@ return [
 	
 	'dashboard' => 'Dashboard',	
 	'transaction' => 'Transaction',	
+	'transaction_history' => 'Transaction History',	
 	'case' => 'Case',
 	'currency' => 'Currency',
 	'profit' => 'Profit',
