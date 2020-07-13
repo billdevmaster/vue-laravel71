@@ -309,9 +309,12 @@ class AccountController extends Controller
         else
             $income = Payment::findOrFail($params[0]);
         
-        $user = auth()->user();
+        $user = User::findOrFail($income['user_id']);
+
+        $current_user = auth()->user();
 
         if ($params[1] == "Income") 
+        {
             IncomeChange::create(
                             array(
                                 'serial_number'     => $income['serial_number'],
@@ -322,10 +325,16 @@ class AccountController extends Controller
                                 'note'              => $income['note'],
                                 'modify_date'       => Date('Y-m-d H:i:s'),
                                 'operation_type'    => 'Delete',
-                                'modify_by'         => $user->id,
+                                'modify_by'         => $current_user->id,
                             )
                         );
+            
+            $new_balance = $user->balance - $income['amount'];
+            $user->balance = $new_balance;
+            $user->save();
+        }
         else
+        {
             PaymentChange::create(
                             array(
                                 'serial_number'     => $income['serial_number'],
@@ -336,9 +345,14 @@ class AccountController extends Controller
                                 'note'              => $income['note'],
                                 'modify_date'       => Date('Y-m-d H:i:s'),
                                 'operation_type'    => 'Delete',
-                                'modify_by'         => $user->id,
+                                'modify_by'         => $current_user->id,
                             )
                         );
+            
+            $new_balance = $user->balance + $income['amount'];
+            $user->balance = $new_balance;
+            $user->save();
+        }
 
         $income->delete();
 
